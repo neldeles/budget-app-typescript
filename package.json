@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -17,13 +18,17 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "storybook": "start-storybook -p 6006 -s public",
+    "storybook": "TAILWIND_MODE=watch start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
+    "plugins": [
+      "tailwindcss"
+    ],
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:tailwindcss/recommended"
     ],
     "overrides": [
       {
@@ -34,7 +39,17 @@
           "import/no-anonymous-default-export": "off"
         }
       }
-    ]
+    ],
+    "settings": {
+      "tailwindcss": {
+        "callees": [
+          "classnames",
+          "clsx",
+          "ctl",
+          "classNames"
+        ]
+      }
+    }
   },
   "browserslist": {
     "production": [
@@ -56,6 +71,7 @@
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.3.12",
     "autoprefixer": "^9",
+    "eslint-plugin-tailwindcss": "^1.17.0",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
