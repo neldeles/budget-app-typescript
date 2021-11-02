@@ -5,6 +5,12 @@ export default {
   component: Button,
   parameters: {
     componentSubtitle: "Primary UI component for user interaction.",
+    docs: {
+      source: {
+        type: "dynamic",
+        excludeDecorators: true,
+      },
+    },
   },
   args: {
     label: "Button",
@@ -59,4 +65,10 @@ Danger.parameters = {
         "Use when the action will delete data or be otherwise difficult to recover from. Destructive buttons should trigger a confirmation dialog before the action is completed. Be thoughtful about using destructive buttons because they can feel stressful for the user.",
     },
   },
+};
+
+export const FullWidth = Template.bind({});
+FullWidth.args = {
+  ...Primary.args,
+  width: Button.width.FULL,
 };
