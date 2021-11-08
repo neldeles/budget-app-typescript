@@ -1,11 +1,32 @@
-import PropTypes from "prop-types";
-
+import { HTMLInputTypeAttribute } from "react";
 import { classNames } from "util/classNames";
+
+export type InputProps = {
+  /** The name of the Input. Also used as the Input's ID by default.
+   * Displayed inside the input field.
+   */
+  name: string;
+  type?: HTMLInputTypeAttribute;
+  /** ID of the input field. Set to `name` by default. */
+  id?: string;
+  /** Label that is displayed outside of the input field */
+  label?: string;
+  /** The placeholder attribute of HTML input tag. Displayed inside the input field.  */
+  placeholder?: string;
+  value?: string;
+};
 
 /**
  * - expands to the width of its container
  */
-export function Input({ label, placeholder, name, type, id = name, ...props }) {
+export function Input({
+  name,
+  type = "text",
+  id = name,
+  label,
+  placeholder,
+  value,
+}: InputProps) {
   if (label) {
     return (
       <div>
@@ -15,7 +36,7 @@ export function Input({ label, placeholder, name, type, id = name, ...props }) {
         >
           {label}
         </label>
-        <div tw="mt-1">
+        <div className="mt-1">
           <input
             id={id}
             name={name}
@@ -28,7 +49,7 @@ export function Input({ label, placeholder, name, type, id = name, ...props }) {
               "sm:text-sm placeholder-gray-400 disabled:text-gray-300",
               "focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
             )}
-            {...props}
+            value={value}
           />
         </div>
       </div>
@@ -48,22 +69,7 @@ export function Input({ label, placeholder, name, type, id = name, ...props }) {
         "sm:text-sm placeholder-gray-400 disabled:text-gray-300",
         "focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
       )}
-      {...props}
+      value={value}
     />
   );
 }
-
-Input.propTypes = {
-  /** Label that is displayed outside of the input field */
-  label: PropTypes.string,
-  /** The placeholder attribute of HTML input tag. Displayed inside the input field.  */
-  placeholder: PropTypes.string,
-  /** The name of the Input. Also used as the Input's ID by default.
-   * Displayed inside the input field.
-   */
-  name: PropTypes.string.isRequired,
-  /** The HTML input type attribute */
-  type: PropTypes.string.isRequired,
-  /** ID of the input field. Set to `name` by default. */
-  id: PropTypes.string,
-};
