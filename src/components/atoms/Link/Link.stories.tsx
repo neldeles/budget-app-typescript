@@ -1,4 +1,6 @@
 import { Link } from ".";
+import { LinkProps } from "react-router-dom";
+import { Meta, Story } from "@storybook/react";
 
 export default {
   title: "components/atoms/Link",
@@ -12,9 +14,9 @@ export default {
       },
     },
   },
-};
+} as Meta;
 
-const Template = (args) => <Link {...args} />;
+const Template: Story<LinkProps> = (args) => <Link {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = {
