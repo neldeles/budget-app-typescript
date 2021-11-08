@@ -1,4 +1,6 @@
 import { Button } from ".";
+import { ButtonProps } from "./Button";
+import { Meta, Story } from "@storybook/react";
 
 export default {
   title: "components/atoms/Button",
@@ -15,19 +17,19 @@ export default {
   args: {
     label: "Button",
   },
-};
+} as Meta;
 
-const Template = (args) => <Button {...args} />;
+const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
   label: "Button",
-  variant: Button.variant.PRIMARY,
+  variant: "primary",
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  variant: Button.variant.SECONDARY,
+  variant: "secondary",
 };
 
 Secondary.parameters = {
@@ -41,7 +43,7 @@ Secondary.parameters = {
 
 export const Success = Template.bind({});
 Success.args = {
-  variant: Button.variant.SUCCESS,
+  variant: "success",
 };
 
 Success.parameters = {
@@ -55,7 +57,7 @@ Success.parameters = {
 
 export const Danger = Template.bind({});
 Danger.args = {
-  variant: Button.variant.DANGER,
+  variant: "danger",
 };
 
 Danger.parameters = {
@@ -70,5 +72,5 @@ Danger.parameters = {
 export const FullWidth = Template.bind({});
 FullWidth.args = {
   ...Primary.args,
-  width: Button.width.FULL,
+  width: "full",
 };

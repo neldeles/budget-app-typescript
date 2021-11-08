@@ -4,12 +4,11 @@ import PropTypes from "prop-types";
 // components
 import { Input } from "components/atoms/Input";
 import { Checkbox } from "components/atoms/Checkbox";
-import { Link } from "components/atoms/Link";
 import { Button } from "components/atoms/Button";
+import { Link } from "components/atoms/Link";
 
 // services
 import loginService from "services/loginService";
-
 // TODO:-30 # LoginForm component
 // <!-- is-epic:"LoginForm" -->
 
@@ -77,7 +76,7 @@ function LoginForm({ setUser, loading }) {
 
             <div>
               <Button
-                variant={Button.variant.PRIMARY}
+                variant="primary"
                 type="submit"
                 label="Loading..."
                 className="flex justify-center w-full animate-pulse"
@@ -139,7 +138,7 @@ function LoginForm({ setUser, loading }) {
 
           <div>
             <Button
-              variant={Button.variant.PRIMARY}
+              variant="primary"
               type="submit"
               label="Sign In"
               className="flex justify-center w-full"
