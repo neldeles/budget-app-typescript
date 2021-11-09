@@ -9,16 +9,23 @@ import { Link } from "components/atoms/Link";
 
 // services
 import loginService from "services/loginService";
+
+import { fakeUser } from "mocks/utils/generateFakeUser";
 // TODO:-30 # LoginForm component
 // <!-- is-epic:"LoginForm" -->
 
-function LoginForm({ setUser, loading }) {
+export type TLoginFormProps = {
+  setUser: (user: typeof fakeUser) => void;
+  loading: boolean;
+};
+
+function LoginForm(props: TLoginFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     const credentials = {
@@ -29,23 +36,30 @@ function LoginForm({ setUser, loading }) {
 
     try {
       const response = await loginService(credentials);
-      setUser(response.data);
-    } catch (error) {
-      setErrorMessage(error.response.data.message);
+      props.setUser(response);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
     }
   };
 
   // TODO: Fix `loading` state of LoginForm
   // <!-- epic:"LoginForm" -->
   // - [ ] add onChange event handler
-  if (loading) {
+  if (props.loading) {
     return (
       <div className="sm:mx-auto mt-8 sm:w-full sm:max-w-md">
         <div className="py-8 px-4 sm:px-10 bg-white sm:rounded-lg shadow">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <div className="mt-1">
-                <Input label="email" name="email" type="email" disabled />
+                <Input
+                  label="email"
+                  name="email"
+                  type="email"
+                  disabled={true}
+                />
               </div>
             </div>
 
@@ -79,7 +93,8 @@ function LoginForm({ setUser, loading }) {
                 variant="primary"
                 type="submit"
                 label="Loading..."
-                className="flex justify-center w-full animate-pulse"
+                width="full"
+                loading={true}
               />
             </div>
           </form>
@@ -141,7 +156,7 @@ function LoginForm({ setUser, loading }) {
               variant="primary"
               type="submit"
               label="Sign In"
-              className="flex justify-center w-full"
+              width="full"
             />
           </div>
         </form>

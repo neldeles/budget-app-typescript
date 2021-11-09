@@ -1,4 +1,6 @@
 import { LoginForm } from ".";
+import { Meta, Story } from "@storybook/react";
+import { TLoginFormProps } from "./LoginForm";
 
 export default {
   title: "components/molecules/LoginForm",
@@ -19,9 +21,9 @@ export default {
       },
     },
   },
-};
+} as Meta;
 
-const Template = (args) => <LoginForm {...args} />;
+const Template: Story<TLoginFormProps> = (args) => <LoginForm {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -1,7 +1,7 @@
 import { HTMLInputTypeAttribute } from "react";
 import { classNames } from "util/classNames";
 
-export type InputProps = {
+type TInputFieldProps = {
   /** The name of the Input. Also used as the Input's ID by default.
    * Displayed inside the input field.
    */
@@ -14,6 +14,13 @@ export type InputProps = {
   /** The placeholder attribute of HTML input tag. Displayed inside the input field.  */
   placeholder?: string;
   value?: string;
+  disabled?: boolean;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+};
+
+export type TInputProps = TInputFieldProps & {
+  /** Label that is displayed outside of the input field */
+  label?: string;
 };
 
 /**
@@ -21,12 +28,14 @@ export type InputProps = {
  */
 export function Input({
   name,
-  type = "text",
-  id = name,
+  type,
+  id,
   label,
   placeholder,
   value,
-}: InputProps) {
+  disabled,
+  onChange,
+}: TInputProps) {
   if (label) {
     return (
       <div>
@@ -37,25 +46,41 @@ export function Input({
           {label}
         </label>
         <div className="mt-1">
-          <input
+          <InputField
             id={id}
             name={name}
             type={type}
             placeholder={placeholder}
-            className={classNames(
-              // container
-              "block py-2 px-3 w-full rounded-md border border-gray-300 shadow-sm appearance-none",
-              // text
-              "sm:text-sm placeholder-gray-400 disabled:text-gray-300",
-              "focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
-            )}
             value={value}
+            disabled={disabled}
+            onChange={onChange}
           />
         </div>
       </div>
     );
   }
+  return (
+    <InputField
+      id={id}
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      disabled={disabled}
+      onChange={onChange}
+    />
+  );
+}
 
+function InputField({
+  name,
+  type = "text",
+  id = name,
+  placeholder,
+  value,
+  disabled = false,
+  onChange,
+}: TInputFieldProps) {
   return (
     <input
       id={id}
@@ -70,6 +95,8 @@ export function Input({
         "focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
       )}
       value={value}
+      disabled={disabled}
+      onChange={onChange}
     />
   );
 }

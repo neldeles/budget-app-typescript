@@ -1,5 +1,5 @@
 import { Input as UnstyledInput } from ".";
-import { InputProps } from "./Input";
+import { TInputProps } from "./Input";
 import { Meta, Story } from "@storybook/react";
 
 export default {
@@ -17,13 +17,13 @@ export default {
   },
 } as Meta;
 
-const Input = (props: InputProps) => (
+const Input = (props: TInputProps) => (
   <div className="mb-4">
     <UnstyledInput {...props} />
   </div>
 );
 
-const Template: Story<InputProps> = (args) => <Input {...args} />;
+const Template: Story<TInputProps> = (args) => <Input {...args} />;
 
 export const All = () => {
   return (
@@ -42,7 +42,7 @@ export const All = () => {
 export const InputOnly = Template.bind({});
 InputOnly.args = {
   name: "inputOnly",
-} as InputProps;
+} as TInputProps;
 
 export const InputWithPlaceholder = Template.bind({});
 InputWithPlaceholder.args = {
@@ -55,6 +55,13 @@ export const InputWithValue = Template.bind({});
 InputWithValue.args = {
   ...InputOnly.args,
   value: "Input with value",
+};
+
+export const InputDisabled = Template.bind({});
+InputDisabled.args = {
+  ...InputOnly.args,
+  value: "Input text after disabled",
+  disabled: true,
 };
 
 export const InputWithLabel = Template.bind({});

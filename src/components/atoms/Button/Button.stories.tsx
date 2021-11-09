@@ -24,10 +24,12 @@ const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 export const Primary = Template.bind({});
 Primary.args = {
   label: "Button",
+  loading: false,
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
+  ...Primary.args,
   variant: "secondary",
 };
 
@@ -42,6 +44,7 @@ Secondary.parameters = {
 
 export const Success = Template.bind({});
 Success.args = {
+  ...Primary.args,
   variant: "success",
 };
 
@@ -56,6 +59,7 @@ Success.parameters = {
 
 export const Danger = Template.bind({});
 Danger.args = {
+  ...Primary.args,
   variant: "danger",
 };
 
@@ -72,4 +76,10 @@ export const FullWidth = Template.bind({});
 FullWidth.args = {
   ...Primary.args,
   width: "full",
+};
+
+export const IsLoading = Template.bind({});
+IsLoading.args = {
+  ...Primary.args,
+  loading: true,
 };

@@ -23,6 +23,7 @@ export type ButtonProps = {
   /** Optional prop to set button's size*/
   width: Width;
   label: string;
+  loading?: boolean;
   type?: "button" | "submit" | "reset";
   onClick?: () => void;
 };
@@ -33,6 +34,7 @@ export function Button({
   label,
   type,
   onClick,
+  loading = false,
 }: ButtonProps) {
   return (
     <button
@@ -40,6 +42,7 @@ export function Button({
         "py-2 px-4 font-medium rounded-md border border-transparent shadow-sm",
         "sm:text-sm cursor-pointer",
         "focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none",
+        loading && "animate-pulse",
         variantMaps[variant],
         widthMaps[width]
       )}
