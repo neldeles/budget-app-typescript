@@ -41,8 +41,8 @@ export const All = () => {
 
 export const InputOnly = Template.bind({});
 InputOnly.args = {
-  name: "Input",
-};
+  name: "inputOnly",
+} as InputProps;
 
 export const InputWithPlaceholder = Template.bind({});
 InputWithPlaceholder.args = {
