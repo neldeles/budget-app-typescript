@@ -1,29 +1,29 @@
 import { classNames } from "util/classNames";
 
-const buttonVariants = /*tw*/ {
+const variants = ["primary", "secondary", "success", "danger"] as const;
+
+type Variant = typeof variants[number];
+
+const variantMaps: Record<Variant, string> = /*tw*/ {
   primary: "text-white bg-indigo-600 border-transparent hover:bg-indigo-700",
   secondary: "text-gray-700 bg-white border-gray-300 hover:text-gray-500",
   success: "text-white bg-green-600 hover:bg-green-700 focus:ring-green-500",
   danger: "text-white bg-red-600 hover:bg-red-700 focus:ring-red-500",
 };
 
-const widths = /*tw*/ {
+const widths = ["default", "full"] as const;
+
+type Width = typeof widths[number];
+
+const widthMaps: Record<Width, string> = /*tw*/ {
   default: "justify-center",
   full: "justify-center w-full",
 };
 
-const createMaps = <ObjectMapType extends Record<string, string>>(
-  obj: ObjectMapType
-) => obj;
-
-const variantMaps = createMaps(buttonVariants);
-
-const widthMaps = createMaps(widths);
-
 export type ButtonProps = {
-  variant: keyof typeof variantMaps;
+  variant: Variant;
   /** Optional prop to set button's size*/
-  width: keyof typeof widthMaps;
+  width: Width;
   label: string;
   loading?: boolean;
   type?: "button" | "submit" | "reset";

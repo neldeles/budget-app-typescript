@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 
 // components
 import { Input } from "components/atoms/Input";
@@ -171,8 +170,3 @@ function LoginForm(props: TLoginFormProps) {
 }
 
 export { LoginForm };
-
-LoginForm.propTypes = {
-  /** To be used for rendering state */
-  loading: PropTypes.bool,
-};
