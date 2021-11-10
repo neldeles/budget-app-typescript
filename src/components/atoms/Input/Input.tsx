@@ -9,8 +9,6 @@ type TInputFieldProps = {
   type?: HTMLInputTypeAttribute;
   /** ID of the input field. Set to `name` by default. */
   id?: string;
-  /** Label that is displayed outside of the input field */
-  label?: string;
   /** The placeholder attribute of HTML input tag. Displayed inside the input field.  */
   placeholder?: string;
   value?: string;
@@ -28,12 +26,12 @@ export type TInputProps = TInputFieldProps & {
  */
 export function Input({
   name,
-  type,
-  id,
+  type = "text",
+  id = "name",
   label,
   placeholder,
   value,
-  disabled,
+  disabled = false,
   onChange,
 }: TInputProps) {
   if (label) {
@@ -74,11 +72,11 @@ export function Input({
 
 function InputField({
   name,
-  type = "text",
-  id = name,
+  type,
+  id,
   placeholder,
   value,
-  disabled = false,
+  disabled,
   onChange,
 }: TInputFieldProps) {
   return (

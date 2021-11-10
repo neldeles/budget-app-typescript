@@ -17,8 +17,11 @@ test("renders an input text field with a label", () => {
   // need "as" because of https://github.com/storybookjs/storybook/issues/13747
   const args = InputWithLabel.args as TInputProps;
   render(<InputWithLabel {...args} />);
+  if (!args.label) {
+    throw new Error("🚨 Make sure label args in story is defined.");
+  }
   const label = args.label;
-  const input = screen.getByLabelText(label as string);
+  const input = screen.getByLabelText(label);
   expect(input).toHaveAttribute("type", "text");
 });
 

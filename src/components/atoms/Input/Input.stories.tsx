@@ -15,6 +15,23 @@ export default {
       },
     },
   },
+  argTypes: {
+    disabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    label: {
+      control: {
+        type: "text",
+      },
+    },
+    placeholder: {
+      control: {
+        type: "text",
+      },
+    },
+  },
 } as Meta;
 
 const Input = (props: TInputProps) => (
