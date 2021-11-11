@@ -24,6 +24,7 @@ export type THeadingProps = React.HTMLAttributes<HTMLHeadingElement> & {
   value: string;
   /** Alignment of the heading */
   alignment: Alignment;
+  /** Size of the heading text */
   size: Size;
 };
 

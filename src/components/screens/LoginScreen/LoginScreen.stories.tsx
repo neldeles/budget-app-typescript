@@ -6,6 +6,9 @@ import { LoginForm } from "components/molecules/LoginForm";
 import { Meta, Story } from "@storybook/react";
 import { TLoginScreenProps } from "./LoginScreen";
 
+// stories
+import * as LoginFormStories from "components/molecules/LoginForm/LoginForm.stories";
+
 export default {
   title: "components/screens/LoginScreen",
   component: LoginScreen,
@@ -33,7 +36,7 @@ Default.args = {
     />
   ),
   // @ts-ignore setUser does nothing
-  form: <LoginForm loading={false} />,
+  form: <LoginForm {...LoginFormStories.Default.args} />,
 };
 
 // export const Loading = Template.bind({});

@@ -16,6 +16,8 @@ import { fakeUser } from "mocks/utils/generateFakeUser";
 export type TLoginFormProps = {
   setUser: (user: typeof fakeUser) => void;
   loading: boolean;
+  /** Pass this arg if you want to overwrite the default onSubmit handler */
+  onSubmit?: (e: React.SyntheticEvent) => Promise<void>;
 };
 
 function LoginForm(props: TLoginFormProps) {
@@ -24,24 +26,26 @@ function LoginForm(props: TLoginFormProps) {
   const [rememberMe, setRememberMe] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
+  const handleSubmit = props.onSubmit
+    ? props.onSubmit
+    : async (e: React.SyntheticEvent) => {
+        e.preventDefault();
 
-    const credentials = {
-      email: email,
-      password: password,
-      isRemembered: rememberMe,
-    };
+        const credentials = {
+          email: email,
+          password: password,
+          isRemembered: rememberMe,
+        };
 
-    try {
-      const response = await loginService(credentials);
-      props.setUser(response);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setErrorMessage(error.message);
-      }
-    }
-  };
+        try {
+          const response = await loginService(credentials);
+          props.setUser(response);
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            setErrorMessage(error.message);
+          }
+        }
+      };
 
   // TODO: Fix `loading` state of LoginForm
   // <!-- epic:"LoginForm" -->

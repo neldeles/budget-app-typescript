@@ -1,4 +1,5 @@
 import { LoginForm } from ".";
+import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import { TLoginFormProps } from "./LoginForm";
 
@@ -23,11 +24,18 @@ export default {
   },
 } as Meta;
 
+const withPreventDefault = (action: any) => (e: React.SyntheticEvent) => {
+  e.preventDefault();
+  // this won't ever be undefined because we have a default value for onSubmit
+  return action!(e);
+};
+
 const Template: Story<TLoginFormProps> = (args) => <LoginForm {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   loading: false,
+  onSubmit: withPreventDefault(action("onSubmit")),
 };
 
 export const Loading = Template.bind({});
