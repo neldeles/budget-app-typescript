@@ -4,7 +4,7 @@ import * as React from "react";
 export type TLoginScreenProps = {
   /** Pass the Heading component here */
   heading: React.ReactElement<THeadingProps>;
-  /** Pass your login form here*/
+  /** Pass your login form component here*/
   form: React.ReactNode;
 };
 
