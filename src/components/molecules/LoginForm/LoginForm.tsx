@@ -15,6 +15,7 @@ import axios from "axios";
 // <!-- is-epic:"LoginForm" -->
 
 export type TLoginFormProps = {
+  /** useState setter method. Sets `user` object as the state of `user` */
   setUser: React.Dispatch<React.SetStateAction<typeof fakeUser | null>>;
   loading: boolean;
   /** Pass this arg if you want to overwrite the default onSubmit handler */

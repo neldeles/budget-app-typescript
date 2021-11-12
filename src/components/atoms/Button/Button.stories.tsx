@@ -1,5 +1,5 @@
 import { Button } from ".";
-import { ButtonProps } from "./Button";
+import { TButtonProps } from "./Button";
 import { Meta, Story } from "@storybook/react";
 
 export default {
@@ -19,7 +19,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+const Template: Story<TButtonProps> = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

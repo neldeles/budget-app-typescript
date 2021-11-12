@@ -11,16 +11,17 @@ const variantMaps: Record<Variant, string> = /*tw*/ {
   danger: "text-white bg-red-600 hover:bg-red-700 focus:ring-red-500",
 };
 
-const widths = ["default", "full"] as const;
+const widths = ["default", "full", "3/4"] as const;
 
 type Width = typeof widths[number];
 
 const widthMaps: Record<Width, string> = /*tw*/ {
   default: "justify-center",
   full: "justify-center w-full",
+  "3/4": "w-3/4 mt-1 leading-4",
 };
 
-export type ButtonProps = {
+export type TButtonProps = {
   variant: Variant;
   /** Optional prop to set button's size*/
   width: Width;
@@ -37,7 +38,7 @@ export function Button({
   type,
   onClick,
   loading = false,
-}: ButtonProps) {
+}: TButtonProps) {
   return (
     <button
       className={classNames(
