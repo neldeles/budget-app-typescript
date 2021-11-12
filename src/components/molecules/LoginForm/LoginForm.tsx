@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // components
-import { Input } from "components/atoms/Input";
+import { Input, InputWithLabel } from "components/atoms/Input";
 import { Checkbox } from "components/atoms/Checkbox";
 import { Button } from "components/atoms/Button";
 import { Link } from "components/atoms/Link";
@@ -10,25 +10,27 @@ import { Link } from "components/atoms/Link";
 import loginService from "services/loginService";
 
 import { fakeUser } from "mocks/utils/generateFakeUser";
+import axios from "axios";
 // TODO:-30 # LoginForm component
 // <!-- is-epic:"LoginForm" -->
 
 export type TLoginFormProps = {
-  setUser: (user: typeof fakeUser) => void;
+  setUser: React.Dispatch<React.SetStateAction<typeof fakeUser | null>>;
   loading: boolean;
   /** Pass this arg if you want to overwrite the default onSubmit handler */
   onSubmit?: (e: React.SyntheticEvent) => Promise<void>;
 };
 
-function LoginForm(props: TLoginFormProps) {
+export function LoginForm({ setUser, loading, onSubmit }: TLoginFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = props.onSubmit
-    ? props.onSubmit
-    : async (e: React.SyntheticEvent) => {
+  const handleSubmit = onSubmit
+    ? onSubmit
+    : // default event handler if user didn't pass any
+      async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
         const credentials = {
@@ -39,41 +41,35 @@ function LoginForm(props: TLoginFormProps) {
 
         try {
           const response = await loginService(credentials);
-          props.setUser(response);
-        } catch (error: unknown) {
-          if (error instanceof Error) {
-            setErrorMessage(error.message);
-          }
+          setUser(response);
+        } catch (error) {
+          let message;
+          if (axios.isAxiosError(error) && error.response) {
+            message = error.response.data.message;
+          } else message = String(error);
+          setErrorMessage(message);
         }
       };
 
-  // TODO: Fix `loading` state of LoginForm
-  // <!-- epic:"LoginForm" -->
-  // - [ ] add onChange event handler
-  if (props.loading) {
+  // TODO: Refactor and make dry
+  if (loading) {
     return (
       <div className="sm:mx-auto mt-8 sm:w-full sm:max-w-md">
         <div className="py-8 px-4 sm:px-10 bg-white sm:rounded-lg shadow">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <div className="mt-1">
-                <Input
-                  label="email"
-                  name="email"
-                  type="email"
-                  disabled={true}
-                />
+                <InputWithLabel label="email" labelFor="email">
+                  <Input name="email" type="email" disabled={true} />
+                </InputWithLabel>
               </div>
             </div>
 
             <div>
               <div className="mt-1">
-                <Input
-                  label="password"
-                  name="password"
-                  type="password"
-                  disabled
-                />
+                <InputWithLabel labelFor="password" label="password">
+                  <Input name="password" type="password" disabled={true} />
+                </InputWithLabel>
               </div>
             </div>
 
@@ -111,23 +107,25 @@ function LoginForm(props: TLoginFormProps) {
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <div className="mt-1">
-              <Input
-                label="email"
-                name="email"
-                type="email"
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <InputWithLabel label="email" labelFor="email">
+                <Input
+                  name="email"
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </InputWithLabel>
             </div>
           </div>
 
           <div>
             <div className="mt-1">
-              <Input
-                label="password"
-                name="password"
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <InputWithLabel label="password" labelFor="password">
+                <Input
+                  name="password"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </InputWithLabel>
             </div>
           </div>
 
@@ -172,5 +170,3 @@ function LoginForm(props: TLoginFormProps) {
     </div>
   );
 }
-
-export { LoginForm };

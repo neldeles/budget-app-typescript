@@ -1,7 +1,7 @@
 import { HTMLInputTypeAttribute } from "react";
 import { classNames } from "util/classNames";
 
-type TInputFieldProps = {
+export type TInputProps = {
   /** The name of the Input. Also used as the Input's ID by default.
    * Displayed inside the input field.
    */
@@ -16,69 +16,18 @@ type TInputFieldProps = {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 };
 
-export type TInputProps = TInputFieldProps & {
-  /** Label that is displayed outside of the input field */
-  label?: string;
-};
-
 /**
  * - expands to the width of its container
  */
 export function Input({
   name,
   type = "text",
-  id = "name",
-  label,
+  id = name,
   placeholder,
-  value,
   disabled = false,
+  value,
   onChange,
 }: TInputProps) {
-  if (label) {
-    return (
-      <div>
-        <label
-          htmlFor={name}
-          className="block text-sm font-medium text-gray-700"
-        >
-          {label}
-        </label>
-        <div className="mt-1">
-          <InputField
-            id={id}
-            name={name}
-            type={type}
-            placeholder={placeholder}
-            value={value}
-            disabled={disabled}
-            onChange={onChange}
-          />
-        </div>
-      </div>
-    );
-  }
-  return (
-    <InputField
-      id={id}
-      name={name}
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      disabled={disabled}
-      onChange={onChange}
-    />
-  );
-}
-
-function InputField({
-  name,
-  type,
-  id,
-  placeholder,
-  value,
-  disabled,
-  onChange,
-}: TInputFieldProps) {
   return (
     <input
       id={id}

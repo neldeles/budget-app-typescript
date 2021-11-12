@@ -51,7 +51,6 @@ export const All = () => {
         type="text"
         placeholder="With placeholder"
       />
-      <Input name="withLabel" label="With label" />
     </>
   );
 };
@@ -68,21 +67,9 @@ InputWithPlaceholder.args = {
   placeholder: "With placeholder",
 };
 
-export const InputWithValue = Template.bind({});
-InputWithValue.args = {
-  ...InputOnly.args,
-  value: "Input with value",
-};
-
 export const InputDisabled = Template.bind({});
 InputDisabled.args = {
   ...InputOnly.args,
   value: "Input text after disabled",
   disabled: true,
-};
-
-export const InputWithLabel = Template.bind({});
-InputWithLabel.args = {
-  ...InputOnly.args,
-  label: "Label",
 };
