@@ -1,6 +1,6 @@
 module.exports = {
-  "*.{ts,tsx}": [
+  "*.{ts,tsx}": (filenames) => [
     "yarn format:fix",
-    "yarn test --bail --watchAll=false --findRelatedTests --passWithNoTests",
+    "yarn test --bail --watchAll=false --findRelatedTests filenames --passWithNoTests",
   ],
 };
