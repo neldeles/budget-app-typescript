@@ -9,9 +9,10 @@ import { fakeUser } from "mocks/utils/generateFakeUser";
 
 // Services
 import { verify as verifyService } from "services/verify";
+import { TUser } from "types/global";
 
 function App() {
-  const [user, setUser] = useState<typeof fakeUser | null>(null);
+  const [user, setUser] = useState<TUser | null>(null);
 
   useEffect(() => {
     const getUser = async () => {

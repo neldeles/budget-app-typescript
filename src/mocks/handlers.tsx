@@ -1,13 +1,14 @@
 import { rest } from "msw";
 import { fakeUser } from "./utils/generateFakeUser";
 import type { TCredentials } from "services/loginService";
+import { TUser } from "types/global";
 
 type TExpectedError = {
   message: string;
 };
 
 type LoginPostRequestBody = TCredentials;
-type LoginPostResponseBody = TExpectedError | typeof fakeUser;
+type LoginPostResponseBody = TExpectedError | TUser;
 
 export const handlers = [
   // Handles a successful POST /login request

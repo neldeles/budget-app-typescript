@@ -9,14 +9,14 @@ import { Link } from "components/atoms/Link";
 // services
 import loginService from "services/loginService";
 
-import { fakeUser } from "mocks/utils/generateFakeUser";
 import axios from "axios";
+import { TUser } from "types/global";
 // TODO:-30 # LoginForm component
 // <!-- is-epic:"LoginForm" -->
 
 export type TLoginFormProps = {
   /** useState setter method. Sets `user` object as the state of `user` */
-  setUser: React.Dispatch<React.SetStateAction<typeof fakeUser | null>>;
+  setUser: React.Dispatch<React.SetStateAction<TUser | null>>;
   loading: boolean;
   /** Pass this arg if you want to overwrite the default onSubmit handler */
   onSubmit?: (e: React.SyntheticEvent) => Promise<void>;

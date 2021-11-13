@@ -1,10 +1,10 @@
 import { Heading } from "components/atoms/Heading";
 import { LoginForm } from "components/molecules/LoginForm";
 import { LoginScreen } from "components/screens/LoginScreen";
-import { fakeUser } from "mocks/utils/generateFakeUser";
+import { TUser } from "types/global";
 
 type TUnauthenticatedAppProps = {
-  setUser: React.Dispatch<React.SetStateAction<typeof fakeUser | null>>;
+  setUser: React.Dispatch<React.SetStateAction<TUser | null>>;
 };
 
 function UnauthenticatedApp({ setUser }: TUnauthenticatedAppProps) {
