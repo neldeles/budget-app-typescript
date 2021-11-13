@@ -12,6 +12,6 @@ test("renders an input text field with a label", () => {
     throw new Error("🚨 Make sure label args in story is defined.");
   }
   const label = args.label;
-  const input = screen.getByLabelText("word");
+  const input = screen.getByLabelText(label);
   expect(input).toHaveAttribute("type", "text");
 });

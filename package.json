@@ -37,7 +37,8 @@
     "format:check": "yarn prettier --check",
     "format:fix": "yarn prettier --write",
     "type:check": "tsc",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint --ext .tsx,.ts ."
   },
   "eslintConfig": {
     "plugins": [
