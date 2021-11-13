@@ -32,7 +32,12 @@
     "test": "craco test",
     "eject": "craco eject",
     "storybook": "TAILWIND_MODE=watch start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "prettier": "prettier . --ignore-path .gitignore",
+    "format:check": "yarn prettier --check",
+    "format:fix": "yarn prettier --write",
+    "type:check": "tsc",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "plugins": [
@@ -86,8 +91,11 @@
     "autoprefixer": "^9",
     "chromatic": "^6.0.6",
     "eslint-plugin-tailwindcss": "^1.17.0",
+    "husky": ">=6",
+    "lint-staged": ">=10",
     "msw": "^0.35.0",
     "postcss": "^7",
+    "prettier": "^2.4.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "resolutions": {
