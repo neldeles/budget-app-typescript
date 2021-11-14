@@ -1,0 +1,41 @@
+import {
+  Stories,
+  Primary,
+  Description,
+  DocsStory,
+  Props,
+  Title,
+  Canvas,
+  Story,
+} from "@storybook/addon-docs";
+
+<Title />
+
+Functionally acts as a wrapper for `NavItem` and `NavItemSubMenu`.
+
+<Primary />
+
+## Usage
+
+`Navigation` is only to be used with the `NavItem` or `NavItemSubmenu` components.
+
+### Imports
+
+```jsx
+import { NavigationItem } from "components/atoms/NavigationItem";
+import { NavigationItemWithSubitem } from "components/atoms/NavigationItemWithSubitem";
+import { Navigation } from "components/molecules/Navigation";
+```
+
+### Sample usage
+
+```jsx
+<Navigation>
+  <NavItem />
+  <NavItemSubmenu />
+</Navigation>
+```
+
+<Props />
+
+<Stories />

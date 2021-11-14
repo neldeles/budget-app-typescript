@@ -3,7 +3,7 @@ import { FolderIcon } from "@heroicons/react/outline";
 
 import { Primary } from "components/atoms/Button/Button.stories";
 import { Meta, Story } from "@storybook/react";
-import { TNavItemSubmenu } from "./NavItemSubmenu";
+import { TNavItemSubmenuProps } from "./NavItemSubmenu";
 import { TButtonProps } from "components/atoms/Button/Button";
 
 export default {
@@ -28,7 +28,9 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TNavItemSubmenu> = (args) => <NavItemSubmenu {...args} />;
+const Template: Story<TNavItemSubmenuProps> = (args) => (
+  <NavItemSubmenu {...args} />
+);
 
 const Wrapper = ({ render }: { render: () => React.ReactNode }) => (
   <div className="mb-4 w-1/2">{render()}</div>
@@ -39,15 +41,17 @@ export const All = () => {
     <>
       <Wrapper
         render={() => (
-          <NavItemSubmenu {...(Inactive.args as TNavItemSubmenu)} />
+          <NavItemSubmenu {...(Inactive.args as TNavItemSubmenuProps)} />
         )}
       />
       <Wrapper
-        render={() => <NavItemSubmenu {...(Active.args as TNavItemSubmenu)} />}
+        render={() => (
+          <NavItemSubmenu {...(Active.args as TNavItemSubmenuProps)} />
+        )}
       />
       <Wrapper
         render={() => (
-          <NavItemSubmenu {...(WithButton.args as TNavItemSubmenu)} />
+          <NavItemSubmenu {...(WithButton.args as TNavItemSubmenuProps)} />
         )}
       />
     </>

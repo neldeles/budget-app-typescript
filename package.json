@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/faker": "^5.5.9",
     "@types/jest": "^27.0.2",
+    "@types/mdx": "^2.0.1",
     "@types/node": "^16.11.6",
     "@types/react": "^17.0.34",
     "@types/react-dom": "^17.0.11",
@@ -47,7 +48,8 @@
     "extends": [
       "react-app",
       "react-app/jest",
-      "plugin:tailwindcss/recommended"
+      "plugin:tailwindcss/recommended",
+      "plugin:mdx/recommended"
     ],
     "overrides": [
       {
@@ -91,6 +93,7 @@
     "@storybook/react": "^6.3.12",
     "autoprefixer": "^9",
     "chromatic": "^6.0.6",
+    "eslint-plugin-mdx": "^1.16.0",
     "eslint-plugin-tailwindcss": "^1.17.0",
     "husky": ">=6",
     "lint-staged": ">=10",

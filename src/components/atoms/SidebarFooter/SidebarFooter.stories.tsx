@@ -4,7 +4,7 @@ import { SidebarFooter } from ".";
 import { TSidebarFooterProps } from "./SidebarFooter";
 
 export default {
-  title: "components/atoms/sidebar/SidebarFooter",
+  title: "components/atoms/SidebarFooter",
   component: SidebarFooter,
   parameters: {
     componentSubtitle: "To be used within Sidebar component only.",

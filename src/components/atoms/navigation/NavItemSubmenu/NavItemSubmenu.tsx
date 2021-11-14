@@ -8,7 +8,7 @@ type TNavSubItems = {
   current: boolean;
 };
 
-export type TNavItemSubmenu = {
+export type TNavItemSubmenuProps = {
   label: string;
   /** We are using the [Heroicons](https://github.com/tailwindlabs/heroicons) React library.
    * Pass the constructor as an argument i.e. `icon={HomeIcon}`
@@ -27,7 +27,7 @@ export function NavItemSubmenu({
   icon: Icon,
   navSubItems,
   children,
-}: TNavItemSubmenu) {
+}: TNavItemSubmenuProps) {
   return (
     <Disclosure as="div" className="space-y-1">
       {({ open }) => (

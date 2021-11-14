@@ -1,7 +1,6 @@
-import { NavItem } from ".";
+import { NavItem, TNavItemProps } from ".";
 import { HomeIcon } from "@heroicons/react/outline";
 import { Meta, Story } from "@storybook/react";
-import { TNavItemProps } from "./NavItem";
 
 export default {
   title: "components/atoms/navigation/NavItem",
