@@ -19,7 +19,7 @@ const sizeMap: Record<Size, string> = /*tw*/ {
 
 export type THeadingProps = React.HTMLAttributes<HTMLHeadingElement> & {
   /** Heading element */
-  headingLevel: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  as: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   /** The heading text */
   value: string;
   /** Alignment of the heading */
@@ -29,16 +29,13 @@ export type THeadingProps = React.HTMLAttributes<HTMLHeadingElement> & {
 };
 
 export function Heading({
-  headingLevel,
+  as: HeadingElement = "h1",
   value,
   alignment,
   size,
 }: THeadingProps) {
-  const TsHeading = ({ ...props }: React.HTMLAttributes<HTMLHeadingElement>) =>
-    React.createElement(headingLevel, props);
-
   return (
-    <TsHeading
+    <HeadingElement
       className={classNames(
         "font-extrabold text-gray-900",
         alignmentMap[alignment],
@@ -46,6 +43,6 @@ export function Heading({
       )}
     >
       {value}
-    </TsHeading>
+    </HeadingElement>
   );
 }

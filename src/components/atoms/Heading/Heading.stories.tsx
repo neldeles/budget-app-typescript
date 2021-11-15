@@ -13,7 +13,7 @@ H2Header.args = {
   value: "H2 Heading",
   alignment: "left",
   size: "large",
-  headingLevel: "h2",
+  as: "h2",
 };
 
 H2Header.storyName = "H2 Header";
