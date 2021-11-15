@@ -6,7 +6,16 @@ import { XIcon, MenuIcon } from "@heroicons/react/outline";
 // Components
 import { Sidebar } from "../Sidebar";
 
-export function DashboardContainer() {
+export type TDashboardContainerProps = {
+  pageContent: React.ReactNode;
+  /** Optional title text of the Dashboard */
+  title?: string;
+};
+
+export function DashboardContainer({
+  title: headingText,
+  pageContent,
+}: TDashboardContainerProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -122,15 +131,15 @@ export function DashboardContainer() {
           <main className="flex-1">
             <div className="py-6">
               <div className="px-4 sm:px-6 md:px-8 mx-auto max-w-7xl">
-                <h1 className="text-2xl font-semibold text-gray-900">
-                  Dashboard
-                </h1>
+                {headingText ? (
+                  <h1 className="text-2xl font-semibold text-gray-900">
+                    {headingText}
+                  </h1>
+                ) : null}
               </div>
               <div className="px-4 sm:px-6 md:px-8 mx-auto max-w-7xl">
                 {/* Replace with your content */}
-                <div className="py-4">
-                  <div className="h-96 rounded-lg border-4 border-gray-200 border-dashed" />
-                </div>
+                {pageContent}
                 {/* /End replace */}
               </div>
             </div>
