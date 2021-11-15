@@ -5,6 +5,7 @@ import { XIcon, MenuIcon } from "@heroicons/react/outline";
 
 // Components
 import { Sidebar } from "../Sidebar";
+import { fakeUser } from "mocks/utils/generateFakeUser";
 
 export type TDashboardContainerProps = {
   pageContent: React.ReactNode;
@@ -28,7 +29,7 @@ export function DashboardContainer({
         <body class="h-full">
         ```
       */}
-      <div>
+      <div className="flex overflow-hidden h-screen bg-gray-100">
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -80,7 +81,10 @@ export function DashboardContainer({
                   </div>
                 </Transition.Child>
                 <div className="overflow-y-auto flex-1 pt-5 pb-4 h-0">
-                  <Sidebar title="Budget App" />
+                  <Sidebar
+                    title="Budget App"
+                    footer={<Sidebar.Footer user={fakeUser} />}
+                  />
                 </div>
                 {/* Footer */}
                 <div className="flex flex-shrink-0 p-4 border-t border-gray-200">
@@ -115,7 +119,12 @@ export function DashboardContainer({
         {/* Static sidebar for desktop */}
         <div className="hidden md:flex md:fixed md:inset-y-0 md:flex-col md:w-64">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <Sidebar title="Budget App" />
+          <div className="flex flex-col flex-1 min-h-0 bg-white border-r border-gray-200">
+            <Sidebar
+              title="Budget App"
+              footer={<Sidebar.Footer user={fakeUser} />}
+            />
+          </div>
         </div>
         <div className="flex flex-col flex-1 md:pl-64">
           <div className="md:hidden sticky top-0 z-10 pt-1 sm:pt-3 pl-1 sm:pl-3 bg-gray-100">

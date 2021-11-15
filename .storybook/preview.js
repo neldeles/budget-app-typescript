@@ -14,6 +14,7 @@ export const parameters = {
       order: ["Introduction", ["Intro", "Installation"], "components"],
     },
   },
+  layout: "fullscreen",
 };
 
 export const decorators = [
