@@ -21,9 +21,10 @@ Functionally acts as a wrapper for `NavItem` and `NavItemSubMenu`.
 
 ### Imports
 
+You only need to import the `Navigation` component. `NavItem` and `NavItemSubmenu` are
+accessible as properties.
+
 ```jsx
-import { NavigationItem } from "components/atoms/NavigationItem";
-import { NavigationItemWithSubitem } from "components/atoms/NavigationItemWithSubitem";
 import { Navigation } from "components/molecules/Navigation";
 ```
 
@@ -31,8 +32,8 @@ import { Navigation } from "components/molecules/Navigation";
 
 ```jsx
 <Navigation>
-  <NavItem />
-  <NavItemSubmenu />
+  <Navigation.Item {...props} />
+  <Navigation.ItemSubmenu {...props} />
 </Navigation>
 ```
 

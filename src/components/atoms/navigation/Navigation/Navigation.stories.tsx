@@ -16,7 +16,7 @@ import * as NavItemSubmenuStories from "components/atoms/navigation/NavItemSubme
 import { Meta } from "@storybook/react";
 
 export default {
-  title: "components/molecules/sidebar/Navigation",
+  title: "Components/Atoms/navigation/Navigation",
   component: Navigation,
   subcomponents: { NavItem, NavItemSubmenu },
   parameters: {
@@ -41,13 +41,13 @@ export default {
 
 export const SimpleNav = () => (
   <Navigation>
-    <NavItemStories.Active {...(NavItemStories.Active.args as TNavItemProps)} />
-    <NavItemStories.Inactive
+    <Navigation.Item {...(NavItemStories.Active.args as TNavItemProps)} />
+    <Navigation.Item
       {...(NavItemStories.Inactive.args as TNavItemProps)}
       icon={ChartBarIcon}
       label="Reports"
     />
-    <NavItemSubmenuStories.Inactive
+    <Navigation.ItemSubMenu
       {...(NavItemSubmenuStories.Inactive.args as TNavItemSubmenuProps)}
     />
   </Navigation>
@@ -63,15 +63,13 @@ SimpleNav.parameters = {
 
 export const NavWithButton = () => (
   <Navigation>
-    <NavItemStories.Inactive
-      {...(NavItemStories.Inactive.args as TNavItemProps)}
-    />
-    <NavItemStories.Inactive
+    <Navigation.Item {...(NavItemStories.Inactive.args as TNavItemProps)} />
+    <Navigation.Item
       {...(NavItemStories.Inactive.args as TNavItemProps)}
       icon={ChartBarIcon}
       label="Reports"
     />
-    <NavItemSubmenuStories.WithButton
+    <Navigation.ItemSubMenu
       {...(NavItemSubmenuStories.WithButton.args as TNavItemSubmenuProps)}
     />
   </Navigation>

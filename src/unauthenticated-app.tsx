@@ -14,7 +14,7 @@ function UnauthenticatedApp({ setUser }: TUnauthenticatedAppProps) {
       heading={
         <Heading
           alignment="center"
-          headingLevel="h2"
+          as="h2"
           size="large"
           value="Sign in to your account"
         />

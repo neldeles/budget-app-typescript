@@ -19,7 +19,7 @@ export type TNavItemSubmenuProps = {
    *  from the database.
    */
   navSubItems: TNavSubItems[];
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export function NavItemSubmenu({

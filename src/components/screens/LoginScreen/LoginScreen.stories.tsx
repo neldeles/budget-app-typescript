@@ -29,7 +29,7 @@ export const Default = Template.bind({});
 Default.args = {
   heading: (
     <Heading
-      headingLevel="h2"
+      as="h2"
       size="large"
       alignment="center"
       value="Sign in to your account"
