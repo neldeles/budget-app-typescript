@@ -45,12 +45,12 @@ export function Table(props: TTableProps) {
                   ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                  {rows.map((row) => {
+                  {rows.map((row, index) => {
                     prepareRow(row);
                     return (
                       <tr
                         {...row.getRowProps()}
-                        // className={row.id % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                        className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
                       >
                         {row.cells.map((cell) => {
                           return (
