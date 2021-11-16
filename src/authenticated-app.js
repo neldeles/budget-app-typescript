@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { HomeDashboard } from "components/screens/HomeDashboard";
+import { BudgetDashboard } from "components/screens/BudgetDashboard";
 
 function AuthenticatedApp({ user }) {
   // return <AppRoutes user={user} />;
@@ -10,7 +10,7 @@ function AuthenticatedApp({ user }) {
 function AppRoutes({ user }) {
   return (
     <Switch>
-      <Route path="/dashboard" element={<HomeDashboard user={user} />} />
+      <Route path="/dashboard" element={<BudgetDashboard user={user} />} />
     </Switch>
   );
 }

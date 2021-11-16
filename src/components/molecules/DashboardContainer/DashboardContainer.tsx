@@ -4,22 +4,26 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XIcon, MenuIcon } from "@heroicons/react/outline";
 
 // Components
-import { TSidebarProps } from "../Sidebar/Sidebar";
+import { Sidebar, TSidebarProps } from "../Sidebar/Sidebar";
+import { TUser } from "types/global";
 
 export type TDashboardContainerProps = {
   pageContent: React.ReactNode;
   /** Optional title text of the Dashboard */
   title?: string;
-  /** Sidebar Component */
-  sidebar: React.ReactElement<TSidebarProps>;
+  user: TUser;
 };
 
 export function DashboardContainer({
   title: headingText,
-  sidebar,
+  user,
   pageContent,
 }: TDashboardContainerProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const renderSidebar = () => (
+    <Sidebar title="Budget App" footer={<Sidebar.Footer user={user} />} />
+  );
 
   return (
     <>
@@ -82,7 +86,7 @@ export function DashboardContainer({
                     </button>
                   </div>
                 </Transition.Child>
-                {sidebar}
+                {renderSidebar()}
               </div>
             </Transition.Child>
             <div className="flex-shrink-0 w-14">
@@ -95,7 +99,7 @@ export function DashboardContainer({
         <div className="hidden md:flex md:fixed md:inset-y-0 md:flex-col md:w-64">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex flex-col flex-1 min-h-0 bg-white border-r border-gray-200">
-            {sidebar}
+            {renderSidebar()}
           </div>
         </div>
         <div className="flex flex-col flex-1 md:pl-64">
