@@ -4,8 +4,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XIcon, MenuIcon } from "@heroicons/react/outline";
 
 // Components
-import { Sidebar } from "../Sidebar";
-import { fakeUser } from "mocks/utils/generateFakeUser";
 import { TSidebarProps } from "../Sidebar/Sidebar";
 
 export type TDashboardContainerProps = {

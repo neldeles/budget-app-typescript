@@ -3,7 +3,6 @@ import { DashboardContainer } from ".";
 import { TDashboardContainerProps } from "./DashboardContainer";
 import { Sidebar } from "../Sidebar";
 import { fakeUser } from "mocks/utils/generateFakeUser";
-import DashboardContainerMdx from "./DashboardContainer.mdx";
 
 export default {
   title: "Components/Molecules/DashboardContainer",
