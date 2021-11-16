@@ -18,7 +18,7 @@ type Width = typeof widths[number];
 const widthMaps: Record<Width, string> = /*tw*/ {
   default: "justify-center",
   full: "justify-center w-full",
-  "3/4": "w-3/4 mt-1 leading-4",
+  "3/4": "justify-center w-3/4 mt-1 leading-4",
 };
 
 export type TButtonProps = {

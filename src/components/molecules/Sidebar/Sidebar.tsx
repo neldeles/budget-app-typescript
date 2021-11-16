@@ -1,6 +1,7 @@
 import { Navigation } from "components/atoms/navigation/Navigation";
 import { HomeIcon, ChartBarIcon, FolderIcon } from "@heroicons/react/outline";
 import { TUser } from "types/global";
+import { Button } from "components/atoms/Button";
 
 export type TSidebarProps = {
   /** Header of the sidebar */
@@ -40,7 +41,11 @@ export function Sidebar({ title, footer }: TSidebarProps) {
               label="Wallets"
               icon={FolderIcon}
               navSubItems={[]}
-            />
+            >
+              <div className="flex justify-center">
+                <Button variant="primary" width="3/4" label="Add Wallet" />
+              </div>
+            </Navigation.ItemSubMenu>
           </Navigation>
         </div>
       </div>

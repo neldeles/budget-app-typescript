@@ -1,6 +1,8 @@
 import { Meta, Story } from "@storybook/react";
 import { DashboardContainer } from ".";
 import { TDashboardContainerProps } from "./DashboardContainer";
+import { Sidebar } from "../Sidebar";
+import { fakeUser } from "mocks/utils/generateFakeUser";
 import DashboardContainerMdx from "./DashboardContainer.mdx";
 
 export default {
@@ -22,6 +24,9 @@ const Template: Story<TDashboardContainerProps> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   title: "Some Dashboard Title",
+  sidebar: (
+    <Sidebar title="Budget App" footer={<Sidebar.Footer user={fakeUser} />} />
+  ),
   pageContent: (
     <div className="py-4">
       <div className="h-96 rounded-lg border-4 border-gray-200 border-dashed" />
