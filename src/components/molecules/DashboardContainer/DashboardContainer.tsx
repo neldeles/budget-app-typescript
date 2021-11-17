@@ -9,13 +9,13 @@ import { TUser } from "types/global";
 
 export type TDashboardContainerProps = {
   pageContent: React.ReactNode;
-  /** Optional title text of the Dashboard */
-  title?: string;
+  /** Optional header of the Dashboard */
+  header?: React.ReactNode;
   user: TUser;
 };
 
 export function DashboardContainer({
-  title: headingText,
+  header,
   user,
   pageContent,
 }: TDashboardContainerProps) {
@@ -115,13 +115,7 @@ export function DashboardContainer({
           </div>
           <main className="flex-1">
             <div className="py-6">
-              <div className="px-4 sm:px-6 md:px-8 mx-auto max-w-7xl">
-                {headingText ? (
-                  <h1 className="text-2xl font-semibold text-gray-900">
-                    {headingText}
-                  </h1>
-                ) : null}
-              </div>
+              {header}
               <div className="px-4 sm:px-6 md:px-8 mx-auto max-w-7xl">
                 {/* Replace with your content */}
                 {pageContent}

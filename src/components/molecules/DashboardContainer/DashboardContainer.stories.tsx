@@ -30,7 +30,13 @@ const Template: Story<TDashboardContainerProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  title: "Some Dashboard Title",
+  header: (
+    <div className="px-4 sm:px-6 md:px-8 mx-auto max-w-7xl">
+      <h1 className="text-2xl font-semibold text-gray-900">
+        Some Dashboard Title
+      </h1>
+    </div>
+  ),
   user: fakeUser,
   pageContent: (
     <div className="py-4">

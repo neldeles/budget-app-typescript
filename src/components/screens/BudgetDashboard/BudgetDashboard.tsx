@@ -1,4 +1,5 @@
 import { DashboardContainer } from "components/molecules/DashboardContainer";
+import { Header } from "components/molecules/Header";
 import { Table } from "components/molecules/Table";
 import { TUser } from "types/global";
 
@@ -37,7 +38,7 @@ export function BudgetDashboard({ user }: TBudgetDashboardProps) {
 
   return (
     <DashboardContainer
-      title="Your Budget"
+      header={<Header />}
       user={user}
       pageContent={<Table columns={columns} data={data} tableName="Hehehe" />}
     />
