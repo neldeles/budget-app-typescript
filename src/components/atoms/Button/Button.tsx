@@ -25,19 +25,22 @@ export type TButtonProps = {
   variant: Variant;
   /** Optional prop to set button's size*/
   width: Width;
-  label: string;
+  /** Label of the button */
+  children: React.ReactNode;
   loading?: boolean;
   type?: "button" | "submit" | "reset";
   onClick?: () => void;
+  hasIcon?: boolean;
 };
 
 export function Button({
   variant = "primary",
   width,
-  label,
+  children: label,
   type,
   onClick,
   loading = false,
+  hasIcon = false,
 }: TButtonProps) {
   return (
     <button
@@ -46,6 +49,7 @@ export function Button({
         "sm:text-sm cursor-pointer",
         "focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none",
         loading && "animate-pulse",
+        hasIcon && "inline-flex relative items-center py-2 px-4",
         variantMaps[variant],
         widthMaps[width]
       )}

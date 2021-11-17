@@ -43,7 +43,7 @@ export function Sidebar({ title, footer }: TSidebarProps) {
               navSubItems={[]}
             >
               <div className="flex justify-center">
-                <Button variant="primary" width="3/4" label="Add Wallet" />
+                <Button variant="primary" width="3/4" children="Add Wallet" />
               </div>
             </Navigation.ItemSubMenu>
           </Navigation>

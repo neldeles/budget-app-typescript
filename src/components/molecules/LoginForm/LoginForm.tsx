@@ -92,7 +92,7 @@ export function LoginForm({ setUser, loading, onSubmit }: TLoginFormProps) {
               <Button
                 variant="primary"
                 type="submit"
-                label="Loading..."
+                children="Loading..."
                 width="full"
                 loading={true}
               />
@@ -157,7 +157,7 @@ export function LoginForm({ setUser, loading, onSubmit }: TLoginFormProps) {
             <Button
               variant="primary"
               type="submit"
-              label="Sign In"
+              children="Sign In"
               width="full"
             />
           </div>

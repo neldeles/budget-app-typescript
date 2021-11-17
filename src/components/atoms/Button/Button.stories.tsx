@@ -23,7 +23,7 @@ const Template: Story<TButtonProps> = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  label: "Button",
+  children: "Button",
   loading: false,
 };
 
@@ -70,6 +70,31 @@ Danger.parameters = {
         "Use when the action will delete data or be otherwise difficult to recover from. Destructive buttons should trigger a confirmation dialog before the action is completed. Be thoughtful about using destructive buttons because they can feel stressful for the user.",
     },
   },
+};
+
+export const WithIcon = Template.bind({});
+WithIcon.args = {
+  ...Primary.args,
+  children: (
+    <>
+      Text Label
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="ml-2 w-5 h-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </>
+  ),
+  hasIcon: true,
 };
 
 export const FullWidth = Template.bind({});
