@@ -22,7 +22,11 @@ export type TLoginFormProps = {
   onSubmit?: (e: React.SyntheticEvent) => Promise<void>;
 };
 
-export function LoginForm({ setUser, loading, onSubmit }: TLoginFormProps) {
+export function LoginForm({
+  setUser,
+  loading: isLoading,
+  onSubmit,
+}: TLoginFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -52,56 +56,6 @@ export function LoginForm({ setUser, loading, onSubmit }: TLoginFormProps) {
         }
       };
 
-  // TODO: Refactor and make dry
-  if (loading) {
-    return (
-      <div className="sm:mx-auto mt-8 sm:w-full sm:max-w-md">
-        <div className="py-8 px-4 sm:px-10 bg-white sm:rounded-lg shadow">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <div className="mt-1">
-                <InputWithLabel label="email" labelFor="email">
-                  <Input name="email" type="email" disabled={true} />
-                </InputWithLabel>
-              </div>
-            </div>
-
-            <div>
-              <div className="mt-1">
-                <InputWithLabel labelFor="password" label="password">
-                  <Input name="password" type="password" disabled={true} />
-                </InputWithLabel>
-              </div>
-            </div>
-
-            <div className="flex justify-between items-center">
-              <div className="flex items-center">
-                <Checkbox
-                  id="remember_me"
-                  name="remember_me"
-                  label="Remember me"
-                />
-              </div>
-
-              <div className="text-sm">
-                <Link to="/register">Register new account</Link>
-              </div>
-            </div>
-
-            <div>
-              <Button
-                variant="primary"
-                type="submit"
-                children="Loading..."
-                width="full"
-                loading={true}
-              />
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-  }
   return (
     <div className="sm:mx-auto mt-8 sm:w-full sm:max-w-md">
       <div className="py-8 px-4 sm:px-10 bg-white sm:rounded-lg shadow">
@@ -113,6 +67,7 @@ export function LoginForm({ setUser, loading, onSubmit }: TLoginFormProps) {
                   name="email"
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
+                  disabled={isLoading}
                 />
               </InputWithLabel>
             </div>
@@ -125,6 +80,7 @@ export function LoginForm({ setUser, loading, onSubmit }: TLoginFormProps) {
                   name="password"
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
+                  disabled={isLoading}
                 />
               </InputWithLabel>
             </div>
@@ -159,6 +115,7 @@ export function LoginForm({ setUser, loading, onSubmit }: TLoginFormProps) {
               type="submit"
               children="Sign In"
               width="full"
+              loading={isLoading}
             />
           </div>
         </form>
