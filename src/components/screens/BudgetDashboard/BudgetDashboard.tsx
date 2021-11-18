@@ -40,6 +40,8 @@ export function BudgetDashboard({ user }: TBudgetDashboardProps) {
     <DashboardContainer
       header={<Header />}
       user={user}
+      // TODO: change to .map that returns a new Table component for each
+      //  category group budget
       pageContent={<Table columns={columns} data={data} tableName="Hehehe" />}
     />
   );

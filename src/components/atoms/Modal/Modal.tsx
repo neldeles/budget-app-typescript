@@ -6,7 +6,6 @@ import {
   createContext,
   Dispatch,
   SetStateAction,
-  RefObject,
   cloneElement,
 } from "react";
 import { Dialog as UiDialog, Transition } from "@headlessui/react";
@@ -16,7 +15,7 @@ import { XIcon } from "@heroicons/react/solid";
 type TModalContext = {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  initialFocusRef: RefObject<HTMLElement>;
+  initialFocusRef: React.RefObject<HTMLInputElement>;
 };
 
 export type TModalProps = {
@@ -39,7 +38,7 @@ export function useModal() {
 
 export function Modal({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const initialFocusRef = useRef<HTMLElement>(null);
+  const initialFocusRef = useRef<HTMLInputElement>(null);
 
   return (
     <ModalContext.Provider value={{ isOpen, setIsOpen, initialFocusRef }}>
