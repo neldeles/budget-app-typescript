@@ -6,7 +6,7 @@ type Variant = typeof variants[number];
 
 const variantMaps: Record<Variant, string> = /*tw*/ {
   primary: "text-white bg-indigo-600 border-transparent hover:bg-indigo-700",
-  secondary: "text-gray-700 bg-white border-gray-300 hover:text-gray-500",
+  secondary: "text-gray-700 bg-white border-gray-300 hover:bg-gray-50",
   success: "text-white bg-green-600 hover:bg-green-700 focus:ring-green-500",
   danger: "text-white bg-red-600 hover:bg-red-700 focus:ring-red-500",
 };

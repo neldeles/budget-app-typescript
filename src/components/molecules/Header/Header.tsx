@@ -39,13 +39,16 @@ const CategoryGroupForm = () => {
               type="text"
             />
           </div>
-          <Button
-            variant="secondary"
-            width="default"
-            onClick={() => setIsOpen(false)}
-          >
-            Cancel
-          </Button>
+          <div className="inline-flex items-center mt-3 sm:mt-0 sm:ml-3 w-full sm:w-auto">
+            <Button
+              variant="secondary"
+              width="default"
+              onClick={() => setIsOpen(false)}
+              type="button"
+            >
+              Cancel
+            </Button>
+          </div>
           {/* <button
           type="cancel"
           className="inline-flex justify-center items-center py-2 px-4 mt-3 sm:mt-0 sm:ml-3 w-full sm:w-auto sm:text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 rounded-md border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 shadow-sm focus:outline-none"
@@ -53,9 +56,11 @@ const CategoryGroupForm = () => {
         >
           Cancel
         </button> */}
-          <Button variant="primary" width="default" type="submit">
-            Save
-          </Button>
+          <div className="inline-flex items-center mt-3 sm:mt-0 sm:ml-3 w-full sm:w-auto">
+            <Button variant="primary" width="default" type="submit">
+              Save
+            </Button>
+          </div>
           {/* <button
           type="submit"
           className="inline-flex justify-center items-center py-2 px-4 mt-3 sm:mt-0 sm:ml-3 w-full sm:w-auto sm:text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md border border-transparent focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 shadow-sm focus:outline-none"
