@@ -13,8 +13,13 @@ export function Header() {
             <div className="mr-4">
               <DatePicker />
             </div>
-            <Button variant="primary" width="default" hasIcon={true}>
-              Category Group
+            <Button
+              variant="primary"
+              width="default"
+              hasIcon={true}
+              onClick={setModal}
+            >
+              Create Category Group
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="ml-2 w-5 h-5"

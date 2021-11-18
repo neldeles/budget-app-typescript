@@ -12,7 +12,7 @@ export default {
   title: "Components/Molecules/DashboardContainer",
   component: DashboardContainer,
   parameters: {
-    componentSubtitle: "Container for the different dashboard pages",
+    componentSubtitle: "Primary container for the different dashboard pages",
     docs: {
       // page: DashboardContainerMdx,
       source: {

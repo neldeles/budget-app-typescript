@@ -21,7 +21,7 @@ export function DashboardContainer({
 }: TDashboardContainerProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const renderSidebar = () => (
+  const sidebar = (
     <Sidebar title="Budget App" footer={<Sidebar.Footer user={user} />} />
   );
 
@@ -86,7 +86,7 @@ export function DashboardContainer({
                     </button>
                   </div>
                 </Transition.Child>
-                {renderSidebar()}
+                {sidebar}
               </div>
             </Transition.Child>
             <div className="flex-shrink-0 w-14">
@@ -99,7 +99,7 @@ export function DashboardContainer({
         <div className="hidden md:flex md:fixed md:inset-y-0 md:flex-col md:w-64">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex flex-col flex-1 min-h-0 bg-white border-r border-gray-200">
-            {renderSidebar()}
+            {sidebar}
           </div>
         </div>
         <div className="flex flex-col flex-1 md:pl-64">
