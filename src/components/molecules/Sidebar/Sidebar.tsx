@@ -12,13 +12,13 @@ export type TSidebarProps = {
 const navigation = [
   {
     label: "Budget",
-    href: "#",
+    to: "/",
     current: true,
     icon: HomeIcon,
   },
   {
     label: "Reports",
-    href: "#",
+    to: "/reports",
     current: false,
     icon: ChartBarIcon,
   },

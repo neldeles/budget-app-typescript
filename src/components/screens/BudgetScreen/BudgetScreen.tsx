@@ -3,11 +3,11 @@ import { Header } from "components/molecules/Header";
 import { Table } from "components/molecules/Table";
 import { TUser } from "types/global";
 
-export type TBudgetDashboardProps = {
+export type TBudgetScreenProps = {
   user: TUser;
 };
 
-export function BudgetDashboard({ user }: TBudgetDashboardProps) {
+export function BudgetScreen({ user }: TBudgetScreenProps) {
   const columns = [
     {
       Header: "category",

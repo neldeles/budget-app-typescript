@@ -1,10 +1,12 @@
 import { classNames } from "util/classNames";
 import { THeroIcon } from "types/global";
+import { Link } from "react-router-dom";
+import { To } from "history";
 
 export type TNavItemProps = {
   /** Label of the navigation item */
   label: string;
-  href: string;
+  to: To;
   /** Currently selected flag */
   current: boolean;
   /** We are using the [Heroicons](https://github.com/tailwindlabs/heroicons) React library.
@@ -17,12 +19,12 @@ export type TNavItemProps = {
  * Functionally acts as links to navigate to the different pages of your web app.
  */
 
-export function NavItem({ label, href, current, icon: Icon }: TNavItemProps) {
+export function NavItem({ label, to, current, icon: Icon }: TNavItemProps) {
   return (
     // if item has no submenu items
     <div>
-      <a
-        href={href}
+      <Link
+        to={to}
         className={classNames(
           "group flex items-center py-2 pl-2 w-full text-sm font-medium rounded-md",
           current
@@ -40,7 +42,7 @@ export function NavItem({ label, href, current, icon: Icon }: TNavItemProps) {
           aria-hidden="true"
         />
         {label}
-      </a>
+      </Link>
     </div>
   );
 }

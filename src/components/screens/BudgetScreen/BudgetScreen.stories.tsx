@@ -1,11 +1,11 @@
 import { Meta, Story } from "@storybook/react";
 import { fakeUser } from "mocks/utils/generateFakeUser";
-import { BudgetDashboard } from ".";
-import { TBudgetDashboardProps } from "./BudgetDashboard";
+import { BudgetScreen } from ".";
+import { TBudgetScreenProps } from "./BudgetScreen";
 
 export default {
   title: "Components/Screens/BudgetDashboard",
-  component: BudgetDashboard,
+  component: BudgetScreen,
   parameters: {
     docs: {
       inlineStories: false,
@@ -14,8 +14,8 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TBudgetDashboardProps> = (args) => (
-  <BudgetDashboard {...args} />
+const Template: Story<TBudgetScreenProps> = (args) => (
+  <BudgetScreen {...args} />
 );
 
 export const Default = Template.bind({});

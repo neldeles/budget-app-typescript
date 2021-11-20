@@ -38,7 +38,7 @@ export const All = () => {
 export const Active = Template.bind({});
 Active.args = {
   label: "Budget",
-  href: "#href",
+  to: "/someRoute",
   current: true,
   icon: HomeIcon,
 };

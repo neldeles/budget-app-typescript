@@ -3,6 +3,7 @@ import { fakeUser } from "./utils/generateFakeUser";
 import type { TCredentials } from "services/loginService";
 import { TUser } from "types/global";
 import { TCategoryGroupPayload } from "components/molecules/Header/Header";
+import { db } from "./db";
 
 type TExpectedError = {
   message: string;
@@ -11,8 +12,8 @@ type TExpectedError = {
 type LoginPostRequestBody = TCredentials;
 type LoginPostResponseBody = TExpectedError | TUser;
 
-type categoryGroupRequestBody = TCategoryGroupPayload;
-type categoryGroupResponseBody = TCategoryGroupPayload & {
+type CategoryGroupRequestBody = TCategoryGroupPayload;
+type CategoryGroupResponseBody = TCategoryGroupPayload & {
   id: string;
 };
 
@@ -64,9 +65,8 @@ export const handlers = [
     );
   }),
 
-  // Handles a successful POST /category-group request
-  // TODO: Refactor to use msw data
-  rest.post("/category-group", (req, res, ctx) => {}),
+  // categoryGrouop CRUD handlers
+  ...db.categoryGroup.toHandlers("rest"),
 
   // Handles a GET /user request
   // rest.get("/user", (req, res, ctx) => {

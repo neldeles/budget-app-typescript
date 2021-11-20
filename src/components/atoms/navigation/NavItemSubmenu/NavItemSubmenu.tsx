@@ -22,6 +22,7 @@ export type TNavItemSubmenuProps = {
   children?: React.ReactNode;
 };
 
+// TODO: Migrate to react-router Link component instead of <a>
 export function NavItemSubmenu({
   label,
   icon: Icon,
