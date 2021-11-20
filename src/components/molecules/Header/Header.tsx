@@ -5,6 +5,10 @@ import { Modal } from "components/atoms/Modal";
 import { useModal } from "components/atoms/Modal/Modal";
 import { useField } from "hooks";
 
+export type TCategoryGroupPayload = {
+  name: string;
+};
+
 const CategoryGroupForm = () => {
   const { setIsOpen, initialFocusRef } = useModal();
   const { clearState, ...categoryGroupProps } = useField(
@@ -14,7 +18,11 @@ const CategoryGroupForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(categoryGroupProps.value);
+
+    const payload: TCategoryGroupPayload = {
+      name: categoryGroupProps.value,
+    };
+    alert(payload);
   };
 
   return (
@@ -49,24 +57,11 @@ const CategoryGroupForm = () => {
               Cancel
             </Button>
           </div>
-          {/* <button
-          type="cancel"
-          className="inline-flex justify-center items-center py-2 px-4 mt-3 sm:mt-0 sm:ml-3 w-full sm:w-auto sm:text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 rounded-md border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 shadow-sm focus:outline-none"
-          onClick={handleCancel}
-        >
-          Cancel
-        </button> */}
           <div className="inline-flex items-center mt-3 sm:mt-0 sm:ml-3 w-full sm:w-auto">
             <Button variant="primary" width="default" type="submit">
               Save
             </Button>
           </div>
-          {/* <button
-          type="submit"
-          className="inline-flex justify-center items-center py-2 px-4 mt-3 sm:mt-0 sm:ml-3 w-full sm:w-auto sm:text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md border border-transparent focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 shadow-sm focus:outline-none"
-        >
-          Save
-        </button> */}
         </form>
       </div>
     </div>
@@ -87,12 +82,7 @@ export function Header() {
             </div>
             <Modal>
               <Modal.OpenButton>
-                <Button
-                  variant="primary"
-                  width="default"
-                  hasIcon={true}
-                  onClick={setModal}
-                >
+                <Button variant="primary" width="default" hasIcon={true}>
                   Create Category Group
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
