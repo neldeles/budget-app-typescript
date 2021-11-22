@@ -48,7 +48,6 @@ export function LoginForm({ loading: isLoading }: TLoginFormProps) {
     };
     loginUser.mutate(credentials, {
       // TODO: add a test for onError
-      // TODO: check what error object is so we know what to pass to setErrorMessage
       onError: (error) => {
         let message;
         if (axios.isAxiosError(error) && error.response) {
@@ -62,7 +61,6 @@ export function LoginForm({ loading: isLoading }: TLoginFormProps) {
   return (
     <div className="sm:mx-auto mt-8 sm:w-full sm:max-w-md">
       <div className="py-8 px-4 sm:px-10 bg-white sm:rounded-lg shadow">
-        {loginUser.isLoading && <h1>Loading....</h1>}
         <form className="space-y-6" onSubmit={handleLogin}>
           <div>
             <div className="mt-1">

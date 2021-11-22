@@ -21,4 +21,5 @@ const Template: Story<LinkProps> = (args) => <Link {...args} />;
 export const Basic = Template.bind({});
 Basic.args = {
   children: "Some Link text over here",
+  to: "someLink",
 };
