@@ -9,7 +9,7 @@ import {
   cloneElement,
 } from "react";
 import { Dialog as UiDialog, Transition } from "@headlessui/react";
-import { callAll } from "util/callAll";
+import { callAll } from "utils/callAll";
 import { XIcon } from "@heroicons/react/solid";
 
 type TModalContext = {

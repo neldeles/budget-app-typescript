@@ -1,6 +1,6 @@
 import { Disclosure } from "@headlessui/react";
 import { THeroIcon } from "types/global";
-import { classNames } from "util/classNames";
+import { classNames } from "utils/classNames";
 
 type TNavSubItems = {
   label: string;

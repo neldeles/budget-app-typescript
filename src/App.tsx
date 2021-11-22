@@ -1,38 +1,30 @@
 import React, { useState, useEffect } from "react";
-
 import { BrowserRouter as Router } from "react-router-dom";
-
 import { AuthenticatedApp } from "authenticated-app";
 import { UnauthenticatedApp } from "unauthenticated-app";
 
-import { fakeUser } from "mocks/utils/generateFakeUser";
-
 // Services
-import { verify as verifyService } from "services/verify";
-import { TUser } from "types/global";
+import { verifyUserService } from "services/verifyUserService";
+import { useQuery } from "react-query";
 
 function App() {
-  const [user, setUser] = useState<TUser | null>(null);
+  const user = useQuery("user", verifyUserService);
+  const isLoggedIn = user.isSuccess && user !== undefined;
 
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const response = await verifyService();
-        setUser(response.data);
-      } catch (error) {
-        setUser(null);
-      }
-    };
-
-    getUser();
-  }, []);
+  if (user.isLoading) {
+    return (
+      <div aria-label="loading" className="min-h-screen bg-gray-50">
+        <span></span>
+      </div>
+    );
+  }
 
   return (
     <Router>
-      {user ? (
-        <AuthenticatedApp user={user} />
+      {isLoggedIn ? (
+        <AuthenticatedApp user={user.data} />
       ) : (
-        <UnauthenticatedApp setUser={setUser} />
+        <UnauthenticatedApp />
       )}
     </Router>
   );

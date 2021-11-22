@@ -2,6 +2,7 @@ import { Navigation } from "components/atoms/navigation/Navigation";
 import { HomeIcon, ChartBarIcon, FolderIcon } from "@heroicons/react/outline";
 import { TUser } from "types/global";
 import { Button } from "components/atoms/Button";
+import { useQueryClient } from "react-query";
 
 export type TSidebarProps = {
   /** Header of the sidebar */
@@ -13,6 +14,7 @@ const navigation = [
   {
     label: "Budget",
     to: "/",
+    // TODO: implement react-router-dom.useMatch for active link (lesson 252 epicreact)
     current: true,
     icon: HomeIcon,
   },
@@ -61,8 +63,11 @@ export type TSidebarFooterProps = {
 };
 
 function SidebarFooter({ user }: TSidebarFooterProps) {
+  const queryClient = useQueryClient();
+
   const handleLogout = () => {
-    console.log("Logout clicked");
+    window.localStorage.clear();
+    queryClient.invalidateQueries("user");
   };
 
   return (

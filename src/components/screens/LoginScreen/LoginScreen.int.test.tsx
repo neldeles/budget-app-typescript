@@ -1,13 +1,26 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import faker from "faker";
 import "@testing-library/jest-dom/extend-expect";
 
 import App from "../../../App";
-import { fakeUser } from "mocks/utils/generateFakeUser";
+import { fakeUser, fakeUserToken } from "mocks/utils/generateFakeUser";
+import { renderWithClient } from "utils/tests";
+
+beforeAll(() => {
+  jest.spyOn(console, "error").mockImplementation(jest.fn());
+});
 
 test("calls onSubmit with the username and password when submit is clicked", async () => {
-  render(<App />);
+  renderWithClient(<App />);
+
+  await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
+
   const email = faker.internet.email();
   const password = faker.internet.password();
 
@@ -22,6 +35,6 @@ test("calls onSubmit with the username and password when submit is clicked", asy
   await waitFor(() => {
     // Assert successful login state
     expect(screen.getByText(fakeUser.name)).toBeInTheDocument();
-    expect(window.localStorage.getItem("token")).toEqual(fakeUser.token);
+    expect(window.localStorage.getItem("token")).toEqual(fakeUserToken);
   });
 });

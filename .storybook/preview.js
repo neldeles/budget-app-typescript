@@ -1,5 +1,6 @@
 import "../src/index.css";
 import { BrowserRouter as Router } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -17,10 +18,14 @@ export const parameters = {
   layout: "fullscreen",
 };
 
+const queryClient = new QueryClient();
+
 export const decorators = [
   (Story) => (
-    <Router>
-      <Story />
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Story />
+      </Router>
+    </QueryClientProvider>
   ),
 ];

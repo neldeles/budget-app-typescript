@@ -35,7 +35,7 @@ const Template: Story<TLoginFormProps> = (args) => <LoginForm {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   loading: false,
-  onSubmit: withPreventDefault(action("onSubmit")),
+  // onSubmit: withPreventDefault(action("onSubmit")),
 };
 
 export const Loading = Template.bind({});

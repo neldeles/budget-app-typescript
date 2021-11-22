@@ -4,5 +4,6 @@ export const fakeUser = {
   id: faker.datatype.uuid(),
   name: faker.name.firstName(),
   email: faker.internet.email(),
-  token: faker.random.alphaNumeric(15),
 };
+
+export const fakeUserToken = faker.random.alphaNumeric(15);

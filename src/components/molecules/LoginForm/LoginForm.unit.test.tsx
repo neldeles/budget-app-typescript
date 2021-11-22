@@ -4,12 +4,16 @@ import "@testing-library/jest-dom/extend-expect";
 import { BrowserRouter as Router } from "react-router-dom";
 import { TLoginFormProps } from "./LoginForm";
 import faker from "faker";
-import App from "../../../App";
+import { renderWithClient } from "utils/tests";
 
 import * as LoginFormStories from "./LoginForm.stories";
 
+beforeAll(() => {
+  jest.spyOn(console, "error").mockImplementation(jest.fn());
+});
+
 test("renders an email field that the user can type in", () => {
-  render(
+  renderWithClient(
     <Router>
       <LoginFormStories.Default
         {...(LoginFormStories.Default.args as TLoginFormProps)}
@@ -24,7 +28,7 @@ test("renders an email field that the user can type in", () => {
 });
 
 test("renders a password field that the user can type in", () => {
-  render(
+  renderWithClient(
     <Router>
       <LoginFormStories.Default
         {...(LoginFormStories.Default.args as TLoginFormProps)}
@@ -39,7 +43,13 @@ test("renders a password field that the user can type in", () => {
 });
 
 test("shows an error message when submit is clicked and no username is provided", async () => {
-  render(<App />);
+  renderWithClient(
+    <Router>
+      <LoginFormStories.Default
+        {...(LoginFormStories.Default.args as TLoginFormProps)}
+      />
+    </Router>
+  );
 
   const password = faker.internet.password();
 
@@ -51,12 +61,20 @@ test("shows an error message when submit is clicked and no username is provided"
 
   const errorMessage = await screen.findByRole("alert");
 
-  expect(errorMessage.textContent).toMatchInlineSnapshot(`"username required"`);
+  expect(errorMessage.textContent).toMatchInlineSnapshot(
+    `"username and/or password required"`
+  );
   expect(window.localStorage.getItem("token")).toBeNull();
 });
 
 test("shows an error message when submit is clicked and no password is provided", async () => {
-  render(<App />);
+  renderWithClient(
+    <Router>
+      <LoginFormStories.Default
+        {...(LoginFormStories.Default.args as TLoginFormProps)}
+      />
+    </Router>
+  );
 
   const email = faker.internet.email();
 
@@ -68,6 +86,8 @@ test("shows an error message when submit is clicked and no password is provided"
 
   const errorMessage = await screen.findByRole("alert");
 
-  expect(errorMessage.textContent).toMatchInlineSnapshot(`"password required"`);
+  expect(errorMessage.textContent).toMatchInlineSnapshot(
+    `"username and/or password required"`
+  );
   expect(window.localStorage.getItem("token")).toBeNull();
 });

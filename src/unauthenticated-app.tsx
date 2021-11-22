@@ -3,14 +3,10 @@ import { LoginForm } from "components/molecules/LoginForm";
 import { LoginScreen } from "components/screens/LoginScreen";
 import { TUser } from "types/global";
 
-type TUnauthenticatedAppProps = {
-  setUser: React.Dispatch<React.SetStateAction<TUser | null>>;
-};
-
-function UnauthenticatedApp({ setUser }: TUnauthenticatedAppProps) {
+function UnauthenticatedApp() {
   return (
     <LoginScreen
-      form={<LoginForm setUser={setUser} loading={false} />}
+      form={<LoginForm loading={false} />}
       heading={
         <Heading
           alignment="center"

@@ -4,4 +4,4 @@ import { fakeUser } from "mocks/utils/generateFakeUser";
 
 export type THeroIcon = (props: React.ComponentProps<"svg">) => JSX.Element;
 
-export type TUser = typeof fakeUser;
+export type TUser = Omit<typeof fakeUser, "token">;

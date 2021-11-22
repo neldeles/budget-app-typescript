@@ -1,5 +1,8 @@
-import { classNames } from "util/classNames";
+import { classNames } from "utils/classNames";
 
+// Possibly convert to readonly array if we want stricter type safety
+// at expense of readability
+// https://tkdodo.eu/blog/the-power-of-const-assertions#extracting-types-from-objects-or-arrays
 const variants = ["primary", "secondary", "success", "danger"] as const;
 
 type Variant = typeof variants[number];

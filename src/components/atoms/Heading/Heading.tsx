@@ -1,4 +1,4 @@
-import { classNames } from "util/classNames";
+import { classNames } from "utils/classNames";
 import * as React from "react";
 
 const alignment = ["left", "center", "right"] as const;

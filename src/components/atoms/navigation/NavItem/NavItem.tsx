@@ -1,4 +1,4 @@
-import { classNames } from "util/classNames";
+import { classNames } from "utils/classNames";
 import { THeroIcon } from "types/global";
 import { Link } from "react-router-dom";
 import { To } from "history";

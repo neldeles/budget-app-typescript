@@ -1,15 +1,15 @@
 import { rest } from "msw";
-import { fakeUser } from "./utils/generateFakeUser";
-import type { TCredentials } from "services/loginService";
+import { fakeUser, fakeUserToken } from "./utils/generateFakeUser";
 import { TUser } from "types/global";
 import { TCategoryGroupPayload } from "components/molecules/Header/Header";
 import { db } from "./db";
+import { TLoginCredentials } from "components/molecules/LoginForm";
 
 type TExpectedError = {
   message: string;
 };
 
-type LoginPostRequestBody = TCredentials;
+type LoginPostRequestBody = TLoginCredentials;
 type LoginPostResponseBody = TExpectedError | TUser;
 
 type CategoryGroupRequestBody = TCategoryGroupPayload;
@@ -23,18 +23,18 @@ export const handlers = [
     "/auth/login",
     (req, res, ctx) => {
       const { email, password } = req.body;
+      const errorMessage = "username and/or password required";
       if (!password) {
-        return res(ctx.status(400), ctx.json({ message: "password required" }));
+        return res(ctx.status(400), ctx.json({ message: errorMessage }));
       }
       if (!email) {
-        return res(ctx.status(400), ctx.json({ message: "username required" }));
+        return res(ctx.status(400), ctx.json({ message: errorMessage }));
       }
 
-      localStorage.setItem("token", fakeUser.token);
+      localStorage.setItem("token", fakeUserToken);
       return res(
         // Respond with a 200 status code
-        ctx.status(200),
-        ctx.json(fakeUser)
+        ctx.status(200)
       );
     }
   ),
@@ -55,14 +55,7 @@ export const handlers = [
     }
 
     // If authenticated, return a mocked user details
-    return res(
-      ctx.status(200),
-      ctx.json({
-        id: 1,
-        name: "BTS",
-        email: "bts@email.com",
-      })
-    );
+    return res(ctx.status(200), ctx.json(fakeUser));
   }),
 
   // categoryGrouop CRUD handlers

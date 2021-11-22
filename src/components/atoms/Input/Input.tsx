@@ -1,5 +1,5 @@
 import { HTMLInputTypeAttribute } from "react";
-import { classNames } from "util/classNames";
+import { classNames } from "utils/classNames";
 
 export type TInputProps = {
   /** The name of the Input. Also used as the Input's ID by default.
