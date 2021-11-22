@@ -47,7 +47,7 @@ export function LoginForm({ loading: isLoading }: TLoginFormProps) {
       isRemembered: rememberMe,
     };
     loginUser.mutate(credentials, {
-      // TODO: add a test for onError
+      // TODO: Add error for incorrect credentials
       onError: (error) => {
         let message;
         if (axios.isAxiosError(error) && error.response) {

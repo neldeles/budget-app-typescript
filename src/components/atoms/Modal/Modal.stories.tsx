@@ -63,11 +63,13 @@ Default.args = {
 export const WithDismissButton = Template.bind({});
 WithDismissButton.args = {
   children: (
-    <Modal.Content>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus
-      doloremque voluptatibus maxime minus et impedit adipisci suscipit,
-      blanditiis id tenetur ipsum voluptatum accusamus assumenda quibusdam
-      consequatur ut ipsam quaerat dolorem?
+    <Modal.Content aria-label="Modal Label">
+      <div aria-label="Modal Content">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus
+        doloremque voluptatibus maxime minus et impedit adipisci suscipit,
+        blanditiis id tenetur ipsum voluptatum accusamus assumenda quibusdam
+        consequatur ut ipsam quaerat dolorem?
+      </div>
     </Modal.Content>
   ),
 };

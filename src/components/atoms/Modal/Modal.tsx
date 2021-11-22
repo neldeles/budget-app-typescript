@@ -52,13 +52,13 @@ Modal.Content = Content;
 Modal.DismissButton = DismissButton;
 Modal.OpenButton = OpenButton;
 
-function ContentBase({ children }: { children: React.ReactNode }) {
-  return <Dialog>{children}</Dialog>;
+function ContentBase({ children, ...props }: { children: React.ReactNode }) {
+  return <Dialog {...props}>{children}</Dialog>;
 }
 
-function Content({ children }: { children: React.ReactNode }) {
+function Content({ children, ...props }: { children: React.ReactNode }) {
   return (
-    <ContentBase>
+    <ContentBase {...props}>
       <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
         <DismissButton>
           <button
@@ -75,7 +75,7 @@ function Content({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Dialog({ children }: { children: React.ReactNode }) {
+function Dialog({ children, ...props }: { children: React.ReactNode }) {
   const { isOpen, setIsOpen, initialFocusRef } = useModal();
 
   return (
@@ -87,6 +87,7 @@ function Dialog({ children }: { children: React.ReactNode }) {
         className="overflow-y-auto fixed inset-0 z-10"
         open={isOpen}
         onClose={setIsOpen}
+        {...props}
       >
         <div className="flex sm:block justify-center items-end sm:p-0 px-4 pt-4 pb-20 min-h-screen text-center">
           <Transition.Child

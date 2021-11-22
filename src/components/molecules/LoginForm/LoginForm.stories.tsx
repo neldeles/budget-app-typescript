@@ -41,5 +41,6 @@ Default.args = {
 export const Loading = Template.bind({});
 Loading.args = {
   ...Default.args,
+  // TODO: fix loading state
   loading: true,
 };

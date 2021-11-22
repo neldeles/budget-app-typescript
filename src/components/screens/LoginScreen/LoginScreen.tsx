@@ -1,18 +1,18 @@
-import { THeadingProps } from "components/atoms/Heading/Heading";
-import * as React from "react";
+import { Heading } from "components/atoms/Heading";
+import { LoginForm } from "components/molecules/LoginForm";
 
-export type TLoginScreenProps = {
-  /** Pass the Heading component here */
-  heading: React.ReactElement<THeadingProps>;
-  /** Pass your login form component here*/
-  form: React.ReactNode;
-};
-
-export function LoginScreen({ heading, form }: TLoginScreenProps) {
+export function LoginScreen() {
   return (
     <div className="flex flex-col justify-center py-12 sm:px-6 lg:px-8 min-h-screen bg-gray-50">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">{heading}</div>
-      {form}
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <Heading
+          alignment="center"
+          as="h2"
+          size="large"
+          value="Sign in to your account"
+        />
+      </div>
+      <LoginForm loading={false} />
     </div>
   );
 }
