@@ -15,7 +15,7 @@ const navigation = [
   {
     label: "Budget",
     to: "/",
-    // TODO: implement react-router-dom.useMatch for active link (lesson 252 epicreact)
+    // TODO: implement `react-router-dom.useMatch` for active link (lesson 252 epicreact)
     current: true,
     icon: HomeIcon,
   },
