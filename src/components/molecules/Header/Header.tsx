@@ -4,25 +4,41 @@ import { Button } from "components/atoms/Button";
 import { Modal } from "components/atoms/Modal";
 import { useModal } from "components/atoms/Modal/Modal";
 import { useField } from "hooks";
+import { useMutation, useQueryClient } from "react-query";
+import * as categoryGroupService from "services/categoryGroupService";
+import { generateAuthConfig } from "utils/generateAuthConfig";
 
 export type TCategoryGroupPayload = {
   name: string;
 };
 
-const CategoryGroupForm = () => {
+function CategoryGroupForm() {
   const { setIsOpen, initialFocusRef } = useModal();
   const { clearState, ...categoryGroupProps } = useField(
     "categoryGroup",
     "text"
   );
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const queryClient = useQueryClient();
+
+  const createCategoryGroupMutation = useMutation(
+    (categoryGroup: TCategoryGroupPayload) =>
+      categoryGroupService.create(categoryGroup, generateAuthConfig()),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("categoryGroup");
+      },
+    }
+  );
+
+  const createCategoryGroup = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const payload: TCategoryGroupPayload = {
       name: categoryGroupProps.value,
     };
-    alert(payload);
+
+    createCategoryGroupMutation.mutate(payload);
   };
 
   return (
@@ -32,7 +48,10 @@ const CategoryGroupForm = () => {
         <h3 className="text-lg font-medium leading-6 text-gray-900">
           Create Category Group
         </h3>
-        <form onSubmit={handleSubmit} className="sm:flex sm:items-center mt-5">
+        <form
+          onSubmit={createCategoryGroup}
+          className="sm:flex sm:items-center mt-5"
+        >
           <div className="w-full sm:max-w-xs">
             <label htmlFor="email" className="sr-only">
               Category Group
@@ -58,7 +77,12 @@ const CategoryGroupForm = () => {
             </Button>
           </div>
           <div className="inline-flex items-center mt-3 sm:mt-0 sm:ml-3 w-full sm:w-auto">
-            <Button variant="primary" width="default" type="submit">
+            <Button
+              variant="primary"
+              width="default"
+              type="submit"
+              onClick={() => setIsOpen(false)}
+            >
               Save
             </Button>
           </div>
@@ -66,7 +90,7 @@ const CategoryGroupForm = () => {
       </div>
     </div>
   );
-};
+}
 
 export function Header() {
   const setModal = () => {

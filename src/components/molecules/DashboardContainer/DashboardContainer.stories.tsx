@@ -1,7 +1,6 @@
 import { Meta, Story } from "@storybook/react";
 import { DashboardContainer } from ".";
 import { TDashboardContainerProps } from "./DashboardContainer";
-import { fakeUser } from "mocks/utils/generateFakeUser";
 
 const styles = {
   transform: "scale(1)",
@@ -37,7 +36,6 @@ Default.args = {
       </h1>
     </div>
   ),
-  user: fakeUser,
   pageContent: (
     <div className="py-4">
       <div className="h-96 rounded-lg border-4 border-gray-200 border-dashed" />

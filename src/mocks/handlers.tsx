@@ -4,6 +4,7 @@ import { TUser } from "types/global";
 import { TCategoryGroupPayload } from "components/molecules/Header/Header";
 import { db } from "./db";
 import { TLoginCredentials } from "components/molecules/LoginForm";
+import { TCategoryGroups } from "services/categoryGroupService";
 
 type TExpectedError = {
   message: string;
@@ -13,9 +14,7 @@ type LoginPostRequestBody = TLoginCredentials;
 type LoginPostResponseBody = TExpectedError | TUser;
 
 type CategoryGroupRequestBody = TCategoryGroupPayload;
-type CategoryGroupResponseBody = TCategoryGroupPayload & {
-  id: string;
-};
+type CategoryGroupGetResponseBody = TCategoryGroups;
 
 export const handlers = [
   // Handles a successful POST /login request
@@ -58,8 +57,35 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(fakeUser));
   }),
 
-  // categoryGrouop CRUD handlers
-  ...db.categoryGroup.toHandlers("rest"),
+  rest.post<CategoryGroupRequestBody>("/categoryGroups", (req, res, ctx) => {
+    // Only authenticated users can create a category group.
+    if (req.headers.get("token") !== fakeUserToken) {
+      return res(ctx.status(403));
+    }
+
+    // Create a new entity for the categoryGroup model.
+    db.categoryGroup.create(req.body);
+
+    // Respond with a mocked response.
+    return res(ctx.status(201));
+  }),
+
+  rest.get<CategoryGroupGetResponseBody>("/categoryGroups", (req, res, ctx) => {
+    // Only authenticated users can create a category group.
+    if (req.headers.get("token") !== fakeUserToken) {
+      return res(ctx.status(403));
+    }
+
+    const userCategoryGroups = db.categoryGroup.findMany({
+      where: {
+        user_id: {
+          equals: fakeUser.id,
+        },
+      },
+    });
+
+    return res(ctx.json(userCategoryGroups));
+  }),
 
   // Handles a GET /user request
   // rest.get("/user", (req, res, ctx) => {

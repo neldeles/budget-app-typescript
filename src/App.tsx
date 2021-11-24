@@ -21,11 +21,7 @@ function App() {
 
   return (
     <Router>
-      {isLoggedIn ? (
-        <AuthenticatedApp user={user.data} />
-      ) : (
-        <UnauthenticatedApp />
-      )}
+      {isLoggedIn ? <AuthenticatedApp /> : <UnauthenticatedApp />}
     </Router>
   );
 }

@@ -1,5 +1,4 @@
 import { Meta, Story } from "@storybook/react";
-import { fakeUser } from "mocks/utils/generateFakeUser";
 import { Sidebar } from ".";
 import { TSidebarProps } from "./Sidebar";
 
@@ -13,5 +12,5 @@ const Template: Story<TSidebarProps> = (args) => <Sidebar {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   title: "Sidebar Title",
-  footer: <Sidebar.Footer user={fakeUser} />,
+  footer: <Sidebar.Footer />,
 };

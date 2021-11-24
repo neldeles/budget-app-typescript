@@ -1,7 +1,5 @@
 import { Meta, Story } from "@storybook/react";
-import { fakeUser } from "mocks/utils/generateFakeUser";
 import { BudgetScreen } from ".";
-import { TBudgetScreenProps } from "./BudgetScreen";
 
 export default {
   title: "Components/Screens/BudgetDashboard",
@@ -14,11 +12,6 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TBudgetScreenProps> = (args) => (
-  <BudgetScreen {...args} />
-);
+const Template = () => <BudgetScreen />;
 
 export const Default = Template.bind({});
-Default.args = {
-  user: fakeUser,
-};

@@ -11,19 +11,15 @@ export type TDashboardContainerProps = {
   pageContent: React.ReactNode;
   /** Optional header of the Dashboard */
   header?: React.ReactNode;
-  user: TUser;
 };
 
 export function DashboardContainer({
   header,
-  user,
   pageContent,
 }: TDashboardContainerProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const sidebar = (
-    <Sidebar title="Budget App" footer={<Sidebar.Footer user={user} />} />
-  );
+  const sidebar = <Sidebar title="Budget App" footer={<Sidebar.Footer />} />;
 
   return (
     <>

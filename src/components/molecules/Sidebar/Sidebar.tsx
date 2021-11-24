@@ -2,7 +2,8 @@ import { Navigation } from "components/atoms/navigation/Navigation";
 import { HomeIcon, ChartBarIcon, FolderIcon } from "@heroicons/react/outline";
 import { TUser } from "types/global";
 import { Button } from "components/atoms/Button";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQuery } from "react-query";
+import { verifyUserService } from "services/verifyUserService";
 
 export type TSidebarProps = {
   /** Header of the sidebar */
@@ -62,18 +63,29 @@ export type TSidebarFooterProps = {
   user: TUser;
 };
 
-function SidebarFooter({ user }: TSidebarFooterProps) {
+function SidebarFooter() {
   const queryClient = useQueryClient();
+  const user = useQuery("user", verifyUserService);
 
   const handleLogout = () => {
     window.localStorage.clear();
     queryClient.invalidateQueries("user");
   };
 
+  if (user.error instanceof Error) {
+    return <h1>Error: {user.error.message}</h1>;
+  }
+
   return (
     <div className="text-left">
       <div className="ml-3">
-        <p className="text-base font-medium text-gray-700">{user.name}</p>
+        <p className="text-base font-medium text-gray-700">
+          {user.isLoading
+            ? "loading..."
+            : user.data
+            ? user.data.name
+            : "Unknown user"}
+        </p>
         <button
           onClick={handleLogout}
           className="text-xs font-medium text-gray-500 hover:text-pink-700"
