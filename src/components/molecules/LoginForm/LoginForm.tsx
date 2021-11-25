@@ -12,17 +12,13 @@ import loginService from "services/loginService";
 
 import { useMutation, useQueryClient } from "react-query";
 
-export type TLoginFormProps = {
-  loading: boolean;
-};
-
 export type TLoginCredentials = {
   email: string;
   password: string;
   isRemembered: boolean;
 };
 
-export function LoginForm({ loading: isLoading }: TLoginFormProps) {
+export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -70,6 +66,7 @@ export function LoginForm({ loading: isLoading }: TLoginFormProps) {
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={loginUser.isLoading}
+                  required={true}
                 />
               </InputWithLabel>
             </div>
@@ -83,6 +80,7 @@ export function LoginForm({ loading: isLoading }: TLoginFormProps) {
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={loginUser.isLoading}
+                  required={true}
                 />
               </InputWithLabel>
             </div>

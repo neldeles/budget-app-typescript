@@ -1,7 +1,7 @@
 import { LoginForm } from ".";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
-import { TLoginFormProps } from "./LoginForm";
+import { rest } from "msw";
 
 export default {
   title: "components/molecules/LoginForm",
@@ -20,6 +20,10 @@ export default {
         type: "dynamic",
         excludeDecorators: true,
       },
+      description: {
+        component:
+          "Populate email and password fields and submit. Button will turn into loading state.",
+      },
     },
   },
 } as Meta;
@@ -30,17 +34,34 @@ const withPreventDefault = (action: any) => (e: React.SyntheticEvent) => {
   return action!(e);
 };
 
-const Template: Story<TLoginFormProps> = (args) => <LoginForm {...args} />;
+const Template: Story = () => <LoginForm />;
 
-export const Default = Template.bind({});
-Default.args = {
-  loading: false,
-  // onSubmit: withPreventDefault(action("onSubmit")),
+// TODO: Fix msw add-on issue once we get reply from Github issue
+export const MockedDefault = Template.bind({});
+// onSubmit: withPreventDefault(action("onSubmit")),
+MockedDefault.parameters = {
+  msw: [
+    // Loading state
+    rest.post("/auth/login", (req, res, ctx) => {
+      return res(ctx.delay("infinite"));
+    }),
+  ],
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  ...Default.args,
-  // TODO: fix loading state
-  loading: true,
+export const MockedError = Template.bind({});
+MockedError.parameters = {
+  msw: [
+    rest.post("/auth/login", (req, res, ctx) => {
+      return res(
+        ctx.status(400),
+        ctx.json({ message: "Incorrect email and/or password. xxxxx" })
+      );
+    }),
+  ],
+  docs: {
+    description: {
+      story:
+        "Populate email and password fields and submit to mock the error state.",
+    },
+  },
 };

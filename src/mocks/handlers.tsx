@@ -22,11 +22,8 @@ export const handlers = [
     "/auth/login",
     (req, res, ctx) => {
       const { email, password } = req.body;
-      const errorMessage = "username and/or password required";
-      if (!password) {
-        return res(ctx.status(400), ctx.json({ message: errorMessage }));
-      }
-      if (!email) {
+      const errorMessage = "Incorrect username and/or password.";
+      if (email !== fakeUser.email || password !== "test123") {
         return res(ctx.status(400), ctx.json({ message: errorMessage }));
       }
 
@@ -39,7 +36,7 @@ export const handlers = [
   ),
 
   // Checks if user is already logged in
-  rest.get("http://localhost:5000/auth/is-verify", (req, res, ctx) => {
+  rest.get("/auth/is-verify", (req, res, ctx) => {
     // Check if the user is authenticated in this session
     const isAuthenticated = localStorage.getItem("token");
 

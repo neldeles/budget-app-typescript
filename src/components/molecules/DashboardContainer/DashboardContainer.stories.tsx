@@ -1,6 +1,8 @@
 import { Meta, Story } from "@storybook/react";
 import { DashboardContainer } from ".";
 import { TDashboardContainerProps } from "./DashboardContainer";
+import { rest } from "msw";
+import { fakeUser } from "mocks/utils/generateFakeUser";
 
 const styles = {
   transform: "scale(1)",
@@ -42,6 +44,10 @@ Default.args = {
     </div>
   ),
 };
-// Default.parameters = {
-//   docs: { iframeHeight: 600 },
-// };
+Default.parameters = {
+  msw: [
+    rest.get("/auth/is-verify", (req, res, ctx) => {
+      return res(ctx.json(fakeUser));
+    }),
+  ],
+};

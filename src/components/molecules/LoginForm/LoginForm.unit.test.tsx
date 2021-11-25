@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 import { BrowserRouter as Router } from "react-router-dom";
-import { TLoginFormProps } from "./LoginForm";
 import faker from "faker";
 import { renderWithClient } from "utils/tests";
 
@@ -15,8 +14,8 @@ beforeAll(() => {
 test("renders an email field that the user can type in", () => {
   renderWithClient(
     <Router>
-      <LoginFormStories.Default
-        {...(LoginFormStories.Default.args as TLoginFormProps)}
+      <LoginFormStories.MockedDefault
+        {...LoginFormStories.MockedDefault.args}
       />
     </Router>
   );
@@ -30,8 +29,8 @@ test("renders an email field that the user can type in", () => {
 test("renders a password field that the user can type in", () => {
   renderWithClient(
     <Router>
-      <LoginFormStories.Default
-        {...(LoginFormStories.Default.args as TLoginFormProps)}
+      <LoginFormStories.MockedDefault
+        {...LoginFormStories.MockedDefault.args}
       />
     </Router>
   );
@@ -42,11 +41,11 @@ test("renders a password field that the user can type in", () => {
   expect(screen.getByDisplayValue("abc123")).toBeInTheDocument();
 });
 
-test("shows an error message when submit is clicked and no username is provided", async () => {
+test("shows an error message when incorrect email and/or password are submitted", async () => {
   renderWithClient(
     <Router>
-      <LoginFormStories.Default
-        {...(LoginFormStories.Default.args as TLoginFormProps)}
+      <LoginFormStories.MockedDefault
+        {...LoginFormStories.MockedDefault.args}
       />
     </Router>
   );
@@ -62,32 +61,7 @@ test("shows an error message when submit is clicked and no username is provided"
   const errorMessage = await screen.findByRole("alert");
 
   expect(errorMessage.textContent).toMatchInlineSnapshot(
-    `"username and/or password required"`
-  );
-  expect(window.localStorage.getItem("token")).toBeNull();
-});
-
-test("shows an error message when submit is clicked and no password is provided", async () => {
-  renderWithClient(
-    <Router>
-      <LoginFormStories.Default
-        {...(LoginFormStories.Default.args as TLoginFormProps)}
-      />
-    </Router>
-  );
-
-  const email = faker.internet.email();
-
-  const emailInput = screen.getByLabelText(/email/i);
-  const signInButton = screen.getByRole("button", { name: /sign in/i });
-
-  userEvent.type(emailInput, email);
-  userEvent.click(signInButton);
-
-  const errorMessage = await screen.findByRole("alert");
-
-  expect(errorMessage.textContent).toMatchInlineSnapshot(
-    `"username and/or password required"`
+    `"Incorrect username and/or password."`
   );
   expect(window.localStorage.getItem("token")).toBeNull();
 });

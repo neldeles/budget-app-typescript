@@ -18,7 +18,7 @@ lists:
     hidden: true
     id: 0
     name: What's Due?
-  - hidden: false
+  - hidden: true
     ignore: false
     name: NOTE
   - hidden: false
@@ -48,7 +48,13 @@ settings:
   journalTemplate: null
   theme: dark
   cards:
-    colors: []
+    colors:
+      - color: black
+        filter: order >= 20
+      - color: yellow
+        filter: order > 0
+      - color: red
+        filter: order < 0
     template: |
 
       <!--
@@ -65,7 +71,7 @@ settings:
     addCompletedMeta: true
     addCheckBoxTasks: false
     doneList: DONE
-    taskPrefix: '#'
+    taskPrefix: ''
     tagPrefix: '#'
     metaSep: ':'
     maxLines: 6

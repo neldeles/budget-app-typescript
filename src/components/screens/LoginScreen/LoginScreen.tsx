@@ -12,7 +12,7 @@ export function LoginScreen() {
           value="Sign in to your account"
         />
       </div>
-      <LoginForm loading={false} />
+      <LoginForm />
     </div>
   );
 }

@@ -5,6 +5,10 @@ import { Button } from "components/atoms/Button";
 import { useQueryClient, useQuery } from "react-query";
 import { verifyUserService } from "services/verifyUserService";
 
+export type TSidebarFooterProps = {
+  user: TUser;
+};
+
 export type TSidebarProps = {
   /** Header of the sidebar */
   title: string;
@@ -58,10 +62,6 @@ export function Sidebar({ title, footer }: TSidebarProps) {
     </div>
   );
 }
-
-export type TSidebarFooterProps = {
-  user: TUser;
-};
 
 function SidebarFooter() {
   const queryClient = useQueryClient();

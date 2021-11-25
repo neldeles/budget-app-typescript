@@ -13,6 +13,7 @@ export type TInputProps = {
   placeholder?: string;
   value?: string;
   disabled?: boolean;
+  required?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 };
 
@@ -26,6 +27,7 @@ export function Input({
   placeholder,
   disabled = false,
   value,
+  required = false,
   onChange,
 }: TInputProps) {
   return (
@@ -44,6 +46,7 @@ export function Input({
       value={value}
       disabled={disabled}
       onChange={onChange}
+      required={required}
     />
   );
 }
