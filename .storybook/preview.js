@@ -2,6 +2,7 @@ import "../src/index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { initialize, mswDecorator } from "msw-storybook-addon";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 // Initialize MSW
 initialize();

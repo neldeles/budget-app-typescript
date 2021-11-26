@@ -4,7 +4,7 @@ States of the stories are now wonky after React Query and MSW implementations
 - [x] `DashboardContainer.Default` story (username)
 - [x] `Sidebar` story username not loading
 - [ ] `LoginScreen` action when sign in button is clicked
-- [ ] `BudgetDashboard` not loading properly
+- [x] `BudgetDashboard` not loading properly
 <!--
 created:2021-11-24T14:01:39.610Z
 TODO:2021-11-24T14:01:50.835Z
