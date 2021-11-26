@@ -39,7 +39,7 @@
     "eject": "craco eject",
     "storybook": "TAILWIND_MODE=watch start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "prettier": "prettier . --ignore-path .gitignore",
+    "prettier": "prettier .",
     "format:check": "yarn prettier --check",
     "format:fix": "yarn prettier --write",
     "type:check": "tsc",
