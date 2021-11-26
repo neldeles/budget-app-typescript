@@ -23,19 +23,19 @@ export const parameters = {
   layout: "fullscreen",
 };
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
-});
+// const queryClient = new QueryClient({
+//   defaultOptions: {
+//     queries: {
+//       retry: false,
+//     },
+//   },
+// });
 
 export const decorators = [
   mswDecorator,
   (Story) => (
-    <QueryClientProvider client={queryClient}>
-      <Router>{Story()}</Router>
-    </QueryClientProvider>
+    // <QueryClientProvider client={queryClient}>
+    <Router>{Story()}</Router>
+    // </QueryClientProvider>
   ),
 ];

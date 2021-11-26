@@ -1,9 +1,17 @@
 import { Meta, Story } from "@storybook/react";
 import { BudgetScreen } from ".";
 import { rest } from "msw";
-import { handlers } from "mocks/handlers";
 import { fakeUser } from "mocks/utils/generateFakeUser";
 import { TCategoryGroups } from "services/categoryGroupService";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const testQueryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 export default {
   title: "Components/Screens/BudgetScreen",
@@ -35,7 +43,11 @@ const categoryGroup = [
   }),
 ];
 
-const Template: Story = () => <BudgetScreen />;
+const Template: Story = () => (
+  <QueryClientProvider client={testQueryClient}>
+    <BudgetScreen />
+  </QueryClientProvider>
+);
 
 export const Default = Template.bind({});
 Default.parameters = {
