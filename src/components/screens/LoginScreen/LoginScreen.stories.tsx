@@ -1,4 +1,7 @@
+import { rest } from "msw";
+import { fakeUser } from "mocks/utils/generateFakeUser";
 import { LoginScreen } from ".";
+import { Story } from "@storybook/react";
 
 export default {
   title: "components/screens/LoginScreen",
@@ -14,4 +17,11 @@ export default {
   },
 };
 
-export const Default = () => <LoginScreen />;
+export const Default: Story = () => <LoginScreen />;
+Default.parameters = {
+  msw: [
+    rest.get("/auth/is-verify", (req, res, ctx) => {
+      return res(ctx.json(fakeUser));
+    }),
+  ],
+};
