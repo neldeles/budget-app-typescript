@@ -21,7 +21,7 @@ test("calls onSubmit with the username and password when submit is clicked", asy
 
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 
-  const email = fakeUser.email;
+  const email = "test@email.com";
   const password = "test123";
 
   const emailInput = screen.getByLabelText(/email/i);

@@ -43,7 +43,6 @@ export function LoginForm() {
       isRemembered: rememberMe,
     };
     loginUser.mutate(credentials, {
-      // TODO:-20 Add error for incorrect credentials
       onError: (error) => {
         let message;
         if (axios.isAxiosError(error) && error.response) {
