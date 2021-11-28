@@ -23,7 +23,7 @@ export const handlers = [
     (req, res, ctx) => {
       const { email, password } = req.body;
       const errorMessage = "Incorrect username and/or password.";
-      if (email !== fakeUser.email || password !== "test123") {
+      if (email !== "test@email.com" || password !== "test123") {
         return res(ctx.status(400), ctx.json({ message: errorMessage }));
       }
 
