@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import { fakeUser, fakeUserToken } from "./utils/generateFakeUser";
 import { TUser } from "types/global";
-import { TCategoryGroupPayload } from "components/molecules/Header/Header";
+import { TCategoryGroupPayload } from "components/screens/BudgetScreen/components/Header/Header";
 import { db } from "./db";
 import { TLoginCredentials } from "components/molecules/LoginForm";
 import { TCategoryGroups } from "services/categoryGroupService";

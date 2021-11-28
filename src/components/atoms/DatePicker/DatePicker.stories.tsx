@@ -1,3 +1,4 @@
+import { Story } from "@storybook/react";
 import { DatePicker } from ".";
 
 export default {

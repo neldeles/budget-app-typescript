@@ -6,4 +6,5 @@ export default {
   component: Header,
 } as Meta;
 
+// export const Default = () => <Header />;
 export const Default = () => <Header />;

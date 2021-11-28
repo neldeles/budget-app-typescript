@@ -1,16 +1,18 @@
+import { useMemo } from "react";
+
 import { classNames } from "utils/classNames";
 import { PlusIcon } from "@heroicons/react/solid";
 import { Modal } from "components/atoms/Modal";
 import { DashboardContainer } from "components/molecules/DashboardContainer";
-import { useMemo } from "react";
-import { Header } from "components/molecules/Header";
+import { Header } from "components/screens/BudgetScreen/components/Header";
 import { Table } from "components/molecules/Table";
 import { TUser } from "types/global";
 import * as categoryGroupService from "services/categoryGroupService";
 import { generateAuthConfig } from "utils/generateAuthConfig";
 import { useQuery } from "react-query";
-import { useField } from "hooks";
-import { useModal } from "components/atoms/Modal/Modal";
+import { datePickerReducer } from "components/atoms/DatePicker/datePickerReducer";
+import moment from "moment";
+import { createCtxReducer } from "utils/createCtxReducer";
 
 export type TBudgetScreenProps = {
   user: TUser;
@@ -101,6 +103,8 @@ const noTables = (
 //     </form>
 //   );
 // }
+const [ctx, DatePickerProvider] = createCtxReducer(datePickerReducer, moment());
+export const DatePickerContext = ctx;
 
 export function BudgetScreen() {
   const categoryGroups = useQuery(
@@ -182,22 +186,24 @@ export function BudgetScreen() {
   }
 
   return (
-    <DashboardContainer
-      header={<Header />}
-      // Non-null assertion because we have set initialData
-      // ergo will never be undefined.
-      pageContent={
-        categoryGroups.data!.length === 0
-          ? noTables
-          : categoryGroups.data!.map((categoryGroup) => (
-              <Table
-                key={categoryGroup.id}
-                columns={columns}
-                data={[]}
-                tableName={categoryGroup.name}
-              />
-            ))
-      }
-    />
+    <DatePickerProvider>
+      <DashboardContainer
+        header={<Header />}
+        // Non-null assertion because we have set initialData
+        // ergo will never be undefined.
+        pageContent={
+          categoryGroups.data!.length === 0
+            ? noTables
+            : categoryGroups.data!.map((categoryGroup) => (
+                <Table
+                  key={categoryGroup.id}
+                  columns={columns}
+                  data={[]}
+                  tableName={categoryGroup.name}
+                />
+              ))
+        }
+      />
+    </DatePickerProvider>
   );
 }

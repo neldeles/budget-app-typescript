@@ -7,6 +7,7 @@ import { useField } from "hooks";
 import { useMutation, useQueryClient } from "react-query";
 import * as categoryGroupService from "services/categoryGroupService";
 import { generateAuthConfig } from "utils/generateAuthConfig";
+import moment from "moment";
 
 export type TCategoryGroupPayload = {
   name: string;
@@ -93,9 +94,6 @@ function CategoryGroupForm() {
 }
 
 export function Header() {
-  const setModal = () => {
-    console.log("button clicked");
-  };
   return (
     <>
       <div className="py-5 px-4 sm:px-6 mx-auto max-w-7xl bg-gray-100">

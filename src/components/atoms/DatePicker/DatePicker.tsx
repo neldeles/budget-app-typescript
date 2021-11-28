@@ -1,43 +1,30 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import moment from "moment";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
+import { DatePickerContext } from "components/screens/BudgetScreen/BudgetScreen";
 
 export function DatePicker() {
-  const [currDate, setCurrDate] = useState<moment.Moment>(moment());
+  const { state, dispatch } = useContext(DatePickerContext);
 
   const handleChange: (value: string | moment.Moment) => void = (value) => {
     if (typeof value === "string") {
       throw new Error("No valid date received");
     }
-    setCurrDate(value);
+
+    // replace with useDatePicker dispatch
+    dispatch({ type: "jumpToMonth", payload: value });
   };
 
   const renderInput: (props: any, openCalendar: any) => JSX.Element = (
     props,
     openCalendar
   ) => {
-    const navigatePrevMonth = () => {
-      const currMonth = props.value;
-      const prevMonth = moment(currMonth, "MMM YYYY").subtract(1, "months");
-
-      // dispatch(updateDashboardDate(prevMonth));
-      setCurrDate(prevMonth);
-    };
-
-    const navigateNextMonth = () => {
-      const currMonth = props.value;
-      const nextMonth = moment(currMonth, "MMM YYYY").add(1, "months");
-
-      // dispatch(updateDashboardDate(nextMonth));
-      setCurrDate(nextMonth);
-    };
-
     return (
       <div className="inline-flex">
         <button
           className="inline-flex relative items-center py-2 px-2 text-sm font-medium text-gray-500 bg-white hover:bg-gray-50 rounded-l-md border border-gray-300"
-          onClick={navigatePrevMonth}
+          onClick={() => dispatch({ type: "previousMonth" })}
         >
           <span className="sr-only">Previous</span>
           <svg
@@ -79,7 +66,7 @@ export function DatePicker() {
         </button>
         <button
           className="inline-flex relative items-center py-2 px-2 text-sm font-medium text-gray-500 bg-white hover:bg-gray-50 rounded-r-md border border-gray-300"
-          onClick={navigateNextMonth}
+          onClick={() => dispatch({ type: "nextMonth" })}
         >
           <span className="sr-only">Next</span>
           <svg
@@ -103,7 +90,7 @@ export function DatePicker() {
     <Datetime
       dateFormat="MMM YYYY"
       timeFormat={false}
-      value={currDate}
+      value={state}
       renderInput={renderInput}
       onChange={handleChange}
       closeOnSelect={true}
