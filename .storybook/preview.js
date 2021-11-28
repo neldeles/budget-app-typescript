@@ -32,10 +32,10 @@ const queryClient = new QueryClient({
 });
 
 export const decorators = [
-  mswDecorator,
   (Story) => (
     <QueryClientProvider client={queryClient}>
       <Router>{Story()}</Router>
     </QueryClientProvider>
   ),
+  mswDecorator,
 ];
