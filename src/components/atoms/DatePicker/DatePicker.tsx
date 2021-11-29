@@ -61,6 +61,7 @@ export function DatePicker() {
           type="button"
           className="inline-flex relative justify-center py-2 px-4 w-full text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 shadow-sm focus:outline-none"
           id="menu-button"
+          aria-label="calendar"
           aria-expanded="true"
           aria-haspopup="true"
           onClick={openCalendar}
