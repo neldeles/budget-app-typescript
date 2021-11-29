@@ -3,20 +3,15 @@ import * as React from "react";
 import { DatePicker } from ".";
 import { datePickerReducer } from "./datePickerReducer";
 import moment from "moment";
-import { DatePickerCtxProvider } from "./DatePicker";
+import { DatePickerProvider } from "./DatePicker";
 
 export default {
   title: "Components/Atoms/DatePicker",
   component: DatePicker,
   decorators: [
     (Story: Story) => {
-      const [currDate, dispatch] = React.useReducer(
-        datePickerReducer,
-        moment()
-      );
-      const [DatePickerProvider] = DatePickerCtxProvider();
       return (
-        <DatePickerProvider value={{ currDate, dispatch }}>
+        <DatePickerProvider>
           <Story />
         </DatePickerProvider>
       );

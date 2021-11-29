@@ -1,18 +1,13 @@
 import * as React from "react";
-import { useContext } from "react";
 import moment from "moment";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
-import { TDatePickerActionType } from "./datePickerReducer";
+import { datePickerReducer, TDatePickerActionType } from "./datePickerReducer";
+import { createCtxReducer } from "utils/createCtxReducer";
 
-export type TDatePickerContext = {
-  currDate: moment.Moment;
-  dispatch: React.Dispatch<TDatePickerActionType>;
-};
-
-const DatePickerContext = React.createContext<TDatePickerContext | undefined>(
-  undefined
-);
+const [ctx, Provider] = createCtxReducer(datePickerReducer, moment());
+export const DatePickerProvider = Provider;
+const DatePickerContext = ctx;
 DatePickerContext.displayName = "DatePickerContext";
 
 export function useDatePicker() {
@@ -25,12 +20,8 @@ export function useDatePicker() {
   return context;
 }
 
-export function DatePickerCtxProvider() {
-  return [DatePickerContext.Provider] as const;
-}
-
 export function DatePicker() {
-  const { currDate, dispatch } = useDatePicker();
+  const { state: currDate, dispatch } = useDatePicker();
 
   const handleChange: (value: string | moment.Moment) => void = (value) => {
     if (typeof value === "string") {

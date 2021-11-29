@@ -11,11 +11,9 @@ import * as categoryGroupService from "services/categoryGroupService";
 import { generateAuthConfig } from "utils/generateAuthConfig";
 import { useQuery } from "react-query";
 import {
-  datePickerReducer,
-  TDatePickerActionType,
-} from "components/atoms/DatePicker/datePickerReducer";
-import moment from "moment";
-import { DatePickerCtxProvider } from "components/atoms/DatePicker/DatePicker";
+  DatePickerProvider,
+  useDatePicker,
+} from "components/atoms/DatePicker/DatePicker";
 
 export type TBudgetScreenProps = {
   user: TUser;
@@ -108,8 +106,20 @@ const noTables = (
 // }
 
 export function BudgetScreen() {
-  const [currDate, dispatch] = React.useReducer(datePickerReducer, moment());
-  const [DatePickerProvider] = DatePickerCtxProvider();
+  return (
+    <DatePickerProvider>
+      <BudgetScreenContents />
+    </DatePickerProvider>
+  );
+}
+
+function BudgetScreenContents() {
+  const { state: currDate } = useDatePicker();
+  console.log(
+    "🚀 ~ file: BudgetScreen.tsx ~ line 116 ~ BudgetScreen ~ currDate",
+    currDate
+  );
+
   const categoryGroups = useQuery(
     "categoryGroup",
     () => categoryGroupService.getAll(generateAuthConfig()),
@@ -189,24 +199,22 @@ export function BudgetScreen() {
   }
 
   return (
-    <DatePickerProvider value={{ currDate, dispatch }}>
-      <DashboardContainer
-        header={<Header />}
-        // Non-null assertion because we have set initialData
-        // ergo will never be undefined.
-        pageContent={
-          categoryGroups.data!.length === 0
-            ? noTables
-            : categoryGroups.data!.map((categoryGroup) => (
-                <Table
-                  key={categoryGroup.id}
-                  columns={columns}
-                  data={[]}
-                  tableName={categoryGroup.name}
-                />
-              ))
-        }
-      />
-    </DatePickerProvider>
+    <DashboardContainer
+      header={<Header />}
+      // Non-null assertion because we have set initialData
+      // ergo will never be undefined.
+      pageContent={
+        categoryGroups.data!.length === 0
+          ? noTables
+          : categoryGroups.data!.map((categoryGroup) => (
+              <Table
+                key={categoryGroup.id}
+                columns={columns}
+                data={[]}
+                tableName={categoryGroup.name}
+              />
+            ))
+      }
+    />
   );
 }
