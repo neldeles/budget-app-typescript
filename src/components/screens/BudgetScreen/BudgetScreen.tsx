@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
 import { classNames } from "utils/classNames";
 import { PlusIcon } from "@heroicons/react/solid";
@@ -10,9 +10,12 @@ import { TUser } from "types/global";
 import * as categoryGroupService from "services/categoryGroupService";
 import { generateAuthConfig } from "utils/generateAuthConfig";
 import { useQuery } from "react-query";
-import { datePickerReducer } from "components/atoms/DatePicker/datePickerReducer";
+import {
+  datePickerReducer,
+  TDatePickerActionType,
+} from "components/atoms/DatePicker/datePickerReducer";
 import moment from "moment";
-import { createCtxReducer } from "utils/createCtxReducer";
+import { DatePickerCtxProvider } from "components/atoms/DatePicker/DatePicker";
 
 export type TBudgetScreenProps = {
   user: TUser;
@@ -103,10 +106,10 @@ const noTables = (
 //     </form>
 //   );
 // }
-const [ctx, DatePickerProvider] = createCtxReducer(datePickerReducer, moment());
-export const DatePickerContext = ctx;
 
 export function BudgetScreen() {
+  const [currDate, dispatch] = React.useReducer(datePickerReducer, moment());
+  const [DatePickerProvider] = DatePickerCtxProvider();
   const categoryGroups = useQuery(
     "categoryGroup",
     () => categoryGroupService.getAll(generateAuthConfig()),
@@ -186,7 +189,7 @@ export function BudgetScreen() {
   }
 
   return (
-    <DatePickerProvider>
+    <DatePickerProvider value={{ currDate, dispatch }}>
       <DashboardContainer
         header={<Header />}
         // Non-null assertion because we have set initialData

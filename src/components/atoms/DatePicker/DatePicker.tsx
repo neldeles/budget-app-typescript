@@ -1,11 +1,36 @@
-import { useState, useContext } from "react";
+import * as React from "react";
+import { useContext } from "react";
 import moment from "moment";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
-import { DatePickerContext } from "components/screens/BudgetScreen/BudgetScreen";
+import { TDatePickerActionType } from "./datePickerReducer";
+
+export type TDatePickerContext = {
+  currDate: moment.Moment;
+  dispatch: React.Dispatch<TDatePickerActionType>;
+};
+
+const DatePickerContext = React.createContext<TDatePickerContext | undefined>(
+  undefined
+);
+DatePickerContext.displayName = "DatePickerContext";
+
+export function useDatePicker() {
+  const context = React.useContext(DatePickerContext);
+  if (context === undefined) {
+    throw new Error(
+      "🚨 useDatePicker must be used within a DatePickerCtxProvider"
+    );
+  }
+  return context;
+}
+
+export function DatePickerCtxProvider() {
+  return [DatePickerContext.Provider] as const;
+}
 
 export function DatePicker() {
-  const { state, dispatch } = useContext(DatePickerContext);
+  const { currDate, dispatch } = useDatePicker();
 
   const handleChange: (value: string | moment.Moment) => void = (value) => {
     if (typeof value === "string") {
@@ -90,7 +115,7 @@ export function DatePicker() {
     <Datetime
       dateFormat="MMM YYYY"
       timeFormat={false}
-      value={state}
+      value={currDate}
       renderInput={renderInput}
       onChange={handleChange}
       closeOnSelect={true}
