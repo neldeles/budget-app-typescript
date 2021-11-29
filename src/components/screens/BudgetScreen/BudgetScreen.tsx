@@ -115,14 +115,12 @@ export function BudgetScreen() {
 
 function BudgetScreenContents() {
   const { state: currDate } = useDatePicker();
-  console.log(
-    "🚀 ~ file: BudgetScreen.tsx ~ line 116 ~ BudgetScreen ~ currDate",
-    currDate
-  );
+
+  const config = generateAuthConfig();
 
   const categoryGroups = useQuery(
     "categoryGroup",
-    () => categoryGroupService.getAll(generateAuthConfig()),
+    () => categoryGroupService.getAll(currDate, config),
     {
       initialData: [],
     }

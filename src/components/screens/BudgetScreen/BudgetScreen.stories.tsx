@@ -28,6 +28,8 @@ const categoryGroup = [
         id: 1,
         name: "John Doe",
         user_id: "123445",
+        created_at: new Date(),
+        deleted_at: null,
       },
     ];
     return res(ctx.json(userCategoryGroups));

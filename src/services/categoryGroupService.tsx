@@ -1,11 +1,14 @@
 import axios from "axios";
 import { TCategoryGroupPayload } from "components/screens/BudgetScreen/components/Header/Header";
+import moment from "moment";
 import { TAuthConfig } from "types/global";
 
 export type TCategoryGroups = Array<{
   id: number;
   name: string;
   user_id: string;
+  created_at: Date;
+  deleted_at: null | Date;
 }>;
 
 export const create = async (
@@ -16,7 +19,16 @@ export const create = async (
   return response.data;
 };
 
-export const getAll = async (config: TAuthConfig): Promise<TCategoryGroups> => {
+export const getAll = async (
+  currDate: moment.Moment,
+  config: TAuthConfig
+): Promise<TCategoryGroups> => {
   const response = await axios.get("/categoryGroups/", config);
-  return response.data;
+  const data: TCategoryGroups = response.data;
+
+  const categoryGroups = data.filter((categoryGroup) =>
+    currDate.isBefore(categoryGroup.created_at)
+  );
+
+  return categoryGroups;
 };
