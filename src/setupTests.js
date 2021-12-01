@@ -1,4 +1,6 @@
 // src/setupTests.js
+import { drop } from "@mswjs/data";
+import { db } from "mocks/db";
 import { server } from "./mocks/server.js";
 // Establish API mocking before all tests.
 beforeAll(() => server.listen());
@@ -6,6 +8,7 @@ beforeAll(() => server.listen());
 // Reset any request handlers that we may add during the tests,
 // so they don't affect other tests.
 afterEach(() => {
+  drop(db);
   server.resetHandlers();
   window.localStorage.clear();
 });

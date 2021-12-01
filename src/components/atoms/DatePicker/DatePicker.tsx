@@ -21,7 +21,7 @@ export function useDatePicker() {
 }
 
 export function DatePicker() {
-  const { state: currDate, dispatch } = useDatePicker();
+  const { state: selectedDate, dispatch } = useDatePicker();
 
   const handleChange: (value: string | moment.Moment) => void = (value) => {
     if (typeof value === "string") {
@@ -107,7 +107,7 @@ export function DatePicker() {
     <Datetime
       dateFormat="MMM YYYY"
       timeFormat={false}
-      value={currDate}
+      value={selectedDate}
       renderInput={renderInput}
       onChange={handleChange}
       closeOnSelect={true}

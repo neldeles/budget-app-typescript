@@ -1,6 +1,5 @@
 import axios from "axios";
 import { TCategoryGroupPayload } from "components/screens/BudgetScreen/components/Header/Header";
-import moment from "moment";
 import { TAuthConfig } from "types/global";
 
 export type TCategoryGroups = Array<{
@@ -19,16 +18,31 @@ export const create = async (
   return response.data;
 };
 
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+] as const;
+type TMonths = typeof months[number];
+export type TSelectedMonth = `${TMonths} ${number}`;
+
 export const getAll = async (
-  currDate: moment.Moment,
+  selectedMonth: TSelectedMonth,
   config: TAuthConfig
 ): Promise<TCategoryGroups> => {
-  const response = await axios.get("/categoryGroups/", config);
-  const data: TCategoryGroups = response.data;
-
-  const categoryGroups = data.filter((categoryGroup) =>
-    currDate.isBefore(categoryGroup.created_at)
+  const response = await axios.get(
+    `/categoryGroups?month=${selectedMonth}`,
+    config
   );
 
-  return categoryGroups;
+  return response.data;
 };

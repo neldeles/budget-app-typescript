@@ -114,13 +114,15 @@ export function BudgetScreen() {
 }
 
 function BudgetScreenContents() {
-  const { state: currDate } = useDatePicker();
-
+  const { state: selectedDate } = useDatePicker();
+  const selectedMonth = selectedDate.format(
+    "MMM YYYY"
+  ) as categoryGroupService.TSelectedMonth;
   const config = generateAuthConfig();
 
   const categoryGroups = useQuery(
-    "categoryGroup",
-    () => categoryGroupService.getAll(currDate, config),
+    ["categoryGroup", selectedMonth],
+    () => categoryGroupService.getAll(selectedMonth, config),
     {
       initialData: [],
     }

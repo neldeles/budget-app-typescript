@@ -5,6 +5,7 @@ import { TCategoryGroupPayload } from "components/screens/BudgetScreen/component
 import { db } from "./db";
 import { TLoginCredentials } from "components/molecules/LoginForm";
 import { TCategoryGroups } from "services/categoryGroupService";
+import moment from "moment";
 
 type TExpectedError = {
   message: string;
@@ -73,6 +74,8 @@ export const handlers = [
       return res(ctx.status(403));
     }
 
+    const selectedMonth = req.url.searchParams.get("month");
+
     const userCategoryGroups = db.categoryGroup.findMany({
       where: {
         user_id: {
@@ -81,7 +84,13 @@ export const handlers = [
       },
     });
 
-    return res(ctx.json(userCategoryGroups));
+    const filteredCategoryGroups = userCategoryGroups.filter(
+      (categoryGroup) =>
+        categoryGroup.created_at.getMonth() <=
+        moment(selectedMonth, "MMM YYYY").toDate().getMonth()
+    );
+
+    return res(ctx.json(filteredCategoryGroups));
   }),
 
   // Handles a GET /user request
