@@ -7,38 +7,17 @@ import { fakeUserToken } from "mocks/utils/generateFakeUser";
 import { db } from "mocks/db";
 import moment from "moment";
 
-function initializeCategoryGroupsDatabase() {
-  const now = new Date();
-  const currentDate = moment(now);
+type TMockCategoryGroups = {
+  name: string;
+  deleted_at: Date | null;
+}[];
 
-  const mockCategoryGroups = [
-    {
-      name: "Current Month #1",
-      deleted_at: null,
-    },
-    {
-      name: "Current Month #2",
-      deleted_at: null,
-    },
-    {
-      name: "Previous Month",
-      created_at: currentDate.subtract(1, "months").toDate(),
-      deleted_at: null,
-    },
-    {
-      name: "Older than previous month",
-      created_at: currentDate.subtract(4, "months").toDate(),
-      deleted_at: null,
-    },
-  ];
-
-  mockCategoryGroups.forEach((categoryGroup) =>
-    db.categoryGroup.create(categoryGroup)
+function initializeCategoryGroupsDatabase(
+  mockCategoryGroups: TMockCategoryGroups
+) {
+  mockCategoryGroups.forEach((mockCategoryGroup) =>
+    db.categoryGroup.create(mockCategoryGroup)
   );
-
-  return {
-    mockCategoryGroups,
-  };
 }
 
 test("renders placeholder content if user has no category groups created yet", async () => {
@@ -50,38 +29,65 @@ test("renders placeholder content if user has no category groups created yet", a
 
 describe("if selected date is current date", () => {
   it("should render category groups created in same month", async () => {
-    const { mockCategoryGroups } = initializeCategoryGroupsDatabase();
+    const mockData = [
+      {
+        name: "Created in same month #1",
+        deleted_at: null,
+      },
+      {
+        name: "Created in same month #2",
+        deleted_at: null,
+      },
+    ];
+
+    initializeCategoryGroupsDatabase(mockData);
 
     window.localStorage.setItem("token", fakeUserToken);
     renderWithClient(<App />);
     await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
-    await waitForElementToBeRemoved(() => screen.getByLabelText(/no tables/i));
+    // await waitForElementToBeRemoved(() => screen.getByLabelText(/no tables/i));
 
-    expect(
-      screen.getByText(mockCategoryGroups[0].name, { exact: false })
-    ).toBeInTheDocument();
+    expect(await screen.findByText(mockData[0].name)).toBeInTheDocument();
 
-    expect(
-      screen.getByText(mockCategoryGroups[1].name, { exact: false })
-    ).toBeInTheDocument();
+    expect(await screen.findByText(mockData[1].name)).toBeInTheDocument();
   });
 
   it("should render category groups created in previous months", async () => {
-    const { mockCategoryGroups } = initializeCategoryGroupsDatabase();
+    const now = new Date();
+    const currentDate = moment(now);
+
+    const mockData = [
+      {
+        name: "Previous Month",
+        created_at: currentDate.subtract(1, "months").toDate(),
+        deleted_at: null,
+      },
+    ];
+
+    initializeCategoryGroupsDatabase(mockData);
 
     window.localStorage.setItem("token", fakeUserToken);
     renderWithClient(<App />);
     await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 
-    await waitForElementToBeRemoved(() => screen.getByLabelText(/no tables/i));
-
-    expect(screen.getByText(mockCategoryGroups[2].name)).toBeInTheDocument();
+    expect(await screen.findByText(mockData[0].name)).toBeInTheDocument();
   });
 });
 
-describe("if selected date is a previous month", () => {
+describe("after navigating to a previous month", () => {
   it("should not render category groups created in future months", async () => {
-    const { mockCategoryGroups } = initializeCategoryGroupsDatabase();
+    const mockData = [
+      {
+        name: "Created in future month #1",
+        deleted_at: null,
+      },
+      {
+        name: "Created in future month #2",
+        deleted_at: null,
+      },
+    ];
+
+    initializeCategoryGroupsDatabase(mockData);
     window.localStorage.setItem("token", fakeUserToken);
     renderWithClient(<App />);
     await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
@@ -91,37 +97,83 @@ describe("if selected date is a previous month", () => {
     userEvent.click(screen.getByRole("button", { name: /previous/i }));
     expect(displayedMonth).toHaveTextContent(previousMonth);
 
-    await waitForElementToBeRemoved(() => screen.getByLabelText(/no tables/i));
+    expect(screen.queryByText(mockData[0].name)).not.toBeInTheDocument();
 
-    expect(
-      screen.queryByText(mockCategoryGroups[0].name)
-    ).not.toBeInTheDocument();
-
-    expect(
-      screen.queryByText(mockCategoryGroups[1].name)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(mockData[1].name)).not.toBeInTheDocument();
   });
 
   it("should render category groups created in same month or older", async () => {
-    const { mockCategoryGroups } = initializeCategoryGroupsDatabase();
+    const now = new Date();
+    const currentDate = moment(now);
+    const previousMonthDate = currentDate.subtract(1, "months").toDate();
+
+    const mockData = [
+      {
+        name: "Creation date is the same month",
+        created_at: previousMonthDate,
+        deleted_at: null,
+      },
+      {
+        name: "Creation date is older than the same month",
+        created_at: currentDate.subtract(4, "months").toDate(),
+        deleted_at: null,
+      },
+    ];
+
+    initializeCategoryGroupsDatabase(mockData);
     window.localStorage.setItem("token", fakeUserToken);
     renderWithClient(<App />);
     await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 
-    const previousMonth = moment().subtract(1, "months").format("MMM YYYY");
+    const previousMonthString = moment()
+      .subtract(1, "months")
+      .format("MMM YYYY");
     const displayedMonth = screen.getByRole("button", { name: "calendar" });
+
     userEvent.click(screen.getByRole("button", { name: /previous/i }));
-    expect(displayedMonth).toHaveTextContent(previousMonth);
+    expect(displayedMonth).toHaveTextContent(previousMonthString);
 
     await waitForElementToBeRemoved(() => screen.getByLabelText(/no tables/i));
 
-    const createdSameMonth = await screen.findByText(
-      mockCategoryGroups[2].name
-    );
+    const createdSameMonth = await screen.findByText(mockData[0].name);
     expect(createdSameMonth).toBeInTheDocument();
-    const createdOlderThanSameMonth = await screen.findByText(
-      mockCategoryGroups[3].name
-    );
+    const createdOlderThanSameMonth = await screen.findByText(mockData[1].name);
     expect(createdOlderThanSameMonth).toBeInTheDocument();
+  });
+});
+
+describe("for any selected date", () => {
+  it("should not render category groups deleted on or before selected date", async () => {
+    const currentDate = new Date();
+
+    const mockData = [
+      {
+        name: "Deleted on selected date",
+        deleted_at: new Date(),
+      },
+      {
+        name: "Deleted before selected date",
+        created_at: moment(currentDate).subtract(2, "months").toDate(),
+        deleted_at: moment(currentDate).subtract(1, "months").toDate(),
+      },
+      {
+        name: "Deleted on a future date after selected date",
+        created_at: moment(currentDate).subtract(2, "months").toDate(),
+        deleted_at: moment(currentDate).add(1, "months").toDate(),
+      },
+    ];
+
+    initializeCategoryGroupsDatabase(mockData);
+
+    window.localStorage.setItem("token", fakeUserToken);
+    renderWithClient(<App />);
+    await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
+    await waitForElementToBeRemoved(() => screen.getByLabelText(/no tables/i));
+
+    expect(screen.queryByText(mockData[0].name)).not.toBeInTheDocument();
+
+    expect(screen.queryByText(mockData[1].name)).not.toBeInTheDocument();
+
+    expect(screen.getByText(mockData[2].name)).toBeInTheDocument();
   });
 });

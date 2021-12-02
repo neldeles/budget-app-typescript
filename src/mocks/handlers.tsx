@@ -74,7 +74,7 @@ export const handlers = [
       return res(ctx.status(403));
     }
 
-    const selectedMonth = req.url.searchParams.get("month");
+    const selectedMonthString = req.url.searchParams.get("month");
 
     const userCategoryGroups = db.categoryGroup.findMany({
       where: {
@@ -85,9 +85,24 @@ export const handlers = [
     });
 
     const filteredCategoryGroups = userCategoryGroups.filter(
-      (categoryGroup) =>
-        categoryGroup.created_at.getMonth() <=
-        moment(selectedMonth, "MMM YYYY").toDate().getMonth()
+      (categoryGroup) => {
+        const selectedMonth = moment(selectedMonthString, "MMM YYYY");
+        // Rules for CategoryGroup to be displayed in selected month.
+        // 1. Created on or before the selected month-year.
+        const condition1 =
+          moment(
+            moment(categoryGroup.created_at).format("MMM YYYY"),
+            "MMM YYYY"
+          ) <= selectedMonth;
+        // 2. Not deleted or deleted after the selected month-year.
+        const condition2 =
+          categoryGroup.deleted_at == null ||
+          moment(
+            moment(categoryGroup.deleted_at).format("MMM YYYY"),
+            "MMM YYYY"
+          ) > selectedMonth;
+        return condition1 && condition2;
+      }
     );
 
     return res(ctx.json(filteredCategoryGroups));

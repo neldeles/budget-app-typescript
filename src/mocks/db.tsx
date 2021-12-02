@@ -10,6 +10,6 @@ export const db = factory({
     name: String,
     user_id: () => fakeUser.id,
     created_at: () => new Date(),
-    deleted_at: nullable(Date),
+    deleted_at: nullable<Date>(() => null),
   },
 });

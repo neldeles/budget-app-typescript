@@ -37,9 +37,9 @@ settings:
   editorTheme: blackboard
   journalType: Single File
   journalPath: null
-  appendNewCardsTo: imdone-tasks.md
+  appendNewCardsTo: imdone.md
   newCardSyntax: MARKDOWN
-  replaceSpacesWith: "-"
+  replaceSpacesWith: '-'
   filteredLists:
     - filter: 'dueDate < "${tomorrow at 6AM}" AND list != DONE +dueDate +order'
       name: What's Due?
@@ -71,15 +71,15 @@ settings:
     addCompletedMeta: true
     addCheckBoxTasks: false
     doneList: DONE
-    taskPrefix: ""
-    tagPrefix: "#"
-    metaSep: ":"
+    taskPrefix: ''
+    tagPrefix: '#'
+    metaSep: ':'
     maxLines: 6
     addNewCardsToTop: true
     computed:
-      date: "${(new Date()).toDateString()}"
-      time: "${(new Date()).toLocaleTimeString()}"
-      timestamp: "${(new Date()).toISOString()}"
+      date: '${(new Date()).toDateString()}'
+      time: '${(new Date()).toLocaleTimeString()}'
+      timestamp: '${(new Date()).toISOString()}'
       dueEmoji: !<tag:yaml.org,2002:js/function> |-
         function anonymous(
         ) {
@@ -125,5 +125,5 @@ languages:
     symbol: //
     block:
       start: /*
-      end: "*/"
-      ignore: "*"
+      end: '*/'
+      ignore: '*'
