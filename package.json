@@ -115,5 +115,9 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "wallaby": {
+    "autoDetect": true,
+    "maxLogEntrySize": 40000
   }
 }
