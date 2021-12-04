@@ -9,6 +9,7 @@ import moment from "moment";
 
 type TMockCategoryGroups = {
   name: string;
+  created_on_month: Date;
   deleted_at: Date | null;
 }[];
 
@@ -32,10 +33,12 @@ describe("if selected date is current date", () => {
     const mockData = [
       {
         name: "Created in same month #1",
+        created_on_month: new Date(),
         deleted_at: null,
       },
       {
         name: "Created in same month #2",
+        created_on_month: new Date(),
         deleted_at: null,
       },
     ];
@@ -48,7 +51,6 @@ describe("if selected date is current date", () => {
     // await waitForElementToBeRemoved(() => screen.getByLabelText(/no tables/i));
 
     expect(await screen.findByText(mockData[0].name)).toBeInTheDocument();
-
     expect(await screen.findByText(mockData[1].name)).toBeInTheDocument();
   });
 
@@ -59,7 +61,7 @@ describe("if selected date is current date", () => {
     const mockData = [
       {
         name: "Previous Month",
-        created_at: currentDate.subtract(1, "months").toDate(),
+        created_on_month: currentDate.subtract(1, "months").toDate(),
         deleted_at: null,
       },
     ];
@@ -79,10 +81,12 @@ describe("after navigating to a previous month", () => {
     const mockData = [
       {
         name: "Created in future month #1",
+        created_on_month: new Date(),
         deleted_at: null,
       },
       {
         name: "Created in future month #2",
+        created_on_month: new Date(),
         deleted_at: null,
       },
     ];
@@ -102,7 +106,7 @@ describe("after navigating to a previous month", () => {
     expect(screen.queryByText(mockData[1].name)).not.toBeInTheDocument();
   });
 
-  it("should render category groups created in same month or older", async () => {
+  it("should render category groups created in the selected month or older", async () => {
     const now = new Date();
     const currentDate = moment(now);
     const previousMonthDate = currentDate.subtract(1, "months").toDate();
@@ -110,12 +114,12 @@ describe("after navigating to a previous month", () => {
     const mockData = [
       {
         name: "Creation date is the same month",
-        created_at: previousMonthDate,
+        created_on_month: previousMonthDate,
         deleted_at: null,
       },
       {
         name: "Creation date is older than the same month",
-        created_at: currentDate.subtract(4, "months").toDate(),
+        created_on_month: currentDate.subtract(4, "months").toDate(),
         deleted_at: null,
       },
     ];
@@ -149,16 +153,17 @@ describe("for any selected date", () => {
     const mockData = [
       {
         name: "Deleted on selected date",
+        created_on_month: new Date(),
         deleted_at: new Date(),
       },
       {
         name: "Deleted before selected date",
-        created_at: moment(currentDate).subtract(2, "months").toDate(),
+        created_on_month: moment(currentDate).subtract(2, "months").toDate(),
         deleted_at: moment(currentDate).subtract(1, "months").toDate(),
       },
       {
         name: "Deleted on a future date after selected date",
-        created_at: moment(currentDate).subtract(2, "months").toDate(),
+        created_on_month: moment(currentDate).subtract(2, "months").toDate(),
         deleted_at: moment(currentDate).add(1, "months").toDate(),
       },
     ];
@@ -168,12 +173,12 @@ describe("for any selected date", () => {
     window.localStorage.setItem("token", fakeUserToken);
     renderWithClient(<App />);
     await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
-    await waitForElementToBeRemoved(() => screen.getByLabelText(/no tables/i));
+    // await waitForElementToBeRemoved(() => screen.getByLabelText(/no tables/i));
 
     expect(screen.queryByText(mockData[0].name)).not.toBeInTheDocument();
 
     expect(screen.queryByText(mockData[1].name)).not.toBeInTheDocument();
 
-    expect(screen.getByText(mockData[2].name)).toBeInTheDocument();
+    expect(await screen.findByText(mockData[2].name)).toBeInTheDocument();
   });
 });

@@ -8,12 +8,11 @@ import { Header } from "components/screens/BudgetScreen/components/Header";
 import { Table } from "components/molecules/Table";
 import { TUser } from "types/global";
 import * as categoryGroupService from "services/categoryGroupService";
-import { generateAuthConfig } from "utils/generateAuthConfig";
-import { useQuery } from "react-query";
 import {
   DatePickerProvider,
   useDatePicker,
 } from "components/atoms/DatePicker/DatePicker";
+import { useUpdateCategoryGroupMonthQuery } from "./queries";
 
 export type TBudgetScreenProps = {
   user: TUser;
@@ -118,18 +117,11 @@ function BudgetScreenContents() {
   const selectedMonth = selectedDate.format(
     "MMM YYYY"
   ) as categoryGroupService.TSelectedMonth;
-  const config = generateAuthConfig();
 
-  const categoryGroups = useQuery(
-    ["categoryGroup", selectedMonth],
-    () => categoryGroupService.getAll(selectedMonth, config),
-    {
-      initialData: [],
-    }
-  );
-  // TODO: fetch all categories of user
+  const categoryGroups = useUpdateCategoryGroupMonthQuery(selectedMonth);
+
   // TODO: Populate each `category_group` table w its corresponding `category` rows (matching `category_group.id`)
-  // DOING:0 # Ability to add category row entry
+  // TODO:-5 # Ability to add category row entry
   // - [x] add cateogry button beside "category" col header
   // - on click opens modal form
   //    - [ ] create modal form

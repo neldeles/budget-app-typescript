@@ -91,7 +91,7 @@ export const handlers = [
         // 1. Created on or before the selected month-year.
         const condition1 =
           moment(
-            moment(categoryGroup.created_at).format("MMM YYYY"),
+            moment(categoryGroup.created_on_month).format("MMM YYYY"),
             "MMM YYYY"
           ) <= selectedMonth;
         // 2. Not deleted or deleted after the selected month-year.
