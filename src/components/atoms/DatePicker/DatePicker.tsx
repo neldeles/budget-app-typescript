@@ -2,7 +2,7 @@ import * as React from "react";
 import moment from "moment";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
-import { datePickerReducer, TDatePickerActionType } from "./datePickerReducer";
+import { datePickerReducer } from "./datePickerReducer";
 import { createCtxReducer } from "utils/createCtxReducer";
 
 const [ctx, Provider] = createCtxReducer(datePickerReducer, moment());

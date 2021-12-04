@@ -4,13 +4,13 @@ import { Button } from "components/atoms/Button";
 import { Modal } from "components/atoms/Modal";
 import { useModal } from "components/atoms/Modal/Modal";
 import { useField } from "hooks";
-import { useMutation, useQueryClient } from "react-query";
-import * as categoryGroupService from "services/categoryGroupService";
-import { generateAuthConfig } from "utils/generateAuthConfig";
-import moment from "moment";
+import { useCreateCategoryGroupQuery } from "../../queries";
+import { TSelectedMonth } from "services/categoryGroupService";
+import { useDatePicker } from "components/atoms/DatePicker/DatePicker";
 
 export type TCategoryGroupPayload = {
   name: string;
+  createdOnMonth: TSelectedMonth;
 };
 
 function CategoryGroupForm() {
@@ -19,24 +19,17 @@ function CategoryGroupForm() {
     "categoryGroup",
     "text"
   );
+  const { state: selectedDate } = useDatePicker();
+  const selectedMonth = selectedDate.format("MMM YYYY") as TSelectedMonth;
 
-  const queryClient = useQueryClient();
-
-  const createCategoryGroupMutation = useMutation(
-    (categoryGroup: TCategoryGroupPayload) =>
-      categoryGroupService.create(categoryGroup, generateAuthConfig()),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("categoryGroup");
-      },
-    }
-  );
+  const createCategoryGroupMutation = useCreateCategoryGroupQuery();
 
   const createCategoryGroup = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const payload: TCategoryGroupPayload = {
       name: categoryGroupProps.value,
+      createdOnMonth: selectedMonth,
     };
 
     createCategoryGroupMutation.mutate(payload);

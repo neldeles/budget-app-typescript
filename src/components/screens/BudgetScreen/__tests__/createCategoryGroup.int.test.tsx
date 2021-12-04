@@ -39,7 +39,7 @@ test("successfully open and close the create category group modal", async () => 
   });
 });
 
-test("successfully create a new category group", async () => {
+test("it creates a new category group on current month", async () => {
   window.localStorage.setItem("token", fakeUserToken);
   const categoryGroupName = "Some category group";
 
@@ -47,6 +47,35 @@ test("successfully create a new category group", async () => {
 
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 
+  const createCategoryButton = screen.getByRole("button", {
+    name: /create category group/i,
+  });
+  userEvent.click(createCategoryButton);
+  const modal = screen.getByRole("dialog");
+  expect(modal).toHaveAttribute("aria-modal", "true");
+
+  const inModal = within(modal);
+  userEvent.type(inModal.getByRole("textbox"), categoryGroupName);
+  userEvent.click(inModal.getByRole("button", { name: /save/i }));
+
+  await waitFor(() => {
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  expect(
+    await screen.findByRole("heading", { name: categoryGroupName })
+  ).toBeInTheDocument();
+});
+
+test("it navigates to previous month and creates a new category group", async () => {
+  window.localStorage.setItem("token", fakeUserToken);
+  const categoryGroupName = "Some category group";
+
+  renderWithClient(<App />);
+
+  await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
+
+  userEvent.click(screen.getByRole("button", { name: /previous/i }));
   const createCategoryButton = screen.getByRole("button", {
     name: /create category group/i,
   });

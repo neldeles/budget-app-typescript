@@ -61,8 +61,13 @@ export const handlers = [
       return res(ctx.status(403));
     }
 
+    const categoryGroup = {
+      name: req.body.name,
+      created_on_month: new Date(req.body.createdOnMonth),
+    };
+
     // Create a new entity for the categoryGroup model.
-    db.categoryGroup.create(req.body);
+    db.categoryGroup.create(categoryGroup);
 
     // Respond with a mocked response.
     return res(ctx.status(201));
