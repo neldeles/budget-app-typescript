@@ -1,6 +1,7 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as categoryGroupService from "services/categoryGroupService";
 import { generateAuthConfig } from "utils/generateAuthConfig";
+import { TCategoryGroupPayload } from "./components/Header/Header";
 
 export const categoryGroupKeys = {
   all: ["categoryGroup"] as const,
@@ -15,7 +16,21 @@ export function useUpdateCategoryGroupMonthQuery(
     categoryGroupKeys.month(selectedMonth),
     () => categoryGroupService.getAll(selectedMonth, generateAuthConfig()),
     {
-      initialData: [],
+      placeholderData: [],
+    }
+  );
+}
+
+export function useCreateCategoryGroupQuery() {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (categoryGroup: TCategoryGroupPayload) =>
+      categoryGroupService.create(categoryGroup, generateAuthConfig()),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(categoryGroupKeys.all);
+      },
     }
   );
 }
