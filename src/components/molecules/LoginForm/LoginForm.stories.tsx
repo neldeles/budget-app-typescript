@@ -1,7 +1,8 @@
 import { LoginForm } from ".";
 import { action } from "@storybook/addon-actions";
-import { Meta, Story } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { rest } from "msw";
+import { within, userEvent } from "@storybook/testing-library";
 
 export default {
   title: "components/molecules/LoginForm",
@@ -20,13 +21,12 @@ export default {
         type: "dynamic",
         excludeDecorators: true,
       },
-      description: {
-        component:
-          "Populate email and password fields and submit. Button will turn into loading state.",
-      },
+    },
+    actions: {
+      handles: ["click button"],
     },
   },
-} as Meta;
+} as ComponentMeta<typeof LoginForm>;
 
 const withPreventDefault = (action: any) => (e: React.SyntheticEvent) => {
   e.preventDefault();
@@ -34,18 +34,33 @@ const withPreventDefault = (action: any) => (e: React.SyntheticEvent) => {
   return action!(e);
 };
 
-const Template: Story = () => <LoginForm />;
+const Template: ComponentStory<typeof LoginForm> = () => <LoginForm />;
 
-// TODO: Fix msw add-on issue once we get reply from Github issue
 export const MockedDefault = Template.bind({});
-// onSubmit: withPreventDefault(action("onSubmit")),
-MockedDefault.parameters = {
+MockedDefault.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const emailField = await canvas.findByLabelText(/email/i);
+  await userEvent.type(emailField, "john.doe@email.com");
+
+  const passwordField = await canvas.findByLabelText(/password/i);
+  await userEvent.type(passwordField, "test123");
+};
+
+export const MockedLoading = Template.bind({});
+MockedLoading.parameters = {
   msw: [
     // Loading state
     rest.post("/auth/login", (req, res, ctx) => {
       return res(ctx.delay("infinite"));
     }),
   ],
+};
+MockedLoading.play = async (context) => {
+  const canvas = within(context.canvasElement);
+  await MockedDefault.play!(context);
+  await userEvent.click(
+    await canvas.findByRole("button", { name: /sign in/i })
+  );
 };
 
 export const MockedError = Template.bind({});
@@ -58,10 +73,11 @@ MockedError.parameters = {
       );
     }),
   ],
-  docs: {
-    description: {
-      story:
-        "Populate email and password fields and submit to mock the error state.",
-    },
-  },
+};
+MockedError.play = async (context) => {
+  const canvas = within(context.canvasElement);
+  await MockedDefault.play!(context);
+  await userEvent.click(
+    await canvas.findByRole("button", { name: /sign in/i })
+  );
 };
