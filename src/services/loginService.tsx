@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TLoginCredentials } from "components/molecules/LoginForm";
+import { TLoginCredentials } from "screens/LoginScreen/components/LoginForm";
 import { TUser } from "types/global";
 
 const loginService = async (credentials: TLoginCredentials): Promise<TUser> => {

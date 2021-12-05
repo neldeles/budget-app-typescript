@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TCategoryGroupPayload } from "components/screens/BudgetScreen/components/Header/Header";
+import { TCategoryGroupPayload } from "screens/BudgetScreen/components/Header/Header";
 import { TAuthConfig } from "types/global";
 
 export type TCategoryGroups = Array<{

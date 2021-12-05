@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import { BudgetScreen } from "components/screens/BudgetScreen";
-import { ReportsScreen } from "components/screens/ReportsScreen";
-import { WalletsScreen } from "components/screens/WalletsScreen";
-import { NotFoundScreen } from "components/screens/NotFoundScreen";
+import { BudgetScreen } from "screens/BudgetScreen";
+import { ReportsScreen } from "screens/ReportsScreen";
+import { WalletsScreen } from "screens/WalletsScreen";
+import { NotFoundScreen } from "screens/NotFoundScreen";
 
 function AuthenticatedApp() {
   return <AppRoutes />;

@@ -2,6 +2,11 @@
 import { drop } from "@mswjs/data";
 import { db } from "mocks/db";
 import { server } from "./mocks/server.js";
+import { setGlobalConfig } from "@storybook/testing-react";
+import * as globalStorybookConfig from "../.storybook/preview";
+
+setGlobalConfig(globalStorybookConfig);
+
 // Establish API mocking before all tests.
 beforeAll(() => server.listen());
 

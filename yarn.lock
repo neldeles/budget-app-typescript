@@ -3010,6 +3010,13 @@
     "@testing-library/user-event" "^13.2.1"
     ts-dedent "^2.2.0"
 
+"@storybook/testing-react@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@storybook/testing-react/-/testing-react-1.2.0.tgz#3fea9db6cecb3a66d0f3aa8a88bebd4286cf5d5e"
+  integrity sha512-razzT4R+vTutM7ZjTURkzgNrtFpuHjkz3+DiyON0634NNV54PvievNmAu3SJ2Q1i6pYBlU7tg/y5qg7Lj0/KmA==
+  dependencies:
+    "@storybook/csf" "0.0.2--canary.87bc651.0"
+
 "@storybook/theming@6.3.12":
   version "6.3.12"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-6.3.12.tgz#5bddf9bd90a60709b5ab238ecdb7d9055dd7862e"
