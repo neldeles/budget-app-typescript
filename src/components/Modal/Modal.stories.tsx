@@ -1,5 +1,5 @@
-import { Meta, Story } from "@storybook/react";
-import { Modal, TModalProps } from ".";
+import { ComponentMeta, ComponentStory, Meta, Story } from "@storybook/react";
+import { Modal } from ".";
 import { Button } from "../Button";
 import { within, userEvent } from "@storybook/testing-library";
 
@@ -22,7 +22,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TModalProps> = (args) => (
+const Template: ComponentStory<typeof Modal> = (args) => (
   <Modal>
     <Modal.OpenButton>
       <Button variant="primary" width="default">
@@ -32,22 +32,6 @@ const Template: Story<TModalProps> = (args) => (
     {args.children}
   </Modal>
 );
-
-// export const Default = () => (
-//   <Modal>
-//     <Modal.OpenButton>
-//       <Button variant="primary" width="default">
-//         Open Modal
-//       </Button>
-//     </Modal.OpenButton>
-//     <Modal.Contents>
-//       Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-//       accusantium laudantium a sed, eaque repellat. Maiores dolorum rerum cum,
-//       quasi distinctio modi est inventore, porro soluta dolores accusamus
-//       aspernatur eum?
-//     </Modal.Contents>
-//   </Modal>
-// );
 
 export const Default = Template.bind({});
 Default.args = {
@@ -59,6 +43,12 @@ Default.args = {
       aspernatur eum?
     </Modal.ContentBase>
   ),
+};
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(
+    await canvas.findByRole("button", { name: /open modal/i })
+  );
 };
 
 export const WithDismissButton = Template.bind({});
@@ -75,8 +65,5 @@ WithDismissButton.args = {
   ),
 };
 WithDismissButton.play = async (context) => {
-  const canvas = within(context.canvasElement);
-  await userEvent.click(
-    await canvas.findByRole("button", { name: /open modal/i })
-  );
+  await Default.play!(context);
 };
