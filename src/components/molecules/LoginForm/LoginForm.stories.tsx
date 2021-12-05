@@ -48,12 +48,14 @@ MockedDefault.play = async ({ canvasElement }) => {
 
 export const MockedLoading = Template.bind({});
 MockedLoading.parameters = {
-  msw: [
-    // Loading state
-    rest.post("/auth/login", (req, res, ctx) => {
-      return res(ctx.delay("infinite"));
-    }),
-  ],
+  msw: {
+    handlers: [
+      // Loading state
+      rest.post("/auth/login", (req, res, ctx) => {
+        return res(ctx.delay("infinite"));
+      }),
+    ],
+  },
 };
 MockedLoading.play = async (context) => {
   const canvas = within(context.canvasElement);
@@ -65,14 +67,16 @@ MockedLoading.play = async (context) => {
 
 export const MockedError = Template.bind({});
 MockedError.parameters = {
-  msw: [
-    rest.post("/auth/login", (req, res, ctx) => {
-      return res(
-        ctx.status(400),
-        ctx.json({ message: "Incorrect email and/or password. xxxxx" })
-      );
-    }),
-  ],
+  msw: {
+    handlers: [
+      rest.post("/auth/login", (req, res, ctx) => {
+        return res(
+          ctx.status(400),
+          ctx.json({ message: "Incorrect email and/or password. xxxxx" })
+        );
+      }),
+    ],
+  },
 };
 MockedError.play = async (context) => {
   const canvas = within(context.canvasElement);
