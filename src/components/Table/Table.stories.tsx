@@ -3,7 +3,7 @@ import { Table } from ".";
 import { TTableProps } from "./Table";
 
 export default {
-  title: "Components/Molecules/Table",
+  title: "components/Table",
   component: Table,
   parameters: {
     componentSubtitle: "Primary table template component",

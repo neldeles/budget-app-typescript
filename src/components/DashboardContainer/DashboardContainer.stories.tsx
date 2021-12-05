@@ -10,7 +10,7 @@ const styles = {
 };
 
 export default {
-  title: "Components/Molecules/DashboardContainer",
+  title: "components/DashboardContainer",
   component: DashboardContainer,
   parameters: {
     componentSubtitle: "Primary container for the different dashboard pages",

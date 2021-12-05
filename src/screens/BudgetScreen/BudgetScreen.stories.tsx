@@ -5,7 +5,7 @@ import { fakeUser } from "mocks/utils/generateFakeUser";
 import { TCategoryGroups } from "services/categoryGroupService";
 
 export default {
-  title: "Components/Screens/BudgetScreen",
+  title: "Screens/BudgetScreen",
   component: BudgetScreen,
   parameters: {
     docs: {

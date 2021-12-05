@@ -5,7 +5,7 @@ import { rest } from "msw";
 import { fakeUser } from "mocks/utils/generateFakeUser";
 
 export default {
-  title: "Components/Molecules/Sidebar",
+  title: "components/Sidebar",
   component: Sidebar,
 } as Meta;
 

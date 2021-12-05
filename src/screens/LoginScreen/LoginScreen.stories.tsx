@@ -4,7 +4,7 @@ import { LoginScreen } from ".";
 import { Story } from "@storybook/react";
 
 export default {
-  title: "components/screens/LoginScreen",
+  title: "Screens/LoginScreen",
   component: LoginScreen,
   parameters: {
     // opt out of decorators rendering in code preview

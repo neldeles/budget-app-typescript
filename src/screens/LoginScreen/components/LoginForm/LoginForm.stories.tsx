@@ -4,7 +4,7 @@ import { rest } from "msw";
 import { within, userEvent } from "@storybook/testing-library";
 
 export default {
-  title: "components/molecules/LoginForm",
+  title: "Screens/LoginScreen/Components/LoginForm",
   component: LoginForm,
   decorators: [
     (Story) => (
