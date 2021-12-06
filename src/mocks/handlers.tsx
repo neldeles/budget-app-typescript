@@ -6,6 +6,7 @@ import { db } from "./db";
 import { TLoginCredentials } from "screens/LoginScreen/components/LoginForm";
 import { TCategoryGroups } from "services/categoryGroupService";
 import moment from "moment";
+import { categoryHandlers } from "./handlers/category-handlers";
 
 type TExpectedError = {
   message: string;
@@ -89,7 +90,7 @@ export const handlers = [
       },
     });
 
-    const filteredCategoryGroups = userCategoryGroups.filter(
+    const selectedMonthCategoryGroups = userCategoryGroups.filter(
       (categoryGroup) => {
         const selectedMonth = moment(selectedMonthString, "MMM YYYY");
         // Rules for CategoryGroup to be displayed in selected month.
@@ -110,8 +111,10 @@ export const handlers = [
       }
     );
 
-    return res(ctx.json(filteredCategoryGroups));
+    return res(ctx.json(selectedMonthCategoryGroups));
   }),
+
+  ...categoryHandlers,
 
   // Handles a GET /user request
   // rest.get("/user", (req, res, ctx) => {

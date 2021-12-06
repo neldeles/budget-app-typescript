@@ -1,8 +1,10 @@
 import * as React from "react";
 import { useTable, Column } from "react-table";
+import type { TableInstance, TableState } from "react-table";
 
 export type TTableProps = {
   tableName: string;
+  tableId: any;
   /** `columns` table option of `react-table` https://react-table.tanstack.com/docs/api/useTable */
   columns: Array<Column>;
   /** `data` table option of `react-table` https://react-table.tanstack.com/docs/api/useTable */
@@ -15,7 +17,7 @@ export function Table(props: TTableProps) {
   const columns = React.useMemo(() => props.columns, [props.columns]);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+    useTable({ columns, data, initialState: props.tableId });
 
   return (
     <>

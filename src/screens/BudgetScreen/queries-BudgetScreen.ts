@@ -9,7 +9,7 @@ export const categoryGroupKeys = {
     [...categoryGroupKeys.all, month] as const,
 };
 
-export function useUpdateCategoryGroupMonthQuery(
+export function useFetchCategoryGroupsMonthQuery(
   selectedMonth: categoryGroupService.TSelectedMonth
 ) {
   return useQuery(
@@ -21,7 +21,7 @@ export function useUpdateCategoryGroupMonthQuery(
   );
 }
 
-export function useCreateCategoryGroupQuery() {
+export function useCreateCategoryGroup() {
   const queryClient = useQueryClient();
 
   return useMutation(

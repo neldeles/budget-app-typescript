@@ -1,8 +1,9 @@
-import { Meta, Story } from "@storybook/react";
+import { Meta, ComponentStory } from "@storybook/react";
 import { BudgetScreen } from ".";
 import { rest } from "msw";
 import { fakeUser } from "mocks/utils/generateFakeUser";
 import { TCategoryGroups } from "services/categoryGroupService";
+import { within, userEvent, screen } from "@storybook/testing-library";
 
 export default {
   title: "Screens/BudgetScreen",
@@ -36,7 +37,21 @@ const categoryGroup = [
   }),
 ];
 
-const Template: Story = () => <BudgetScreen />;
+const category = [
+  rest.get("/category", (req, res, ctx) => {
+    const category = [
+      {
+        id: 1,
+        name: "Food",
+        user_id: "12345",
+        deleted_at: null,
+      },
+    ];
+    return res(ctx.json(category));
+  }),
+];
+
+const Template: ComponentStory<typeof BudgetScreen> = () => <BudgetScreen />;
 
 export const Default = Template.bind({});
 Default.parameters = {
@@ -47,4 +62,22 @@ Default.parameters = {
     }),
     ...categoryGroup,
   ],
+};
+
+export const CreateCategory = Template.bind({});
+// TODO: # Make auth/is-verify a global handler
+CreateCategory.parameters = {
+  msw: [
+    rest.get("/auth/is-verify", (req, res, ctx) => {
+      return res(ctx.json(fakeUser));
+    }),
+    ...categoryGroup,
+    ...category,
+  ],
+};
+CreateCategory.play = async (context) => {
+  const canvas = within(context.canvasElement);
+  await userEvent.click(
+    await canvas.findByRole("button", { name: /add category/i })
+  );
 };

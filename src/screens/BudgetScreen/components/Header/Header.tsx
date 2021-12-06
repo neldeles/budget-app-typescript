@@ -4,9 +4,9 @@ import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { useModal } from "components/Modal/Modal";
 import { useField } from "hooks";
-import { useCreateCategoryGroupQuery } from "../../queries";
 import { TSelectedMonth } from "services/categoryGroupService";
 import { useDatePicker } from "components/DatePicker/DatePicker";
+import { useCreateCategoryGroup } from "screens/BudgetScreen/queries-BudgetScreen";
 
 export type TCategoryGroupPayload = {
   name: string;
@@ -22,7 +22,7 @@ function CategoryGroupForm() {
   const { state: selectedDate } = useDatePicker();
   const selectedMonth = selectedDate.format("MMM YYYY") as TSelectedMonth;
 
-  const createCategoryGroupMutation = useCreateCategoryGroupQuery();
+  const createCategoryGroupMutation = useCreateCategoryGroup();
 
   const createCategoryGroup = async (e: React.FormEvent) => {
     e.preventDefault();
