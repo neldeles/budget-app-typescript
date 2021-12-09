@@ -1,5 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from "react-query";
 import * as categoryGroupService from "services/categoryGroupService";
+import * as categoryService from "services/categoryService";
 import { generateAuthConfig } from "utils/generateAuthConfig";
 import { TCategoryGroupPayload } from "./components/Header/Header";
 
@@ -12,7 +18,7 @@ export const categoryGroupKeys = {
 export function useFetchCategoryGroupsMonthQuery(
   selectedMonth: categoryGroupService.TSelectedMonth
 ) {
-  return useQuery(
+  return useQuery<categoryGroupService.TCategoryGroups, Error>(
     categoryGroupKeys.month(selectedMonth),
     () => categoryGroupService.getAll(selectedMonth, generateAuthConfig()),
     {
@@ -41,11 +47,16 @@ export const categoryKeys = {
     [...categoryKeys.all, categoryGroupIds] as const,
 };
 
-// export function useFetchFilteredCategoriesQuery(
-//   categoryGroupIds: Array<string>
-// ) {
-//   return useQuery(
-//     categoryKeys.withCategoryGroupIds(categoryGroupIds),
-
-//   )
-// }
+export function useFetchCategoriesWithCategoryGroupIdsQuery(
+  selectedMonth: categoryGroupService.TSelectedMonth,
+  categoryGroupIds: Array<string>
+) {
+  return useQuery<categoryService.TCategoryTable, Error>(
+    categoryKeys.withCategoryGroupIds(categoryGroupIds),
+    () => categoryService.getAll(selectedMonth, categoryGroupIds),
+    {
+      enabled: !!categoryGroupIds,
+      placeholderData: [],
+    }
+  );
+}

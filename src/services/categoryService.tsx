@@ -11,7 +11,7 @@ export type TCategoryTableData = {
   available: number;
 };
 
-type TCategoryTable = {
+export type TCategoryTable = {
   categoryGroupId: string;
   data: TCategoryTableData;
 }[];
@@ -28,25 +28,21 @@ export const create = async (category: TCategoryPayload) => {
 
 export const getAll = async (
   selectedMonth: TSelectedMonth,
-  categoryGroupIds: Array<string> | undefined
-): Promise<TCategoryTable | undefined> => {
-  if (typeof categoryGroupIds !== undefined) {
-    const params = {
-      params: {
-        month: selectedMonth,
-        categoryGroupIds: categoryGroupIds,
-      },
-      paramsSerializer: (params: unknown) => {
-        return qs.stringify(params, { arrayFormat: "repeat" });
-      },
-    };
-    const response = await axios.get(
-      `/categories`,
-      generateAuthConfig(params) //?
-    );
+  categoryGroupIds: Array<string>
+): Promise<TCategoryTable> => {
+  const params = {
+    params: {
+      month: selectedMonth,
+      categoryGroupIds: categoryGroupIds,
+    },
+    paramsSerializer: (params: unknown) => {
+      return qs.stringify(params, { arrayFormat: "repeat" });
+    },
+  };
+  const response = await axios.get(
+    `/categories`,
+    generateAuthConfig(params) //?
+  );
 
-    return response.data;
-  }
-
-  return;
+  return response.data;
 };

@@ -44,5 +44,5 @@ export const getAll = async (
     config
   );
 
-  return response.data;
+  return response.data as TCategoryGroups;
 };

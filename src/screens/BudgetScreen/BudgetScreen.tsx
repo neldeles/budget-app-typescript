@@ -11,10 +11,11 @@ import {
   DatePickerProvider,
   useDatePicker,
 } from "components/DatePicker/DatePicker";
-import { useFetchCategoryGroupsMonthQuery } from "./budget-screen-queries";
+import {
+  useFetchCategoriesWithCategoryGroupIdsQuery,
+  useFetchCategoryGroupsMonthQuery,
+} from "./budget-screen-queries";
 import { CategoryForm } from "./components/CategoryForm";
-import { useQuery } from "react-query";
-import * as categoryService from "services/categoryService";
 
 export type TBudgetScreenProps = {
   user: TUser;
@@ -40,19 +41,17 @@ function BudgetScreenContents() {
     "MMM YYYY"
   ) as categoryGroupService.TSelectedMonth;
 
-  const categoryGroups = useFetchCategoryGroupsMonthQuery(selectedMonth);
+  const categoryGroupsQuery = useFetchCategoryGroupsMonthQuery(selectedMonth);
 
-  const categoryGroupIds = categoryGroups.data?.map(
+  const categoryGroups = categoryGroupsQuery.data ?? [];
+
+  const categoryGroupIds = categoryGroups.map(
     (categoryGroup) => categoryGroup.id
   );
 
-  const categories = useQuery(
-    ["categories", categoryGroupIds],
-    () => categoryService.getAll(selectedMonth, categoryGroupIds),
-    {
-      enabled: !!categoryGroupIds,
-      placeholderData: [],
-    }
+  const categories = useFetchCategoriesWithCategoryGroupIdsQuery(
+    selectedMonth,
+    categoryGroupIds
   );
 
   const columns = useMemo(
@@ -109,8 +108,8 @@ function BudgetScreenContents() {
     []
   );
 
-  if (categoryGroups.error instanceof Error) {
-    return <h1>Error: {categoryGroups.error.message}</h1>;
+  if (categoryGroupsQuery.error instanceof Error) {
+    return <h1>Error: {categoryGroupsQuery.error.message}</h1>;
   }
 
   return (
@@ -119,9 +118,9 @@ function BudgetScreenContents() {
       // Non-null assertion because we have set initialData
       // ergo will never be undefined.
       pageContent={
-        categoryGroups.data!.length === 0
+        categoryGroups.length === 0
           ? noTables
-          : categoryGroups.data!.map((categoryGroup) => (
+          : categoryGroups.map((categoryGroup) => (
               <Table
                 key={categoryGroup.id}
                 tableId={categoryGroup.id}
