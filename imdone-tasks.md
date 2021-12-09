@@ -1,4 +1,9 @@
-
+[# Add test for `[]` category group](#TODO:-30)
+- since we handle `undefined` by returning an empty array, should check if it
+renders correctly
+<!--
+TODO:2021-12-09T15:41:37.733Z
+-->
 
 [# Fix Storybook stories](#DONE:-30)
 States of the stories are now wonky after React Query and MSW implementations
