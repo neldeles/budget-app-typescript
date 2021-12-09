@@ -6,12 +6,28 @@ import { renderWithClient } from "utils/tests";
 import { fakeUserToken } from "mocks/utils/generateFakeUser";
 import { db } from "mocks/db";
 import moment from "moment";
+import { models } from "mocks/db";
 
-type TMockCategoryGroups = {
-  name: string;
-  created_on_month: Date;
-  deleted_at: Date | null;
-}[];
+type CategoryGroupModelKeys = keyof typeof models["categoryGroup"];
+type AnyCategoryGroup = { [K in CategoryGroupModelKeys]?: any };
+type RequireKeys<T extends object, K extends keyof T> = Required<Pick<T, K>> &
+  Omit<T, K> extends infer O
+  ? { [P in keyof O]: O[P] }
+  : never;
+type Override<T1, T2> = Omit<T1, keyof T2> & T2;
+type BaseCategoryGroup = RequireKeys<
+  AnyCategoryGroup,
+  "name" | "created_in_month" | "deleted_at"
+>[];
+
+type TMockCategoryGroups = Override<
+  BaseCategoryGroup,
+  {
+    name: string;
+    created_in_month: Date;
+    deleted_at: Date | null;
+  }[]
+>;
 
 function initializeCategoryGroupsDatabase(
   mockCategoryGroups: TMockCategoryGroups
@@ -33,12 +49,12 @@ describe("if selected date is current date", () => {
     const mockData = [
       {
         name: "Created in same month #1",
-        created_on_month: new Date(),
+        created_in_month: new Date(),
         deleted_at: null,
       },
       {
         name: "Created in same month #2",
-        created_on_month: new Date(),
+        created_in_month: new Date(),
         deleted_at: null,
       },
     ];
@@ -61,7 +77,7 @@ describe("if selected date is current date", () => {
     const mockData = [
       {
         name: "Previous Month",
-        created_on_month: currentDate.subtract(1, "months").toDate(),
+        created_in_month: currentDate.subtract(1, "months").toDate(),
         deleted_at: null,
       },
     ];
@@ -81,12 +97,12 @@ describe("after navigating to a previous month", () => {
     const mockData = [
       {
         name: "Created in future month #1",
-        created_on_month: new Date(),
+        created_in_month: new Date(),
         deleted_at: null,
       },
       {
         name: "Created in future month #2",
-        created_on_month: new Date(),
+        created_in_month: new Date(),
         deleted_at: null,
       },
     ];
@@ -114,12 +130,12 @@ describe("after navigating to a previous month", () => {
     const mockData = [
       {
         name: "Creation date is the same month",
-        created_on_month: previousMonthDate,
+        created_in_month: previousMonthDate,
         deleted_at: null,
       },
       {
         name: "Creation date is older than the same month",
-        created_on_month: currentDate.subtract(4, "months").toDate(),
+        created_in_month: currentDate.subtract(4, "months").toDate(),
         deleted_at: null,
       },
     ];
@@ -137,8 +153,6 @@ describe("after navigating to a previous month", () => {
     userEvent.click(screen.getByRole("button", { name: /previous/i }));
     expect(displayedMonth).toHaveTextContent(previousMonthString);
 
-    await waitForElementToBeRemoved(() => screen.getByLabelText(/no tables/i));
-
     const createdSameMonth = await screen.findByText(mockData[0].name);
     expect(createdSameMonth).toBeInTheDocument();
     const createdOlderThanSameMonth = await screen.findByText(mockData[1].name);
@@ -153,17 +167,17 @@ describe("for any selected date", () => {
     const mockData = [
       {
         name: "Deleted on selected date",
-        created_on_month: new Date(),
+        created_in_month: new Date(),
         deleted_at: new Date(),
       },
       {
         name: "Deleted before selected date",
-        created_on_month: moment(currentDate).subtract(2, "months").toDate(),
+        created_in_month: moment(currentDate).subtract(2, "months").toDate(),
         deleted_at: moment(currentDate).subtract(1, "months").toDate(),
       },
       {
         name: "Deleted on a future date after selected date",
-        created_on_month: moment(currentDate).subtract(2, "months").toDate(),
+        created_in_month: moment(currentDate).subtract(2, "months").toDate(),
         deleted_at: moment(currentDate).add(1, "months").toDate(),
       },
     ];

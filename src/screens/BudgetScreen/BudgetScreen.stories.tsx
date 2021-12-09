@@ -26,7 +26,7 @@ const categoryGroup = [
   rest.get("/categoryGroups", (req, res, ctx) => {
     const userCategoryGroups: TCategoryGroups = [
       {
-        id: 1,
+        id: "1",
         name: "John Doe",
         user_id: "123445",
         created_at: new Date(),

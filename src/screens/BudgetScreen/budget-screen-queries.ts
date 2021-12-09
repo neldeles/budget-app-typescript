@@ -34,3 +34,18 @@ export function useCreateCategoryGroup() {
     }
   );
 }
+
+export const categoryKeys = {
+  all: ["categories"] as const,
+  withCategoryGroupIds: (categoryGroupIds: Array<string>) =>
+    [...categoryKeys.all, categoryGroupIds] as const,
+};
+
+// export function useFetchFilteredCategoriesQuery(
+//   categoryGroupIds: Array<string>
+// ) {
+//   return useQuery(
+//     categoryKeys.withCategoryGroupIds(categoryGroupIds),
+
+//   )
+// }

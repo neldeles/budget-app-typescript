@@ -4,8 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XIcon, MenuIcon } from "@heroicons/react/outline";
 
 // Components
-import { Sidebar, TSidebarProps } from "../Sidebar/Sidebar";
-import { TUser } from "types/global";
+import { Sidebar } from "../Sidebar/Sidebar";
 
 export type TDashboardContainerProps = {
   pageContent: React.ReactNode;

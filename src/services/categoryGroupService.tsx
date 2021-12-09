@@ -3,7 +3,7 @@ import { TCategoryGroupPayload } from "screens/BudgetScreen/components/Header/He
 import { TAuthConfig } from "types/global";
 
 export type TCategoryGroups = Array<{
-  id: number;
+  id: string;
   name: string;
   user_id: string;
   created_at: Date;

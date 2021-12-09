@@ -6,7 +6,7 @@ import { useModal } from "components/Modal/Modal";
 import { useField } from "hooks";
 import { TSelectedMonth } from "services/categoryGroupService";
 import { useDatePicker } from "components/DatePicker/DatePicker";
-import { useCreateCategoryGroup } from "screens/BudgetScreen/queries-BudgetScreen";
+import { useCreateCategoryGroup } from "screens/BudgetScreen/budget-screen-queries";
 
 export type TCategoryGroupPayload = {
   name: string;

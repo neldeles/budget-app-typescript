@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useTable, Column } from "react-table";
-import type { TableInstance, TableState } from "react-table";
 
 export type TTableProps = {
   tableName: string;
@@ -23,7 +22,10 @@ export function Table(props: TTableProps) {
     <>
       <div className="flex flex-col mb-12">
         <div className="overflow-x-auto -my-2 sm:-mx-6 lg:-mx-8">
-          <div className="inline-block py-2 sm:px-6 lg:px-8 min-w-full align-middle">
+          <div
+            className="inline-block py-2 sm:px-6 lg:px-8 min-w-full align-middle"
+            data-testid={props.tableName}
+          >
             <h3 className="mb-6 text-lg font-medium leading-6 text-gray-900">
               {props.tableName}
             </h3>

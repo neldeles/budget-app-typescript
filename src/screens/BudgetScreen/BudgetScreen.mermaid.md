@@ -15,6 +15,7 @@ sequenceDiagram %% Scenario: Initial load of category groups
   participant Msw as MSW Handler
   note left of Uq: categoryGroups
   Uq->>Ax: trigger fetch of categoryGroups
+  note over Uq,Ax: only for selected month
   Ax-)Msw: GET request (passes authconfig)
   Msw-->>Ax: response object
   Ax-->>Uq: categoryGroup {name, id}[]

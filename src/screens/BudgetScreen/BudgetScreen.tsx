@@ -11,8 +11,10 @@ import {
   DatePickerProvider,
   useDatePicker,
 } from "components/DatePicker/DatePicker";
-import { useFetchCategoryGroupsMonthQuery } from "./queries-BudgetScreen";
+import { useFetchCategoryGroupsMonthQuery } from "./budget-screen-queries";
 import { CategoryForm } from "./components/CategoryForm";
+import { useQuery } from "react-query";
+import * as categoryService from "services/categoryService";
 
 export type TBudgetScreenProps = {
   user: TUser;
@@ -23,86 +25,6 @@ const noTables = (
     <div className="h-96 rounded-lg border-4 border-gray-200 border-dashed" />
   </div>
 );
-
-// function CategoryRowForm() {
-//   const categoryInput = useField("categoryName", "text");
-//   const { clearState, ...categoryFieldProps } = categoryInput;
-//   const { initialFocusRef, setIsOpen } = useModal();
-
-//   const currDate = useSelector(selectDashboardDate);
-
-//   const payload = {
-//     name: categoryInput.value,
-//     date: currDate,
-//     category_group_id: categoryGroupId,
-//   };
-
-//   const { handleConfirm } = useFormAddCategory(
-//     [clearState],
-//     addBudgetCategory(payload)
-//   );
-
-//   return (
-//     <form onSubmit={handleConfirm}>
-//       <div tw="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
-//         <ModalDismissButton>
-//           <button
-//             type="button"
-//             tw="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-//           >
-//             <span tw="sr-only">Close</span>
-//             <XIcon tw="h-6 w-6" aria-hidden="true" />
-//           </button>
-//         </ModalDismissButton>
-//       </div>
-//       <div tw="sm:flex md:flex-col sm:items-start">
-//         {title || description ? (
-//           <div tw="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-//             {title ? (
-//               <Dialog.Title
-//                 as="h3"
-//                 tw="text-lg leading-6 font-medium text-gray-900"
-//               >
-//                 {title}
-//               </Dialog.Title>
-//             ) : null}
-//             {description ? (
-//               <div tw="mt-2">
-//                 <p tw="text-sm text-gray-500">{description}</p>
-//               </div>
-//             ) : null}
-//           </div>
-//         ) : null}
-//         {/* Insert modal input fields here. Make sure its wrapped div. */}
-//         <div tw="mt-1 sm:ml-4 sm:w-3/4">
-//           <Input
-//             {...categoryFieldProps}
-//             placeholder="Example Category"
-//             ref={modalRef}
-//             required
-//           />
-//         </div>
-//       </div>
-//       <div tw="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-//         <ModalDismissButton>
-//           <ButtonModal variant="success" type="submit" tw="sm:ml-3">
-//             {confirmButtonValue}
-//           </ButtonModal>
-//         </ModalDismissButton>
-//         <ModalDismissButton>
-//           <ButtonModal
-//             type="reset"
-//             onClick={() => console.log("cancel button clicked")}
-//             variant="secondary"
-//             tw="mt-3 sm:mt-0"
-//           >
-//             Cancel
-//           </ButtonModal>
-//         </ModalDismissButton>
-//       </div>
-//     </form>
-//   );
-// }
 
 export function BudgetScreen() {
   return (
@@ -120,18 +42,18 @@ function BudgetScreenContents() {
 
   const categoryGroups = useFetchCategoryGroupsMonthQuery(selectedMonth);
 
-  // TODO: Populate each `category_group` table w its corresponding `category` rows (matching `category_group.id`)
-  // - [ ] initialize useQuery for "category"
-  // DOING:-5 # Ability to add category row entry
-  // - [x] add cateogry button beside "category" col header
-  // - on click opens modal form
-  //    - [x] create modal form
-  //    - [ ] should take into account the date selected
-  // - on submit creates a new category row
-  //    - [ ] pass categoryGroupId to the service handler
-  //    - [x] create service handler for category row
-  //    - [x] msw mock handler
-  //    - [x] useMutation for category row
+  const categoryGroupIds = categoryGroups.data?.map(
+    (categoryGroup) => categoryGroup.id
+  );
+
+  const categories = useQuery(
+    ["categories", categoryGroupIds],
+    () => categoryService.getAll(selectedMonth, categoryGroupIds),
+    {
+      enabled: !!categoryGroupIds,
+      placeholderData: [],
+    }
+  );
 
   const columns = useMemo(
     () => [
@@ -187,8 +109,6 @@ function BudgetScreenContents() {
     []
   );
 
-  // TODO: because we have set initialData, refetch errors will be treated
-  // like background errors. Should setup toast error notifications for this.
   if (categoryGroups.error instanceof Error) {
     return <h1>Error: {categoryGroups.error.message}</h1>;
   }
@@ -206,7 +126,16 @@ function BudgetScreenContents() {
                 key={categoryGroup.id}
                 tableId={categoryGroup.id}
                 columns={columns}
-                data={[]}
+                data={
+                  categories.data
+                    ? categories.data
+                        .filter(
+                          (category) =>
+                            category.categoryGroupId === categoryGroup.id
+                        )
+                        .map((category) => category.data)
+                    : []
+                }
                 tableName={categoryGroup.name}
               />
             ))

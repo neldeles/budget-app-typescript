@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { categoryGroupKeys } from "screens/BudgetScreen/queries-BudgetScreen";
+import { categoryGroupKeys } from "screens/BudgetScreen/budget-screen-queries";
 
 if (process.env.NODE_ENV === "development") {
   const { worker } = require("./mocks/browser");

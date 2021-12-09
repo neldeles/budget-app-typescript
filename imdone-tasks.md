@@ -78,3 +78,17 @@ completed:2021-12-05T07:39:13.500Z
 
 [# `DashboardContainer`](#TODO)
 - move to components folder
+
+[# Refactor `render` method in tests](#TODO:-10)
+<card>
+> // The custom render returns a promise that resolves when the app has
+> //   finished loading (if you're server rendering, you may not need this).
+> // The custom render also allows you to specify your initial route
+
+Source: https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
+
+<!--
+created:2021-12-07T01:14:38.524Z
+TODO:2021-12-07T01:15:21.768Z
+-->
+</card>

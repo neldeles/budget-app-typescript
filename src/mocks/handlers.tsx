@@ -64,7 +64,7 @@ export const handlers = [
 
     const categoryGroup = {
       name: req.body.name,
-      created_on_month: new Date(req.body.createdOnMonth),
+      created_in_month: new Date(req.body.createdOnMonth),
     };
 
     // Create a new entity for the categoryGroup model.
@@ -97,7 +97,7 @@ export const handlers = [
         // 1. Created on or before the selected month-year.
         const condition1 =
           moment(
-            moment(categoryGroup.created_on_month).format("MMM YYYY"),
+            moment(categoryGroup.created_in_month).format("MMM YYYY"),
             "MMM YYYY"
           ) <= selectedMonth;
         // 2. Not deleted or deleted after the selected month-year.

@@ -9,6 +9,7 @@ import "@testing-library/jest-dom/extend-expect";
 import App from "App";
 import { renderWithClient } from "utils/tests";
 import { fakeUserToken } from "mocks/utils/generateFakeUser";
+import { db } from "mocks/db";
 
 test("successfully open and close the create category group modal", async () => {
   window.localStorage.setItem("token", fakeUserToken);
@@ -64,6 +65,8 @@ test("it creates a new category group on current month", async () => {
   await waitFor(() => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
+
+  expect(db.categoryGroup.count()).toBe(1);
 
   expect(
     await screen.findByRole("heading", { name: categoryGroupName })

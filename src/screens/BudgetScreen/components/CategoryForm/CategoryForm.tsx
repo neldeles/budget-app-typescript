@@ -5,7 +5,6 @@ import { useField } from "hooks";
 import { useMutation, useQueryClient } from "react-query";
 import { TSelectedMonth } from "services/categoryGroupService";
 import * as categoryService from "services/categoryService";
-import { generateAuthConfig } from "utils/generateAuthConfig";
 
 export type TCategoryPayload = {
   name: string;
@@ -22,11 +21,10 @@ export function CategoryForm({ categoryGroupId }: { categoryGroupId: string }) {
   // refactor to a custom hook and query factory
   const queryClient = useQueryClient();
   const createCategoryMutation = useMutation(
-    (category: TCategoryPayload) =>
-      categoryService.create(category, generateAuthConfig()),
+    (category: TCategoryPayload) => categoryService.create(category),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("category");
+        queryClient.invalidateQueries("categories");
       },
     }
   );
@@ -85,7 +83,7 @@ export function CategoryForm({ categoryGroupId }: { categoryGroupId: string }) {
               type="submit"
               onClick={() => setIsOpen(false)}
             >
-              Save
+              Submit
             </Button>
           </div>
         </form>
