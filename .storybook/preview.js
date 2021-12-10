@@ -2,7 +2,8 @@ import "../src/index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { initialize, mswDecorator } from "msw-storybook-addon";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { fakeUser } from "mocks/utils/generateFakeUser";
+import { rest } from "msw";
 
 // Initialize MSW
 initialize();
@@ -21,6 +22,15 @@ export const parameters = {
     },
   },
   layout: "fullscreen",
+  msw: {
+    handlers: {
+      auth: [
+        rest.get("/auth/is-verify", (req, res, ctx) => {
+          return res(ctx.json(fakeUser));
+        }),
+      ],
+    },
+  },
 };
 
 const queryClient = new QueryClient({

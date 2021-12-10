@@ -16,13 +16,7 @@ export default {
   },
 } as Meta;
 
-const auth = [
-  rest.get("/auth/is-verify", (req, res, ctx) => {
-    return res(ctx.json(fakeUser));
-  }),
-];
-
-const categoryGroup = [
+const categoryGroups = [
   rest.get("/categoryGroups", (req, res, ctx) => {
     const userCategoryGroups: TCategoryGroups = [
       {
@@ -55,25 +49,23 @@ const Template: ComponentStory<typeof BudgetScreen> = () => <BudgetScreen />;
 
 export const Default = Template.bind({});
 Default.parameters = {
-  msw: { handlers: [...auth, ...categoryGroup] },
+  msw: { handlers: { categoryGroups } },
 };
 
 export const Error = Template.bind({});
 Error.parameters = {
   msw: {
-    handlers: [
-      ...auth,
-      rest.get("/categoryGroups", (req, res, ctx) => {
+    handlers: {
+      categoryGroups: rest.get("/categoryGroups", (req, res, ctx) => {
         return res(ctx.status(403));
       }),
-    ],
+    },
   },
 };
 
 export const CreateCategory = Template.bind({});
-// TODO: # Make auth/is-verify a global handler
 CreateCategory.parameters = {
-  msw: { handlers: [...auth, ...categoryGroup, ...category] },
+  msw: { handlers: { categoryGroups, category } },
 };
 CreateCategory.play = async (context) => {
   const canvas = within(context.canvasElement);
