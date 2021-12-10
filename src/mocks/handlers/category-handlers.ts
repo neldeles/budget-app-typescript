@@ -50,7 +50,9 @@ export const categoryHandlers = [
     });
 
     const userCategoriesWithCategoryGroup = allUserCategories.filter(
-      (category) => categoryGroupIds.includes(category.categoryGroup.id)
+      // A category cannot exist without a category group, so we can
+      // non-null assert it.
+      (category) => categoryGroupIds.includes(category.categoryGroup!.id)
     );
 
     const selectedMonthCategories = userCategoriesWithCategoryGroup.filter(
@@ -75,7 +77,7 @@ export const categoryHandlers = [
     // TODO: # Do some calculating for the table values
     // - in meantime we just return default values of 0
     const categoryTable = selectedMonthCategories.map((category) => ({
-      categoryGroupId: category.categoryGroup.id,
+      categoryGroupId: category.categoryGroup!.id,
       data: {
         category: category.name,
         budgeted: 0,

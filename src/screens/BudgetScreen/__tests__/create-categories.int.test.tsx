@@ -72,7 +72,7 @@ test("it creates a category row in the selected category group only", async () =
     withCategoriesCategoryGroup,
   } = initializeDatabase();
 
-  const categoryRowName = faker.random.word(); //?
+  const categoryRowName = faker.random.word();
   window.localStorage.setItem("token", fakeUserToken);
   renderWithClient(<App />);
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
