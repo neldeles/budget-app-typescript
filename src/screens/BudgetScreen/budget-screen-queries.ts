@@ -1,9 +1,4 @@
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-  UseQueryResult,
-} from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as categoryGroupService from "services/categoryGroupService";
 import * as categoryService from "services/categoryService";
 import { generateAuthConfig } from "utils/generateAuthConfig";

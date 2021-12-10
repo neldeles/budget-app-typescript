@@ -55,25 +55,25 @@ const Template: ComponentStory<typeof BudgetScreen> = () => <BudgetScreen />;
 
 export const Default = Template.bind({});
 Default.parameters = {
-  // msw: [...auth, ...categoryGroup],
-  msw: [
-    rest.get("/auth/is-verify", (req, res, ctx) => {
-      return res(ctx.json(fakeUser));
-    }),
-    ...categoryGroup,
-  ],
+  msw: { handlers: [...auth, ...categoryGroup] },
+};
+
+export const Error = Template.bind({});
+Error.parameters = {
+  msw: {
+    handlers: [
+      ...auth,
+      rest.get("/categoryGroups", (req, res, ctx) => {
+        return res(ctx.status(403));
+      }),
+    ],
+  },
 };
 
 export const CreateCategory = Template.bind({});
 // TODO: # Make auth/is-verify a global handler
 CreateCategory.parameters = {
-  msw: [
-    rest.get("/auth/is-verify", (req, res, ctx) => {
-      return res(ctx.json(fakeUser));
-    }),
-    ...categoryGroup,
-    ...category,
-  ],
+  msw: { handlers: [...auth, ...categoryGroup, ...category] },
 };
 CreateCategory.play = async (context) => {
   const canvas = within(context.canvasElement);

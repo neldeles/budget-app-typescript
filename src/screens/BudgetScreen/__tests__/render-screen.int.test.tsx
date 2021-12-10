@@ -7,6 +7,8 @@ import { fakeUserToken } from "mocks/utils/generateFakeUser";
 import { db } from "mocks/db";
 import moment from "moment";
 import { models } from "mocks/db";
+import { server } from "mocks/server";
+import { rest } from "msw";
 
 type CategoryGroupModelKeys = keyof typeof models["categoryGroup"];
 type AnyCategoryGroup = { [K in CategoryGroupModelKeys]?: any };
@@ -42,6 +44,22 @@ test("renders placeholder content if user has no category groups created yet", a
   renderWithClient(<App />);
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
   expect(screen.getByLabelText(/no tables/i)).toBeInTheDocument();
+});
+
+test("renders error page", async () => {
+  server.use(
+    rest.get("/categoryGroups", (req, res, ctx) => {
+      return res(ctx.status(404));
+    })
+  );
+  jest.spyOn(console, "error").mockImplementation(jest.fn());
+  window.localStorage.setItem("token", fakeUserToken);
+  renderWithClient(<App />);
+  await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
+  expect(
+    await screen.findByText("Error: Request failed with status code 404")
+  ).toBeInTheDocument();
+  jest.spyOn(console, "error").mockRestore();
 });
 
 describe("if selected date is current date", () => {

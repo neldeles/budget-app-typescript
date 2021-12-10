@@ -74,7 +74,7 @@ export const handlers = [
     return res(ctx.status(201));
   }),
 
-  rest.get<CategoryGroupGetResponseBody>("/categoryGroups", (req, res, ctx) => {
+  rest.get("/categoryGroups", (req, res, ctx) => {
     // Only authenticated users can create a category group.
     if (req.headers.get("token") !== fakeUserToken) {
       return res(ctx.status(403));

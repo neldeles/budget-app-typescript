@@ -115,8 +115,6 @@ function BudgetScreenContents() {
   return (
     <DashboardContainer
       header={<Header />}
-      // Non-null assertion because we have set initialData
-      // ergo will never be undefined.
       pageContent={
         categoryGroups.length === 0
           ? noTables

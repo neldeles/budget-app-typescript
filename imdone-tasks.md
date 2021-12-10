@@ -1,8 +1,9 @@
-[# Add test for `[]` category group](#TODO:-30)
+[# Add test for `[]` category group](#DOING:-30)
 - since we handle `undefined` by returning an empty array, should check if it
 renders correctly
 <!--
 TODO:2021-12-09T15:41:37.733Z
+DOING:2021-12-10T01:45:46.682Z
 -->
 
 [# Fix Storybook stories](#DONE:-30)
