@@ -100,3 +100,40 @@ created:2021-12-07T01:14:38.524Z
 TODO:2021-12-07T01:15:21.768Z
 -->
 </card>
+
+[# Fix BudgetScreen rendering error page](#DONE:-70)
+After X mins of the tab defocused, upon refocus it renders the error page.
+<!--
+created:2021-12-10T13:52:25.295Z
+TODO:2021-12-10T13:53:40.784Z
+DOING:2021-12-10T13:53:45.232Z
+DONE:2021-12-11T00:53:31.212Z
+completed:2021-12-11T00:53:31.212Z
+-->
+
+[# Implement transactions](#TODO:-10)
+- transaction history is found within wallets
+<!--
+TODO:2021-12-11T13:03:01.180Z
+is-epic:transactions
+-->
+
+[# Should be able to create wallets](#DOING:-20)
+- [ ] modal form when *create wallet* button is clicked
+  - creates a sub nav item for the wallet
+<!--
+TODO:2021-12-11T13:05:24.685Z
+epic:transactions
+DOING:2021-12-11T13:17:41.925Z
+-->
+
+[# Create the wallets page](#TODO:-10)
+- Columns
+  - name
+  - category
+  - outflow
+  - inflow
+<!--
+TODO:2021-12-11T13:09:30.654Z
+epic:transactions
+-->

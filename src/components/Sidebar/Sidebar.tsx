@@ -4,6 +4,7 @@ import { TUser } from "types/global";
 import { Button } from "components/Button";
 import { useQueryClient, useQuery } from "react-query";
 import { verifyUserService } from "services/verifyUserService";
+import { Modal } from "components/Modal";
 
 export type TSidebarFooterProps = {
   user: TUser;
@@ -49,9 +50,18 @@ export function Sidebar({ title, footer }: TSidebarProps) {
               icon={FolderIcon}
               navSubItems={[]}
             >
-              <div className="flex justify-center">
-                <Button variant="primary" width="3/4" children="Add Wallet" />
-              </div>
+              <Modal>
+                <Modal.OpenButton>
+                  <div className="flex justify-center">
+                    <Button
+                      variant="primary"
+                      width="3/4"
+                      children="Add Wallet"
+                    />
+                  </div>
+                </Modal.OpenButton>
+                <Modal.Content>Modal Content</Modal.Content>
+              </Modal>
             </Navigation.ItemSubMenu>
           </Navigation>
         </div>

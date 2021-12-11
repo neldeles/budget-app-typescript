@@ -16,10 +16,3 @@ Default.args = {
   title: "Sidebar Title",
   footer: <Sidebar.Footer />,
 };
-Default.parameters = {
-  msw: [
-    rest.get("/auth/is-verify", (req, res, ctx) => {
-      return res(ctx.json(fakeUser));
-    }),
-  ],
-};
