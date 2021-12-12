@@ -7,7 +7,7 @@ import {
 } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { fakeUserToken } from "mocks/utils/generateFakeUser";
-import { renderWithClient } from "utils/tests";
+import { auth, renderWithClient } from "utils/tests";
 import App from "App";
 import userEvent from "@testing-library/user-event";
 import { db } from "mocks/db";
@@ -37,7 +37,7 @@ function initializeDatabase() {
 
 test("create category modal opens and closes", async () => {
   initializeDatabase();
-  window.localStorage.setItem("token", fakeUserToken);
+  auth.setToken();
   renderWithClient(<App />);
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 
@@ -73,7 +73,7 @@ test("it creates a category row in the selected category group only", async () =
   } = initializeDatabase();
 
   const categoryRowName = faker.random.word();
-  window.localStorage.setItem("token", fakeUserToken);
+  auth.setToken();
   renderWithClient(<App />);
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 

@@ -2,7 +2,7 @@ import { screen, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 import App from "App";
-import { renderWithClient } from "utils/tests";
+import { auth, renderWithClient } from "utils/tests";
 import { fakeUserToken } from "mocks/utils/generateFakeUser";
 import { db } from "mocks/db";
 import moment from "moment";
@@ -40,7 +40,7 @@ function initializeCategoryGroupsDatabase(
 }
 
 test("renders placeholder content if user has no category groups created yet", async () => {
-  window.localStorage.setItem("token", fakeUserToken);
+  auth.setToken();
   renderWithClient(<App />);
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
   expect(screen.getByLabelText(/no tables/i)).toBeInTheDocument();
@@ -53,7 +53,7 @@ test("renders error page", async () => {
     })
   );
   jest.spyOn(console, "error").mockImplementation(jest.fn());
-  window.localStorage.setItem("token", fakeUserToken);
+  auth.setToken();
   renderWithClient(<App />);
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
   expect(
@@ -79,7 +79,7 @@ describe("if selected date is current date", () => {
 
     initializeCategoryGroupsDatabase(mockData);
 
-    window.localStorage.setItem("token", fakeUserToken);
+    auth.setToken();
     renderWithClient(<App />);
     await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
     // await waitForElementToBeRemoved(() => screen.getByLabelText(/no tables/i));
@@ -102,7 +102,7 @@ describe("if selected date is current date", () => {
 
     initializeCategoryGroupsDatabase(mockData);
 
-    window.localStorage.setItem("token", fakeUserToken);
+    auth.setToken();
     renderWithClient(<App />);
     await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 
@@ -126,7 +126,7 @@ describe("after navigating to a previous month", () => {
     ];
 
     initializeCategoryGroupsDatabase(mockData);
-    window.localStorage.setItem("token", fakeUserToken);
+    auth.setToken();
     renderWithClient(<App />);
     await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 
@@ -159,7 +159,7 @@ describe("after navigating to a previous month", () => {
     ];
 
     initializeCategoryGroupsDatabase(mockData);
-    window.localStorage.setItem("token", fakeUserToken);
+    auth.setToken();
     renderWithClient(<App />);
     await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 
@@ -202,7 +202,7 @@ describe("for any selected date", () => {
 
     initializeCategoryGroupsDatabase(mockData);
 
-    window.localStorage.setItem("token", fakeUserToken);
+    auth.setToken();
     renderWithClient(<App />);
     await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
     // await waitForElementToBeRemoved(() => screen.getByLabelText(/no tables/i));
