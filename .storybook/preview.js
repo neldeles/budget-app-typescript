@@ -33,19 +33,20 @@ export const parameters = {
   },
 };
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
-});
-
 export const decorators = [
-  (Story) => (
-    <QueryClientProvider client={queryClient}>
-      <Router>{Story()}</Router>
-    </QueryClientProvider>
-  ),
+  (Story) => {
+    const queryClient = new QueryClient({
+      defaultOptions: {
+        queries: {
+          retry: false,
+        },
+      },
+    });
+    return (
+      <QueryClientProvider client={queryClient}>
+        <Router>{Story()}</Router>
+      </QueryClientProvider>
+    );
+  },
   mswDecorator,
 ];
