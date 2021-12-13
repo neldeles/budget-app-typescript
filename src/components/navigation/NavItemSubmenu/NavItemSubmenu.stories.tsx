@@ -5,6 +5,8 @@ import { Primary } from "components/Button/Button.stories";
 import { Meta, Story } from "@storybook/react";
 import { TNavItemSubmenuProps } from "./NavItemSubmenu";
 import { TButtonProps } from "components/Button/Button";
+import { userEvent, within } from "@storybook/testing-library";
+import { getByRole } from "@storybook/testing-library";
 
 export default {
   title: "components/navigation/NavItemSubmenu",
@@ -63,8 +65,8 @@ Inactive.args = {
   label: "Inactive Subitem",
   icon: FolderIcon,
   navSubItems: [
-    { label: "Wallet 1", href: "#", current: false },
-    { label: "Wallet 2", href: "#", current: false },
+    { id: 1, label: "Wallet 1", to: "/1" },
+    { id: 2, label: "Wallet 2", to: "/2" },
   ],
 };
 Inactive.parameters = {
@@ -81,8 +83,8 @@ Active.args = {
   ...Inactive.args,
   label: "Active Subitem",
   navSubItems: [
-    { label: "Wallet 1", href: "#", current: true },
-    { label: "Wallet 2", href: "#", current: false },
+    { id: 3, label: "Wallet 1", to: "/3" },
+    { id: 4, label: "Wallet 2", to: "/4" },
   ],
 };
 Active.parameters = {
@@ -92,6 +94,15 @@ Active.parameters = {
         "Navigation item with sub-items. A sub-item is the current page of the web app.",
     },
   },
+};
+Active.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(
+    await canvas.getByRole("button", { name: Active.args!.label })
+  );
+  await userEvent.click(
+    await canvas.getByRole("link", { name: Active.args!.navSubItems![0].label })
+  );
 };
 
 const StyledButton = () => (

@@ -6,7 +6,7 @@ import { db } from "./db";
 import { TLoginCredentials } from "screens/LoginScreen/components/LoginForm";
 import { TCategoryGroups } from "services/categoryGroupService";
 import moment from "moment";
-import { categoryHandlers } from "./handlers/category-handlers";
+import { categoryHandlers, walletHandlers } from "./handlers";
 
 type TExpectedError = {
   message: string;
@@ -18,7 +18,7 @@ type LoginPostResponseBody = TExpectedError | TUser;
 type CategoryGroupRequestBody = TCategoryGroupPayload;
 type CategoryGroupGetResponseBody = TCategoryGroups;
 
-export const handlers = [
+export const globalHandler = [
   // Handles a successful POST /login request
   rest.post<LoginPostRequestBody, LoginPostResponseBody>(
     "/auth/login",
@@ -115,6 +115,7 @@ export const handlers = [
   }),
 
   ...categoryHandlers,
+  ...walletHandlers,
 
   // Handles a GET /user request
   // rest.get("/user", (req, res, ctx) => {

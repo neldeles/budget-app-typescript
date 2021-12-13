@@ -1,11 +1,13 @@
 import { Disclosure } from "@headlessui/react";
+import { To } from "history";
 import { THeroIcon } from "types/global";
 import { classNames } from "utils/classNames";
+import { NavLink } from "react-router-dom";
 
-type TNavSubItems = {
+export type TNavSubItems = {
+  id: number;
   label: string;
-  href: string;
-  current: boolean;
+  to: To;
 };
 
 export type TNavItemSubmenuProps = {
@@ -61,19 +63,21 @@ export function NavItemSubmenu({
           </Disclosure.Button>
           <Disclosure.Panel className="space-y-1">
             {navSubItems.map((subItem) => (
-              <a
-                key={subItem.label}
-                href={subItem.href}
+              <NavLink
+                key={subItem.id}
+                to={subItem.to}
                 // tw="w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50"
-                className={classNames(
-                  "group flex items-center py-2 pr-2 pl-11 w-full text-sm font-medium",
-                  subItem.current
-                    ? "text-gray-900 bg-gray-100"
-                    : "text-gray-600 hover:text-gray-900 bg-white hover:bg-gray-50"
-                )}
+                className={({ isActive }) =>
+                  classNames(
+                    "group flex items-center py-2 pr-2 pl-11 w-full text-sm font-medium",
+                    isActive
+                      ? "text-gray-900 bg-gray-100"
+                      : "text-gray-600 hover:text-gray-900 bg-white hover:bg-gray-50"
+                  )
+                }
               >
                 {subItem.label}
-              </a>
+              </NavLink>
             ))}
             {children}
             {/* <div tw="flex justify-center">

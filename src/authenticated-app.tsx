@@ -14,6 +14,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<BudgetScreen />} />
       <Route path="/reports" element={<ReportsScreen />} />
+      {/* TODO: Pass walletId as a prop to WalletScreen*/}
       <Route path="/wallet/:walletId" element={<WalletsScreen />} />
       <Route path="*" element={<NotFoundScreen />} />
     </Routes>

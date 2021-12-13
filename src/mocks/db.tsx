@@ -25,6 +25,12 @@ export const models = {
     categoryGroup: oneOf("categoryGroup"),
     deleted_at: nullable<Date>(() => null),
   },
+  wallet: {
+    id: primaryKey(datatype.number),
+    name: String,
+    created_at: () => new Date(),
+    deleted_at: nullable<Date>(() => null),
+  },
 };
 
 export const db = factory(models);

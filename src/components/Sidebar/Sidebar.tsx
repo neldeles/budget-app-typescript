@@ -5,6 +5,8 @@ import { Button } from "components/Button";
 import { useQueryClient, useQuery } from "react-query";
 import { verifyUserService } from "services/verifyUserService";
 import { Modal } from "components/Modal";
+import { CreateWalletForm } from "./forms/CreateWalletForm";
+import * as walletService from "services/wallet-service";
 
 export type TSidebarFooterProps = {
   user: TUser;
@@ -33,6 +35,16 @@ const navigation = [
 ];
 
 export function Sidebar({ title, footer }: TSidebarProps) {
+  const fetchWalletsQuery = useQuery("wallets", () => walletService.getAll(), {
+    placeholderData: [],
+  });
+
+  const wallets = fetchWalletsQuery.data ?? [];
+
+  if (fetchWalletsQuery.error instanceof Error) {
+    return <h1>Error: {fetchWalletsQuery.error.message}</h1>;
+  }
+
   return (
     <div className="flex flex-col flex-1 min-h-0 bg-white border-r border-gray-200">
       <div className="flex overflow-y-auto flex-col flex-grow pt-5 pb-4">
@@ -48,7 +60,7 @@ export function Sidebar({ title, footer }: TSidebarProps) {
               key="wallet"
               label="Wallets"
               icon={FolderIcon}
-              navSubItems={[]}
+              navSubItems={wallets}
             >
               <Modal>
                 <Modal.OpenButton>
@@ -56,11 +68,13 @@ export function Sidebar({ title, footer }: TSidebarProps) {
                     <Button
                       variant="primary"
                       width="3/4"
-                      children="Add Wallet"
+                      children="Create Wallet"
                     />
                   </div>
                 </Modal.OpenButton>
-                <Modal.Content>Modal Content</Modal.Content>
+                <Modal.Content>
+                  <CreateWalletForm />
+                </Modal.Content>
               </Modal>
             </Navigation.ItemSubMenu>
           </Navigation>
@@ -79,6 +93,7 @@ function SidebarFooter() {
 
   const handleLogout = () => {
     window.localStorage.clear();
+    // TODO: queryCache.clear()
     queryClient.invalidateQueries("user");
   };
 
