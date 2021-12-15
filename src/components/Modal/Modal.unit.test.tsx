@@ -17,7 +17,7 @@ test("can be opened and closed", async () => {
     <div
       aria-label="Modal Content"
     >
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus doloremque voluptatibus maxime minus et impedit adipisci suscipit, blanditiis id tenetur ipsum voluptatum accusamus assumenda quibusdam consequatur ut ipsam quaerat dolorem?
+      Lorem ipsum dolor.
     </div>
   `);
 
