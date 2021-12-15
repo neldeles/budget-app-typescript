@@ -29,6 +29,25 @@ export const parameters = {
           return res(ctx.json(fakeUser));
         }),
       ],
+      wallets: [
+        rest.post("/wallets", (req, res, ctx) => {
+          return res(ctx.status(201));
+        }),
+        rest.get("/wallets", (req, res, ctx) => {
+          return res(
+            ctx.json([
+              {
+                id: 1,
+                name: "Wallet 1",
+              },
+              {
+                id: 2,
+                name: "Wallet 2",
+              },
+            ])
+          );
+        }),
+      ],
     },
   },
 };

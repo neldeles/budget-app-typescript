@@ -44,10 +44,3 @@ Default.args = {
     </div>
   ),
 };
-Default.parameters = {
-  msw: [
-    rest.get("/auth/is-verify", (req, res, ctx) => {
-      return res(ctx.json(fakeUser));
-    }),
-  ],
-};
