@@ -1,4 +1,4 @@
-import { LoginScreen } from "components/screens/LoginScreen";
+import { LoginScreen } from "screens/LoginScreen";
 
 function UnauthenticatedApp() {
   return <LoginScreen />;

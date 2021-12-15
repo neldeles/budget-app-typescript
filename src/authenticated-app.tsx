@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import { BudgetScreen } from "components/screens/BudgetScreen";
-import { ReportsScreen } from "components/screens/ReportsScreen";
-import { WalletsScreen } from "components/screens/WalletsScreen";
-import { NotFoundScreen } from "components/screens/NotFoundScreen";
+import { BudgetScreen } from "screens/BudgetScreen";
+import { ReportsScreen } from "screens/ReportsScreen";
+import { WalletsScreen } from "screens/WalletsScreen";
+import { NotFoundScreen } from "screens/NotFoundScreen";
 
 function AuthenticatedApp() {
   return <AppRoutes />;
@@ -14,6 +14,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<BudgetScreen />} />
       <Route path="/reports" element={<ReportsScreen />} />
+      {/* TODO: Pass walletId as a prop to WalletScreen*/}
       <Route path="/wallet/:walletId" element={<WalletsScreen />} />
       <Route path="*" element={<NotFoundScreen />} />
     </Routes>

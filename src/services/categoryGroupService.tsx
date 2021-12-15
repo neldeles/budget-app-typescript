@@ -1,11 +1,13 @@
 import axios from "axios";
-import { TCategoryGroupPayload } from "components/molecules/Header/Header";
+import { TCategoryGroupPayload } from "screens/BudgetScreen/components/Header/Header";
 import { TAuthConfig } from "types/global";
 
 export type TCategoryGroups = Array<{
-  id: number;
+  id: string;
   name: string;
   user_id: string;
+  created_at: Date;
+  deleted_at: null | Date;
 }>;
 
 export const create = async (
@@ -16,7 +18,31 @@ export const create = async (
   return response.data;
 };
 
-export const getAll = async (config: TAuthConfig): Promise<TCategoryGroups> => {
-  const response = await axios.get("/categoryGroups/", config);
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+] as const;
+type TMonths = typeof months[number];
+export type TSelectedMonth = `${TMonths} ${number}`;
+
+export const getAll = async (
+  selectedMonth: TSelectedMonth,
+  config: TAuthConfig
+): Promise<TCategoryGroups> => {
+  const response = await axios.get(
+    `/categoryGroups?month=${selectedMonth}`,
+    config
+  );
+
   return response.data;
 };
