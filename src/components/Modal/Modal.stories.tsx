@@ -19,6 +19,7 @@ export default {
       },
     },
     layout: "centered",
+    chromatic: { delay: 300 },
   },
 } as Meta;
 
