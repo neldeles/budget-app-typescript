@@ -20,7 +20,7 @@ export const getAll = async (): Promise<TNavSubItems[]> => {
       return {
         id: wallet.id,
         label: wallet.name,
-        to: `/wallets/${wallet.id}`,
+        to: `/wallet/${wallet.id}`,
       };
     }
   );

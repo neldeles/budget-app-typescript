@@ -1,4 +1,3 @@
-import { BrowserRouter as Router } from "react-router-dom";
 import { AuthenticatedApp } from "authenticated-app";
 import { UnauthenticatedApp } from "unauthenticated-app";
 
@@ -18,11 +17,7 @@ function App() {
     );
   }
 
-  return (
-    <Router>
-      {isLoggedIn ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-    </Router>
-  );
+  return <>{isLoggedIn ? <AuthenticatedApp /> : <UnauthenticatedApp />}</>;
 }
 
 export default App;

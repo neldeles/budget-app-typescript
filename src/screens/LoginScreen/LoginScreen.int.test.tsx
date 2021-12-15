@@ -10,14 +10,14 @@ import "@testing-library/jest-dom/extend-expect";
 
 import App from "../../App";
 import { fakeUser, fakeUserToken } from "mocks/utils/generateFakeUser";
-import { renderWithClient } from "utils/tests";
+import { renderWithProviders } from "utils/tests";
 
 beforeAll(() => {
   jest.spyOn(console, "error").mockImplementation(jest.fn());
 });
 
 test("calls onSubmit with the username and password when submit is clicked", async () => {
-  renderWithClient(<App />);
+  renderWithProviders(<App />);
 
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 

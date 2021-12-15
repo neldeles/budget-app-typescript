@@ -1,9 +1,8 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
-import { BrowserRouter as Router } from "react-router-dom";
 import faker from "faker";
-import { renderWithClient } from "utils/tests";
+import { renderWithProviders } from "utils/tests";
 
 import * as LoginFormStories from "./LoginForm.stories";
 
@@ -12,12 +11,8 @@ beforeAll(() => {
 });
 
 test("renders an email field that the user can type in", () => {
-  renderWithClient(
-    <Router>
-      <LoginFormStories.MockedDefault
-        {...LoginFormStories.MockedDefault.args}
-      />
-    </Router>
+  renderWithProviders(
+    <LoginFormStories.MockedDefault {...LoginFormStories.MockedDefault.args} />
   );
 
   const emailInput = screen.getByLabelText(/email/i);
@@ -27,12 +22,8 @@ test("renders an email field that the user can type in", () => {
 });
 
 test("renders a password field that the user can type in", () => {
-  renderWithClient(
-    <Router>
-      <LoginFormStories.MockedDefault
-        {...LoginFormStories.MockedDefault.args}
-      />
-    </Router>
+  renderWithProviders(
+    <LoginFormStories.MockedDefault {...LoginFormStories.MockedDefault.args} />
   );
 
   const passwordInput = screen.getByLabelText(/password/i);
@@ -42,12 +33,8 @@ test("renders a password field that the user can type in", () => {
 });
 
 test("shows an error message when incorrect email and/or password are submitted", async () => {
-  renderWithClient(
-    <Router>
-      <LoginFormStories.MockedDefault
-        {...LoginFormStories.MockedDefault.args}
-      />
-    </Router>
+  renderWithProviders(
+    <LoginFormStories.MockedDefault {...LoginFormStories.MockedDefault.args} />
   );
 
   const password = faker.internet.password();

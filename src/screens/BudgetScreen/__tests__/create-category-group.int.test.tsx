@@ -7,13 +7,13 @@ import {
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 import App from "App";
-import { auth, renderWithClient } from "utils/tests";
+import { auth, renderWithProviders } from "utils/tests";
 import { fakeUserToken } from "mocks/utils/generateFakeUser";
 import { db } from "mocks/db";
 
 test("successfully open and close the create category group modal", async () => {
   auth.setToken();
-  renderWithClient(<App />);
+  renderWithProviders(<App />);
 
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 
@@ -47,7 +47,7 @@ test("it creates a new category group on current month", async () => {
   auth.setToken();
   const categoryGroupName = "Some category group";
 
-  renderWithClient(<App />);
+  renderWithProviders(<App />);
 
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 
@@ -77,7 +77,7 @@ test("it navigates to previous month and creates a new category group", async ()
   auth.setToken();
   const categoryGroupName = "Some category group";
 
-  renderWithClient(<App />);
+  renderWithProviders(<App />);
 
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i));
 

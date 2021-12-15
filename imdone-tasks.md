@@ -87,7 +87,7 @@ completed:2021-12-05T07:39:13.500Z
 [# `DashboardContainer`](#TODO)
 - move to components folder
 
-[# Refactor `render` method in tests](#TODO:-10)
+[# Refactor `render` method in tests](#TODO:-5)
 <card>
 > // The custom render returns a promise that resolves when the app has
 > //   finished loading (if you're server rendering, you may not need this).
@@ -118,13 +118,15 @@ TODO:2021-12-11T13:03:01.180Z
 is-epic:transactions
 -->
 
-[# Should be able to create wallets](#DOING:-20)
-- [ ] modal form when *create wallet* button is clicked
+[# Should be able to create wallets](#DONE:-80)
+- [x] modal form when *create wallet* button is clicked
   - creates a sub nav item for the wallet
 <!--
 TODO:2021-12-11T13:05:24.685Z
 epic:transactions
 DOING:2021-12-11T13:17:41.925Z
+DONE:2021-12-14T06:15:39.230Z
+completed:2021-12-14T06:15:39.230Z
 -->
 
 [# Create the wallets page](#TODO:-10)

@@ -1,4 +1,3 @@
-// file.only
 import {
   render,
   screen,
@@ -55,7 +54,7 @@ test("it should add the new wallet in the sidebar", async () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
   expect(db.wallet.count()).toBe(1);
-  expect(screen.getByRole("link", { name: walletName })).toBeInTheDocument();
+  expect(
+    await screen.findByRole("link", { name: walletName })
+  ).toBeInTheDocument();
 });
-
-test.todo("it should change the url when the wallet is clicked");

@@ -1,2 +1,2 @@
-export { renderWithClient } from "./render-with-client";
+export { renderWithProviders } from "./render-with-providers";
 export { auth } from "./auth";

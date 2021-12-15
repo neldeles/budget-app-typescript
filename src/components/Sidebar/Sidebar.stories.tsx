@@ -3,6 +3,7 @@ import { Sidebar } from ".";
 import { TSidebarProps } from "./Sidebar";
 import { rest } from "msw";
 import { fakeUser } from "mocks/utils/generateFakeUser";
+import { walletHandlers } from "mocks/handlers";
 
 export default {
   title: "components/Sidebar",
@@ -37,9 +38,14 @@ Default.args = {
 Default.parameters = {
   msw: {
     handlers: {
-      wallets: rest.get("/wallets", (req, res, ctx) => {
-        return res(ctx.json(wallets));
-      }),
+      wallets: [
+        rest.post("/wallets", (req, res, ctx) => {
+          return res(ctx.status(201));
+        }),
+        rest.get("/wallets", (req, res, ctx) => {
+          return res(ctx.json(wallets));
+        }),
+      ],
     },
   },
 };
